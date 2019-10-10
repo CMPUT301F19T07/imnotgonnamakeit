@@ -1,10 +1,10 @@
-package com.example.feelslikemonday.ui.settings;
+package com.example.feelslikemonday.ui.friends;
 
 import android.os.Bundle;
+import android.view.FrameMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,20 +13,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.ui.friends.FriendsViewModel;
 
-public class SettingsFragment extends Fragment {
+public class FriendsFragment extends Fragment {
 
-    private SettingsViewModel settingsViewModel;
+    private FriendsViewModel friendsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        friendsViewModel = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_friends, container, false);
+        friendsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                //do stuff here
             }
         });
         return root;

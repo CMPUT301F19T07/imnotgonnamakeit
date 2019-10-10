@@ -11,33 +11,23 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
 
-        <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.example.feelslikemonday.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_following">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
 
-        <argument
-            android:name="myArg"
-            app:argType="string" />
     </fragment>
-
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.feelslikemonday.ui.following.FollowingFragment"
         android:label="@string/menu_following"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_following" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.feelslikemonday.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_friends"
+        android:name="com.example.feelslikemonday.ui.friends.FriendsFragment"
+        android:label="@string/menu_friends"
+        tools:layout="@layout/fragment_friends" />
 </navigation>
