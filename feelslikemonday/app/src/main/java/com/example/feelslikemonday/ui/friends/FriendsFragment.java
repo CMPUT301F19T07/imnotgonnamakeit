@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.feelslikemonday.R;
-import com.example.feelslikemonday.ui.friends.FriendsViewModel;
 
 public class FriendsFragment extends Fragment {
 
