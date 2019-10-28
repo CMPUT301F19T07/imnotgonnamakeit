@@ -2,12 +2,32 @@ package com.example.feelslikemonday.model;
 
 import android.location.Location;
 
-//The date and time are made as strings since it should be easier to perform operations to get them.
-//It doesn't seem we perform any operations that doesn't warrant them not to be strings
-public class MoodEvent {
-    private final int MAX_REASON_LEN = 20;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+/*The date and time are made as strings since it should be easier to perform operations to get them.
+It doesn't seem we perform any operations that doesn't warrant them not to be strings*/
+public class MoodEvent {
+    public static final int MAX_REASON_LEN = 20;
+    public static final List<MoodType> MOOD_TYPES = Arrays.asList(
+                                                        new MoodType("Anger","\uD83D\uDE20"),
+                                                        new MoodType("Disgust","\uD83E\uDD2E"),
+                                                        new MoodType("Fear","\uD83D\uDE31"),
+                                                        new MoodType("Happiness","☺️"),
+                                                        new MoodType("Sadness","\uD83D\uDE22"),
+                                                        new MoodType("Surprise","\uD83D\uDE32")
+                                                    );
+    public static final List<String> SOCIAL_SITUATIONS = Arrays.asList(
+                                                        "Alone",
+                                                        "With one person",
+                                                        "With two to several people",
+                                                        "With a crowd"
+                                                    );
+
+    //DD/MM/YYYY
     private String date;
+    //use 24 hour time: HH:MM AM
     private String time;
     private String emotionalState;
     private String reason;
@@ -19,6 +39,9 @@ public class MoodEvent {
     private Location location;
 
     public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation) {
+        if(reason.length()>MAX_REASON_LEN){
+            throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
+        }
         this.date = date;
         this.time = time;
         this.emotionalState = emotionalState;
