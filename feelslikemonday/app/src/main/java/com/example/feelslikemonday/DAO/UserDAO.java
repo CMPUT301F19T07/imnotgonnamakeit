@@ -33,7 +33,7 @@ public class UserDAO {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("object",user);
 
-        db.collection("users").document(user.getEmail())
+        db.collection("users").document(user.getUsername())
                 .set(userMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -51,9 +51,9 @@ public class UserDAO {
 
     public void delete(User user){
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put(user.getEmail(),user);
+        userMap.put(user.getUsername(),user);
 
-        db.collection("users").document(user.getEmail())
+        db.collection("users").document(user.getUsername())
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
