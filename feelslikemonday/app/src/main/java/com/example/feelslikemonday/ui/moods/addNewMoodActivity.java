@@ -2,10 +2,12 @@ package com.example.feelslikemonday.ui.moods;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.feelslikemonday.R;
@@ -15,13 +17,32 @@ import java.util.List;
 
 public class addNewMoodActivity extends AppCompatActivity {
 
+    private Button attachPhotoButton;
+    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_mood);
+        cancelButton = findViewById(R.id.mood_cancel);
+        attachPhotoButton = findViewById(R.id.mood_attach_photo);
 
         fillSpinners();
+
+        attachPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(addNewMoodActivity.this, attachPhotoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 
