@@ -9,3 +9,4 @@ import com.example.feelslikemonday.model.User;
 public interface UserCallback {
     void onCallback(User user);
 }
+//commit
