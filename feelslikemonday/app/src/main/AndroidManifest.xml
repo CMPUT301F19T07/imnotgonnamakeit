@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.moods.addNewMoodActivity"></activity>
+        <activity android:name=".ui.moods.attachPhotoActivity"></activity>
         <activity android:name=".ui.login.SignupActivity" />
         <activity android:name=".ui.login.LoginMainActivity">
             <intent-filter>
