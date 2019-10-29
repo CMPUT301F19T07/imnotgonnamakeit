@@ -71,7 +71,7 @@ public class attachPhotoActivity extends AppCompatActivity {
         }
 
         //if(requestCode==ALBUM_REQUEST && requestCode == RESULT_OK && null!=data){
-        if(requestCode==ALBUM_REQUEST){
+        else if(requestCode==ALBUM_REQUEST){
             try {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
