@@ -20,5 +20,15 @@
             android:id="@+id/nav_friends"
             android:icon="@android:drawable/ic_menu_myplaces"
             android:title="@string/menu_friends" />
+
+        <item
+            android:id="@+id/nav_followerrequest"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Follower Request" />
+
+        <item
+            android:id="@+id/nav_sendrequest"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Send Request" />
     </group>
 </menu>
