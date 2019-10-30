@@ -7,13 +7,11 @@ public class User {
     private String username;
     //Todo: encrypt password?
     private String password;
-    private String email;
     private MoodHistory moodHistory;
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     public String getUsername() {
@@ -22,9 +20,5 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getEmail() {
-        return email;
     }
 }
