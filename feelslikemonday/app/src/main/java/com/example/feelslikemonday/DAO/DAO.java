@@ -9,39 +9,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Document;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.security.auth.callback.Callback;
-
 import static androidx.constraintlayout.widget.Constraints.TAG;
-/**
- * To get the DAO, simply call UserDao.getInstance()
- * Uses the username as the primary key
- * Uses documentation snippets from https://firebase.google.com/docs/firestore/manage-data/delete-data
- */
 
-public class UserDAO {
+public class DAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private static final UserDAO instance = new UserDAO();
-
-    private final String COLLECTION_NAME = "users";
-
-    private UserDAO(){}
-
-    public static UserDAO getInstance() {
-        return instance;
-    }
-
+    private String COLLECTION_NAME = "users";
+    
     public void createOrUpdate(User user , final VoidCallback onSuccess){
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("object",user);
