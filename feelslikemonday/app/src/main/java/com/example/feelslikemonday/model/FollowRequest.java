@@ -6,6 +6,9 @@ public class FollowRequest {
     private List<String> requesterUsernames;
     private String recipientUsername;
 
+    //Empty Constructor for Firestore deserialization
+    FollowRequest(){}
+
     FollowRequest(List<String> requesterUsernames,String recipientUsername){
         this.requesterUsernames = requesterUsernames;
         this.recipientUsername = recipientUsername;

@@ -7,6 +7,9 @@ public class FollowPermission {
     private String followerUsername;
     private List<String> followeeUsernames;
 
+    //Empty Constructor for Firestore deserialization
+    FollowPermission(){}
+
     FollowPermission(String followerUsername){
         this.followeeUsernames = new ArrayList<>();
         this.followerUsername = followerUsername;
