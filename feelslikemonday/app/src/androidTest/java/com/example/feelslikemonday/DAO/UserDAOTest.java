@@ -26,23 +26,27 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class UserDAOTest {
     private static UserDAO userDAO;
+
     @BeforeClass
     static public void start() {
         userDAO = UserDAO.getInstance();
     }
+
     @Test
-    public void createUserObject() {
+    public void createUserObject() throws InterruptedException{
         // Context of the app under test.
 //        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 //
 //        assertEquals("com.example.feelslikemonday", appContext.getPackageName());
-        userDAO.createOrUpdate(new User("uTEST-sill","password","sill@bmail.com"),new VoidCallback(){
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        userDAO.createOrUpdate(new User("uTEST-sill","password"),new VoidCallback(){
             @Override
             public void onCallback() {
-
+                signal.countDown();
             }
         });
-        SystemClock.sleep(1000);
+        signal.await();
     }
     @Test
     public void getUserObject() throws InterruptedException {

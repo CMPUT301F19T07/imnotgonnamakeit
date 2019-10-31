@@ -4,6 +4,8 @@ public class MoodType {
     private String name;
     private String emoji;
 
+    public MoodType(){}
+
     public MoodType(String name, String emoji) {
         this.name = name;
         this.emoji = emoji;

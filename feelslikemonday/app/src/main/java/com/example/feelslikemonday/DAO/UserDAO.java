@@ -10,9 +10,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +47,7 @@ public class UserDAO {
         userMap.put("object",user);
 
         db.collection(COLLECTION_NAME).document(user.getUsername())
-                .set(userMap)
+                .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -85,28 +88,32 @@ public class UserDAO {
      * Queries for a user by the user's username. A callback method will be called on success
      */
     public void get(String username, final UserCallback onSuccess){
-        //Generally speaking, do not pass null values in. This is an exception since it's within the class.
+        //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
     public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
-                .whereEqualTo(username, true)
+                .document(username)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            if(task.getResult().getDocuments().size() == 0){
+                            DocumentSnapshot doc = task.getResult();
+                            if(doc == null || !doc.exists()){
                                 Log.d(TAG, "No documents found");
+                                if (onFail != null){
+                                    onFail.onCallback();
+                                }
                                 return;
                             }
                             // Assumes only one document will be returned
-                            onSuccess.onCallback((User)task.getResult().getDocuments().get(0).getData());
+                            onSuccess.onCallback(doc.toObject(User.class));
                         } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                             if (onFail != null){
                                 onFail.onCallback();
                             }
-                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
