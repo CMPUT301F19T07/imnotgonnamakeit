@@ -31,6 +31,8 @@ public class UserDAO {
 
     private static final UserDAO instance = new UserDAO();
 
+    private final String COLLECTION_NAME = "users";
+
     private UserDAO(){}
 
     public static UserDAO getInstance() {
@@ -41,7 +43,7 @@ public class UserDAO {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("object",user);
 
-        db.collection("users").document(user.getUsername())
+        db.collection(COLLECTION_NAME).document(user.getUsername())
                 .set(userMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -62,7 +64,7 @@ public class UserDAO {
         Map<String, Object> userMap = new HashMap<>();
         userMap.put(user.getUsername(),user);
 
-        db.collection("users").document(user.getUsername())
+        db.collection(COLLECTION_NAME).document(user.getUsername())
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -83,17 +85,27 @@ public class UserDAO {
      * Queries for a user by the user's username. A callback method will be called on success
      */
     public void get(String username, final UserCallback onSuccess){
-        db.collection("users")
+        //Generally speaking, do not pass null values in. This is an exception since it's within the class.
+        get(username,onSuccess,null);
+    }
+    public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
+        db.collection(COLLECTION_NAME)
                 .whereEqualTo(username, true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
+                        if (task.isSuccessful()) {
+                            if(task.getResult().getDocuments().size() == 0){
+                                Log.d(TAG, "No documents found");
+                                return;
+                            }
                             // Assumes only one document will be returned
                             onSuccess.onCallback((User)task.getResult().getDocuments().get(0).getData());
-//                                Log.d(TAG, document.getId() + " => " + document.getData());
                         } else {
+                            if (onFail != null){
+                                onFail.onCallback();
+                            }
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
