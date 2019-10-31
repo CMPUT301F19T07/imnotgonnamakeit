@@ -1,5 +1,6 @@
 package com.example.feelslikemonday.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FollowRequest {
@@ -7,10 +8,10 @@ public class FollowRequest {
     private String recipientUsername;
 
     //Empty Constructor for Firestore deserialization
-    FollowRequest(){}
+    public FollowRequest(){}
 
-    FollowRequest(List<String> requesterUsernames,String recipientUsername){
-        this.requesterUsernames = requesterUsernames;
+    public FollowRequest(String recipientUsername){
+        this.requesterUsernames = new ArrayList<>();
         this.recipientUsername = recipientUsername;
     }
 
