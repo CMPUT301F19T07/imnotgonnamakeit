@@ -18,7 +18,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.moodHistory = new ArrayList<>();
-        this.moodHistory.add(new MoodEvent("t","t","t","t",MoodEvent.MOOD_TYPES.get(0)));
     }
 
     public String getUsername() {
