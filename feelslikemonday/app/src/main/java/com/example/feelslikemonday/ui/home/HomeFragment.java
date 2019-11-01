@@ -38,16 +38,11 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
-
-
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-
-
             }
         });
         return root;
@@ -56,7 +51,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         //fill Dummy Data here
         MoodType myType;
@@ -74,18 +68,15 @@ public class HomeFragment extends Fragment {
         mymood = new MoodEvent("2002","02:02", "Fear", "No",  myType, "noSocial");
         myEmotionList.add(mymood);
 
-
         myType = new MoodType("Surprise","\uD83D\uDE32");
         mymood = new MoodEvent("2003","03:03", "Surprise", "No",  myType, "noSocial");
         myEmotionList.add(mymood);
-
 
         // end fill Dummy Data
 
         SwipeMenuListView = view.findViewById(R.id.listView);
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
         SwipeMenuListView.setAdapter(adapter);
-
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -171,11 +162,6 @@ public class HomeFragment extends Fragment {
         intent.putExtra("reason", CurrentModeEvent.getReason());
         intent.putExtra("socialSituation", CurrentModeEvent.getSocialSituation());
         intent.putExtra("moodType", CurrentModeEvent.getMoodType().getEmoji());
-
     startActivity(intent);
-
-
-
-
     }
 }

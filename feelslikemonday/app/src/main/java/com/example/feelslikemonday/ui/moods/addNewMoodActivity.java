@@ -29,6 +29,7 @@ public class addNewMoodActivity extends AppCompatActivity {
 
         fillSpinners();
 
+
         attachPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

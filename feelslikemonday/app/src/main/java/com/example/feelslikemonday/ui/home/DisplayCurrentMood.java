@@ -19,8 +19,7 @@ public class DisplayCurrentMood extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_current_mood);
-
-
+        
         Intent intent = getIntent();
 
         TextView View_date = findViewById(R.id.textViewDate);
@@ -29,8 +28,6 @@ public class DisplayCurrentMood extends AppCompatActivity {
         TextView View_reason = findViewById(R.id.textViewReason);
         TextView View_socialSituation = findViewById(R.id.textViewsocialSituation);
         TextView View_moodType = findViewById(R.id.textViewMoodType);
-
-
 
         View_date.setText(intent.getStringExtra ("myDate"));
         View_time.setText(intent.getStringExtra ("mytime"));
@@ -49,9 +46,6 @@ public class DisplayCurrentMood extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
+        
     }
-
 }
