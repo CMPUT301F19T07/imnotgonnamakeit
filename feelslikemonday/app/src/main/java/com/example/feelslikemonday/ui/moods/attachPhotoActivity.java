@@ -64,7 +64,7 @@ public class attachPhotoActivity extends AppCompatActivity {
         PostImage = getApplicationContext();
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==CAMERA_REQUEST){
+        if(requestCode==CAMERA_REQUEST && resultCode == RESULT_OK ){
 
             Bitmap bitmap= (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(bitmap);
