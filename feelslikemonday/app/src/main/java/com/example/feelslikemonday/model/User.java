@@ -1,5 +1,8 @@
 package com.example.feelslikemonday.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Assumes that usernames passwords and emails cannot be altered
 public class User {
     //Used so it's clear in firebase as to what version of Users are being stored
@@ -7,11 +10,14 @@ public class User {
     private String username;
     //Todo: encrypt password?
     private String password;
-    private MoodHistory moodHistory;
+    private List<MoodEvent> moodHistory;
 
-    public User(String username, String password, String email) {
+    public User(){}
+
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.moodHistory = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -21,4 +27,8 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public List<MoodEvent> getMoodHistory(){return moodHistory;}
+
+
 }

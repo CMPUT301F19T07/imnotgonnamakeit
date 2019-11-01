@@ -21,5 +21,4 @@ public class MoodEventTest {
         moodEvent.setReason(longString);
     }
 
-
 }

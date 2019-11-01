@@ -4,47 +4,31 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.model.FollowPermission;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Document;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.security.auth.callback.Callback;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-/**
- * To get the DAO, simply call UserDao.getInstance()
- * Uses the username as the primary key
- * Uses documentation snippets from https://firebase.google.com/docs/firestore/manage-data/delete-data
- */
 
-public class UserDAO {
+public class FollowPermissionDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final FollowPermissionDAO instance = new FollowPermissionDAO();
 
-    private static final UserDAO instance = new UserDAO();
+    private final String COLLECTION_NAME = "followPermissions";
 
-    private final String COLLECTION_NAME = "users";
+    private FollowPermissionDAO(){}
 
-    private UserDAO(){}
-
-    public static UserDAO getInstance() {
+    public static FollowPermissionDAO getInstance() {
         return instance;
     }
 
-    public void createOrUpdate(User user , final VoidCallback onSuccess){
-        db.collection(COLLECTION_NAME).document(user.getUsername())
-                .set(user)
+    public void createOrUpdate(String username, FollowPermission followPermission, final VoidCallback onSuccess){
+        db.collection(COLLECTION_NAME).document(username)
+                .set(followPermission)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -60,8 +44,8 @@ public class UserDAO {
                 });
     }
 
-    public void delete(User user, final VoidCallback onSuccess){
-        db.collection(COLLECTION_NAME).document(user.getUsername())
+    public void delete(String username, final VoidCallback onSuccess){
+        db.collection(COLLECTION_NAME).document(username)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -79,13 +63,13 @@ public class UserDAO {
     }
 
     /**
-     * Queries for a user by the user's username. A callback method will be called on success
+     * Queries for a FollowPermission by the user's username. A callback method will be called on success
      */
-    public void get(String username, final UserCallback onSuccess){
+    public void get(String username, final FollowPermissionCallback onSuccess){
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
-    public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
+    public void get(String username, final FollowPermissionCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
                 .document(username)
                 .get()
@@ -102,7 +86,7 @@ public class UserDAO {
                                 return;
                             }
                             // Assumes only one document will be returned
-                            onSuccess.onCallback(doc.toObject(User.class));
+                            onSuccess.onCallback(doc.toObject(FollowPermission.class));
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             if (onFail != null){
