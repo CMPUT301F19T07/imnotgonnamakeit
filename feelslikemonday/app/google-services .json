@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "633298921595",
+    "firebase_url": "https://feelslikemonday-ff07d.firebaseio.com",
+    "project_id": "feelslikemonday-ff07d",
+    "storage_bucket": "feelslikemonday-ff07d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633298921595:android:65d0a0043441065e4b5ade",
+        "android_client_info": {
+          "package_name": "com.example.feelslikemonday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633298921595-ueht8gqiacof0mi7i4si7vv4p5li9390.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkG9TfT4Pcnn7RNwxyQUgJNMuRnovkL04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633298921595-ueht8gqiacof0mi7i4si7vv4p5li9390.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
