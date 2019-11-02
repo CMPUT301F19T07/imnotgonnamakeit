@@ -11,11 +11,6 @@ import java.util.List;
 It doesn't seem we perform any operations that doesn't warrant them not to be strings*/
 public class MoodEvent{
     public static final int MAX_REASON_LEN = 20;
-
-    //these should be moved to the database, should not he here
-    // more dynamic
-    // this is for moodtype and mood situtaion
-
     public static final List<MoodType> MOOD_TYPES = Arrays.asList(
                                                         new MoodType("Anger","\uD83D\uDE20"),
                                                         new MoodType("Disgust","\uD83E\uDD2E"),
