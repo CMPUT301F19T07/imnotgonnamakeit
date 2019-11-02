@@ -40,7 +40,7 @@ public class FollowerRequestFragment extends Fragment {
         String username = "your lovely follower";
         String pass = "test";
         String email = "test";
-        User userA = new User(username,pass);
+        User userA = new User(username,pass," ");
 
         userDataList.add(userA);
         userAdapter = new RequestList(getActivity(), userDataList);
