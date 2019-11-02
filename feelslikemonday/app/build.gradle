@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dependencies {
+        compile 'com.baoyz.swipemenulistview:library:1.3.0'
+    }
 }
 
 dependencies {
@@ -34,10 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.1.1'
-    androidTestImplementation compile('org.awaitility:awaitility:4.0.1') {
-        exclude module: 'hamcrest'
-    }
-}
 
+}
 
 apply plugin: 'com.google.gms.google-services'
