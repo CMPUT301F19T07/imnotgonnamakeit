@@ -9,6 +9,10 @@ import android.view.View;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 
+/*User Preferences designed according to tutorial on:
+https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
+ */
+
 public class SignupActivity extends AppCompatActivity {
 
     public void cancelSignup(View view) {
