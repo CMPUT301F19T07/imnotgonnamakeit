@@ -123,9 +123,6 @@ public class addNewMoodActivity extends AppCompatActivity {
             public void onCallback() {
             }
         });
-
-
-
  */
 
         UserDAO userDAO_t;
