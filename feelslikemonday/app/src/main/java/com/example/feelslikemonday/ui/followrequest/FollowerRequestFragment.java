@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.model.User;
 
@@ -40,7 +41,8 @@ public class FollowerRequestFragment extends Fragment {
         String username = "your lovely follower";
         String pass = "test";
         String email = "test";
-        User userA = new User(username,pass," ");
+       // ArrayList<MoodEvent> moodList = new ArrayList<>();
+        User userA = new User(username,pass);
 
         userDataList.add(userA);
         userAdapter = new RequestList(getActivity(), userDataList);
