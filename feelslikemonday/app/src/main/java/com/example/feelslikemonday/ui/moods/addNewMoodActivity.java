@@ -54,7 +54,10 @@ public class addNewMoodActivity extends AppCompatActivity {
     // still need to declare for image and location
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final String COLLECTION_NAME = "users";
-
+    private int modeState = 0; //0 add new mood, 1 edit current mood
+    private int modeIndex = 0; // record location 0 for new entries as latest
+    private String moodDate;
+    private String moodTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +65,7 @@ public class addNewMoodActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.mood_cancel);
         attachPhotoButton = findViewById(R.id.mood_attach_photo);
         saveButton = findViewById(R.id.button11);
-
         reason = findViewById(R.id.editText8);
-
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSpiner = findViewById(R.id.social_spinner);
 
@@ -96,79 +97,44 @@ public class addNewMoodActivity extends AppCompatActivity {
             }
         });
 
-/*
-        String username = "testRehab3";
-        DocumentReference docRef = db.collection(COLLECTION_NAME).document(username);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User currentUser =   documentSnapshot.toObject(User.class);
-                int x = 1;
+        // if this requeste based on Edit call
+        Intent intent = getIntent();
+        modeState = 0;
+        if (intent != null)
+        {
+            modeState = intent.getIntExtra ("state",0);
 
+            modeIndex = 0;
+            if (modeState == 1)
+            {
+                 // 1 edit current mood
+
+                moodTime = intent.getStringExtra ("mytime");
+                moodDate = intent.getStringExtra ("myDate");
+                reason.setText(intent.getStringExtra ("reason"));
+                socialSpiner.setSelection(intent.getIntExtra ("socialSituation",0));
+                moodSpiner.setSelection(intent.getIntExtra ("moodTypeName",0));
+
+                String state = intent.getStringExtra ("emotionalState"); // for later
+
+                modeIndex  = intent.getIntExtra ("stateIndex",0);
+
+                socialSpiner.setSelection(intent.getIntExtra ("socialSituation",0));
             }
-        });
+        }
 
-        */
-        // from here
-/*
-        String username = "rehab";
         UserDAO userDAO = new UserDAO();
-        userDAO.get(username, new UserCallback() {
+        userDAO.get("testRehab3", new UserCallback() {
             @Override
             public void onCallback(User user) {
-                String x = user.getUsername();
+               // current user the is object for the login user
+                currentUser = user;
             }
         }, new VoidCallback() {
             @Override
             public void onCallback() {
             }
         });
- */
-
-        UserDAO userDAO_t;
-        userDAO_t = new UserDAO();
-
-        userDAO_t.get("testRehab3", new UserCallback() {
-            @Override
-            public void onCallback(User user) {
-                String myReturnValue = user.getUsername() + " " + user.getPassword();
-            }
-        }, new VoidCallback() {
-            @Override
-            public void onCallback() {
-            }
-        });
-
-
-
-
-
-
-        /*
-        DocumentReference user = db.collection(COLLECTION_NAME).document(username);
-        user.get().addOnCompleteListener(new OnCompleteListener < DocumentSnapshot > () {
-            @Override
-            public void onComplete(@NonNull Task< DocumentSnapshot > task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    User currentUser = doc.toObject(User.class);
-
-
-                    int x1 = 1;
-                }
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
-
-        // to here
-
-
-
-         */
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,33 +146,54 @@ public class addNewMoodActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // I should read the existing data for user.
 
-    /*
+                // read the current user mood list
+                List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
+
+                // Prepare the new moodEvent from the userInput
                 MoodType myType;
-
                 MoodEvent mymood;
                 // prepare the object of the mood
                 myType = new MoodType(MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
                 // prepare the object for the even
 
-                Date date = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                SimpleDateFormat stf = new SimpleDateFormat("hhmm");
-                String dateString = sdf.format(date).toString();
-                String timeString = stf.format(date).toString();
+                if (modeState == 0)
+                {
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
+                    moodDate = sdf.format(date).toString();
+                    moodTime = stf.format(date).toString();
+                }// 1 edit current mood
+
+
+
+                // set current date and time
+
                 String reasonChoice = reason.getText().toString();
                 String emotionState = "No emotion";
                 String sooial = SOCIAL_SITUATIONS.get(socialSpiner.getSelectedItemPosition());
 
-                mymood = new MoodEvent(dateString,timeString, emotionState, reasonChoice,  myType, sooial);
-                currentUser = new User("rehab1","rehab2","Rehab3"); // this should be replaced with GetUser Data
+                // prepare the mood object
+                mymood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myType, sooial);
 
-     */
-
-
-
-
+                // add the new mood object at location 0, ie most recent one
+                if (modeState == 0) {
+                    // add new mood at the top, location 0
+                    moodHistoryTempTemp.add(modeIndex, mymood);
+                }
+                else{
+                    // edit the existing mood
+                    moodHistoryTempTemp.set(modeIndex, mymood);
+                }
+                // update the user object
+                UserDAO userAdo = new UserDAO();
+                userAdo.createOrUpdate(currentUser,new VoidCallback(){
+                    @Override
+                    public void onCallback() {
+                    }
+                });
+                finish();
             }
         });
 
@@ -221,8 +208,6 @@ public class addNewMoodActivity extends AppCompatActivity {
 
 
     private void fillSpinners(List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS ) {
-
-
 
         List<String> moodSpinner =  new ArrayList<>();
 

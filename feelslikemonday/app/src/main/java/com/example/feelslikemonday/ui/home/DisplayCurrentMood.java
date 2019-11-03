@@ -7,11 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
-import com.example.feelslikemonday.model.MoodEvent;
-import com.example.feelslikemonday.ui.home.HomeFragment;
 
 public class DisplayCurrentMood extends AppCompatActivity {
 

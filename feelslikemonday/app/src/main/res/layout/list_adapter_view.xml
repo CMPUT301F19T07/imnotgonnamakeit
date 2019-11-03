@@ -8,7 +8,7 @@ android:weightSum="100">
         android:id="@+id/datelbl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="33"
+        android:layout_weight="23"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
@@ -24,7 +24,7 @@ android:weightSum="100">
         android:id="@+id/emotionlbl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="33"
+        android:layout_weight="43"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 

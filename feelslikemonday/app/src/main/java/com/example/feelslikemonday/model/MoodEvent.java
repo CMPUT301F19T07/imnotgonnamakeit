@@ -38,7 +38,7 @@ public class MoodEvent{
 
     //To be attached when editing
     private Location location;
-    
+
     //Used to deserialize
     public MoodEvent(){}
 
