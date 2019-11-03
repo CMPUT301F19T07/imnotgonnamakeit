@@ -39,6 +39,8 @@ public class MoodEvent{
     //To be attached when editing
     private Location location;
 
+    public MoodEvent(){}
+
     public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation) {
         if(reason.length()>MAX_REASON_LEN){
             throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
