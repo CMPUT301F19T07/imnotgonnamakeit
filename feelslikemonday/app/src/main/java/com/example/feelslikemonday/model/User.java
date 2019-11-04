@@ -7,6 +7,9 @@ import java.util.List;
 
 public class User {
 
+    public static final String myTempUserName = "testRehab3";
+    // uTEST-sill
+    //testRehab3
     //Used so it's clear in firebase as to what version of Users are being stored
 
     final int version = 0;

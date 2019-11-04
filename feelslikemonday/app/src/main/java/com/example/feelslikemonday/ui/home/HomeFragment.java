@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         int x = 1;
 
         UserDAO userDAO = new UserDAO();
-        userDAO.get("testRehab3", new UserCallback() {
+        userDAO.get(User.myTempUserName, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 // current user the is object for the login user
@@ -98,10 +98,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String username = "testRehab3"; // has to be globalVariable for all classes
-        // read the current user object
+        // read the current user object, now temp we are using User.myTempUserName
         UserDAO userDAO = new UserDAO();
-        userDAO.get(username, new UserCallback() {
+        userDAO.get(User.myTempUserName, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 // current user the is object for the login user
@@ -138,8 +137,6 @@ public class HomeFragment extends Fragment {
                         menu.addMenuItem(openItem);
 
                         // create "Edit" item
-
-                        // create "open" item
                         SwipeMenuItem editItem = new SwipeMenuItem(
                                 getContext());
                         // set item background
@@ -157,7 +154,6 @@ public class HomeFragment extends Fragment {
                         menu.addMenuItem(editItem);
 
                         // delete
-
                         SwipeMenuItem deleteItem = new SwipeMenuItem(
                                 getContext());
                         // set item background
@@ -169,8 +165,6 @@ public class HomeFragment extends Fragment {
                         deleteItem.setIcon(R.drawable.ic_delete);
                         // add to menu
                         menu.addMenuItem(deleteItem);
-
-
                     }
                 };
                 SwipeMenuListView.setMenuCreator(creator);
@@ -196,8 +190,6 @@ public class HomeFragment extends Fragment {
                         return false;
                     }
                 });
-
-
             }
         }, new VoidCallback() {
             @Override
@@ -205,12 +197,6 @@ public class HomeFragment extends Fragment {
 
             } // end of call back
         });
-
-
-
-
-
-
 
     }
 
@@ -221,19 +207,12 @@ public class HomeFragment extends Fragment {
         myEmotionList.remove(index);
         moodHistoryTempTemp.remove(index);
 
-
-        // Prepare the new moodEvent from the userInput
-
-        // update the user object
         UserDAO userAdo = new UserDAO();
         userAdo.createOrUpdate(currentUser,new VoidCallback(){
             @Override
             public void onCallback() {
             }
         });
-
-
-
 
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
         SwipeMenuListView.setAdapter(adapter);
@@ -281,15 +260,8 @@ public class HomeFragment extends Fragment {
     public int getCurrentSocialIndex(String social)
     {
         int returValue = 0;
-        List<String> SOCIAL_SITUATIONS;
-        SOCIAL_SITUATIONS = Arrays.asList(
-                "Alone",
-                "With one person",
-                "With two to several people",
-                "With a crowd"
-        );
-        for (int i = 0; i < SOCIAL_SITUATIONS.size(); i++) {
-            if (social.equals(SOCIAL_SITUATIONS.get(i)))
+        for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
+            if (social.equals(MoodEvent.SOCIAL_SITUATIONS.get(i)))
             {
                 returValue = i;
             }
@@ -300,20 +272,8 @@ public class HomeFragment extends Fragment {
     public int getCurrentMoodIndex(String mood)
     {
         int returValue = 0;
-
-        List<MoodType> MOOD_TYPES;
-        MOOD_TYPES = Arrays.asList(
-                new MoodType("Anger","\uD83D\uDE20"),
-                new MoodType("Disgust","\uD83E\uDD2E"),
-                new MoodType("Fear","\uD83D\uDE31"),
-                new MoodType("Happiness","☺️"),
-                new MoodType("Sadness","\uD83D\uDE22"),
-                new MoodType("Surprise","\uD83D\uDE32")
-        );
-
-
-        for (int i = 0; i < MOOD_TYPES.size(); i++) {
-            if (mood.equals(MOOD_TYPES.get(i).getName()))
+        for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
+            if (mood.equals(MoodEvent.MOOD_TYPES.get(i).getName()))
             {
                 returValue = i;
             }

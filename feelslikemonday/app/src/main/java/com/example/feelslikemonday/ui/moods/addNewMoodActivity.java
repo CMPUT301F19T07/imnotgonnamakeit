@@ -1,6 +1,5 @@
 package com.example.feelslikemonday.ui.moods;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,30 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.MoodEvent;
-
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -46,14 +30,7 @@ public class addNewMoodActivity extends AppCompatActivity {
     private Spinner moodSpiner;
     private Spinner socialSpiner;
     private EditText reason;
-
     private User currentUser;
-  //  private MoodHistory myMoodList ;
-    private List<MoodType> MOOD_TYPES;
-    private List<String> SOCIAL_SITUATIONS;
-    // still need to declare for image and location
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final String COLLECTION_NAME = "users";
     private int modeState = 0; //0 add new mood, 1 edit current mood
     private int modeIndex = 0; // record location 0 for new entries as latest
     private String moodDate;
@@ -71,24 +48,7 @@ public class addNewMoodActivity extends AppCompatActivity {
 
         // still need to read the image and location for later
 
-        MOOD_TYPES = Arrays.asList(
-                new MoodType("Anger","\uD83D\uDE20"),
-                new MoodType("Disgust","\uD83E\uDD2E"),
-                new MoodType("Fear","\uD83D\uDE31"),
-                new MoodType("Happiness","☺️"),
-                new MoodType("Sadness","\uD83D\uDE22"),
-                new MoodType("Surprise","\uD83D\uDE32")
-        );
-
-        SOCIAL_SITUATIONS = Arrays.asList(
-                "Alone",
-                "With one person",
-                "With two to several people",
-                "With a crowd"
-        );
-
-        fillSpinners(MOOD_TYPES, SOCIAL_SITUATIONS);
-
+        fillSpinners();
         attachPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,28 +63,24 @@ public class addNewMoodActivity extends AppCompatActivity {
         if (intent != null)
         {
             modeState = intent.getIntExtra ("state",0);
-
             modeIndex = 0;
             if (modeState == 1)
             {
-                 // 1 edit current mood
+                 // 1 edit current mood this does not add a new mood
+                moodTime = intent.getStringExtra ("mytime"); // get the time as we will not change it
+                moodDate = intent.getStringExtra ("myDate"); // get the date as we will not change it
+                reason.setText(intent.getStringExtra ("reason")); // get the reason that we may need to change
+                socialSpiner.setSelection(intent.getIntExtra ("socialSituation",0)); //get the location of social and set it to social spinet
+                moodSpiner.setSelection(intent.getIntExtra ("moodTypeName",0)); // get the mood and set it within the spiner
+//                String state = intent.getStringExtra ("emotionalState"); // for later
+                modeIndex  = intent.getIntExtra ("stateIndex",0); // index of mood that we need to edit
 
-                moodTime = intent.getStringExtra ("mytime");
-                moodDate = intent.getStringExtra ("myDate");
-                reason.setText(intent.getStringExtra ("reason"));
-                socialSpiner.setSelection(intent.getIntExtra ("socialSituation",0));
-                moodSpiner.setSelection(intent.getIntExtra ("moodTypeName",0));
-
-                String state = intent.getStringExtra ("emotionalState"); // for later
-
-                modeIndex  = intent.getIntExtra ("stateIndex",0);
-
-                socialSpiner.setSelection(intent.getIntExtra ("socialSituation",0));
             }
         }
 
+        // uset to connect with needs to be changed User.myTempUserName
         UserDAO userDAO = new UserDAO();
-        userDAO.get("testRehab3", new UserCallback() {
+        userDAO.get(User.myTempUserName, new UserCallback() {
             @Override
             public void onCallback(User user) {
                // current user the is object for the login user
@@ -150,13 +106,6 @@ public class addNewMoodActivity extends AppCompatActivity {
                 // read the current user mood list
                 List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
 
-                // Prepare the new moodEvent from the userInput
-                MoodType myType;
-                MoodEvent mymood;
-                // prepare the object of the mood
-                myType = new MoodType(MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-                // prepare the object for the even
-
                 if (modeState == 0)
                 {
                     Date date = new Date();
@@ -166,16 +115,16 @@ public class addNewMoodActivity extends AppCompatActivity {
                     moodTime = stf.format(date).toString();
                 }// 1 edit current mood
 
-
-
                 // set current date and time
-
                 String reasonChoice = reason.getText().toString();
                 String emotionState = "No emotion";
-                String sooial = SOCIAL_SITUATIONS.get(socialSpiner.getSelectedItemPosition());
-
+                String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSpiner.getSelectedItemPosition());
+                MoodType myType;
+                MoodEvent mymood;
+                // prepare the object of the mood
+                myType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
                 // prepare the mood object
-                mymood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myType, sooial);
+                mymood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myType, social);
 
                 // add the new mood object at location 0, ie most recent one
                 if (modeState == 0) {
@@ -206,19 +155,19 @@ public class addNewMoodActivity extends AppCompatActivity {
         }
 
 
-
-    private void fillSpinners(List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS ) {
+// List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS
+    private void fillSpinners( ) {
 
         List<String> moodSpinner =  new ArrayList<>();
 
-        for (int i = 0; i < MOOD_TYPES.size(); i++) {
-            moodSpinner.add(MOOD_TYPES.get(i).getEmoji()+ " ( "+MOOD_TYPES.get(i).getName()+" )");
+        for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
+            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji()+ " ( "+MoodEvent.MOOD_TYPES.get(i).getName()+" )");
         }
 
         List<String> socialSpinner =  new ArrayList<>();
 
-        for (int i = 0; i < SOCIAL_SITUATIONS.size(); i++) {
-            socialSpinner.add(SOCIAL_SITUATIONS.get(i));
+        for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
+            socialSpinner.add(MoodEvent.SOCIAL_SITUATIONS.get(i));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -228,7 +177,6 @@ public class addNewMoodActivity extends AppCompatActivity {
         Spinner moodSpinnerSpinner = findViewById(R.id.mood_spinner);
         moodSpinnerSpinner.setAdapter(adapter);
 
-
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, socialSpinner);
 
@@ -236,7 +184,5 @@ public class addNewMoodActivity extends AppCompatActivity {
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);
         socialSpinnerSpinner.setAdapter(adapter1);
     }
-
-
 }
 
