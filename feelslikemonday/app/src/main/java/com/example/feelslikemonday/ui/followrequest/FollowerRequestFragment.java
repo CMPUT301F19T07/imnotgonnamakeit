@@ -3,11 +3,16 @@ package com.example.feelslikemonday.ui.followrequest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +20,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.feelslikemonday.DAO.FollowRequestCallback;
+import com.example.feelslikemonday.DAO.FollowRequestDAO;
+import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FollowerRequestFragment extends Fragment {
     private ListView userList;
-    private ArrayAdapter<User> userAdapter;
-    private ArrayList<User> userDataList;
-    private RequestList requestList;
+    private ArrayAdapter<String> userAdapter;
+    private List<String> requesterUsernames;
+    private static FollowRequestDAO DAO;
+
 
     private FollowerRequestViewModel followerViewModel;
 
@@ -34,27 +45,47 @@ public class FollowerRequestFragment extends Fragment {
 
         followerViewModel = ViewModelProviders.of(this).get(FollowerRequestViewModel.class);
 
-        View root = inflater.inflate(R.layout.fragment_follower_request, container, false);
+        final View root = inflater.inflate(R.layout.fragment_follower_request, container, false);
+        userList = (ListView) root.findViewById(R.id.request_username_list);
 
-        userList = root.findViewById(R.id.request_username_list);
-        userDataList = new ArrayList<>();
-        //test
-        String username = "your lovely follower";
-        String pass = "test";
-        String email = "test";
-        User userA = new User(username,pass);
+        DAO = FollowRequestDAO.getInstance();
+        //TODO: PASS mySharedPreference filename
+        DAO.get("xiaole", new FollowRequestCallback(){
+            @Override
+            public void onCallback(FollowRequest followRequest) {
+                if(followRequest.getRecipientUsername().equals("xiaole")){
 
-        userDataList.add(userA);
-        userAdapter = new RequestList(getActivity(), userDataList);
-        userList.setAdapter(userAdapter);
+                    requesterUsernames = followRequest.getRequesterUsernames();
+                    userAdapter = new RequestList(getContext(), new ArrayList<String>(requesterUsernames));
+                    userList.setAdapter(userAdapter);
+                    userAdapter.notifyDataSetChanged();
+                }
+
+            }
+        }, new VoidCallback() {
+            @Override
+            public void onCallback() {
+                Toast toast = Toast.makeText(getActivity(), "User Not Exist in database(CHECK Login Activity)", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+            }
+        });
+
+        userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("testListView", "click");
+                //TODO: show the detail of the requester
+            }
+        });
+
         followerViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 //do stuff here
-
-
             }
         });
+
 
 
         return root;
