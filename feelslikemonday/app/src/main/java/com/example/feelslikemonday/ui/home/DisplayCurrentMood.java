@@ -38,10 +38,8 @@ public class DisplayCurrentMood extends AppCompatActivity {
             @Override
             //On click function
             public void onClick(View view) {
-                //Create the intent to start another activity
                 finish();
             }
         });
-        
     }
 }

@@ -28,12 +28,13 @@ public class addNewMoodActivity extends AppCompatActivity {
     private Button cancelButton;
     private Button saveButton;
     private Spinner moodSpiner;
-    private Spinner socialSpiner;
+    private Spinner socialSituationSpinner;
     private EditText reason;
     private User currentUser;
-    private int modeState = 0; //0 add new mood, 1 edit current mood
-    private int modeIndex = 0; // record location 0 for new entries as latest
+    private int moodState = 0; //if this variable =0 it means you're addind a new mood, it 1 you're editing the current mood
+    private int moodIndex = 0;
     private String moodDate;
+
     private String moodTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,9 @@ public class addNewMoodActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.button11);
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
-        socialSpiner = findViewById(R.id.social_spinner);
+        socialSituationSpinner = findViewById(R.id.social_spinner);
 
-        // still need to read the image and location for later
-
+        // still need to read the image and location - left it for later
         fillSpinners();
         attachPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,33 +57,27 @@ public class addNewMoodActivity extends AppCompatActivity {
             }
         });
 
-        // if this requeste based on Edit call
         Intent intent = getIntent();
-        modeState = 0;
-        if (intent != null)
-        {
-            modeState = intent.getIntExtra ("state",0);
-            modeIndex = 0;
-            if (modeState == 1)
-            {
-                 // 1 edit current mood this does not add a new mood
-                moodTime = intent.getStringExtra ("mytime"); // get the time as we will not change it
-                moodDate = intent.getStringExtra ("myDate"); // get the date as we will not change it
-                reason.setText(intent.getStringExtra ("reason")); // get the reason that we may need to change
-                socialSpiner.setSelection(intent.getIntExtra ("socialSituation",0)); //get the location of social and set it to social spinet
-                moodSpiner.setSelection(intent.getIntExtra ("moodTypeName",0)); // get the mood and set it within the spiner
-//                String state = intent.getStringExtra ("emotionalState"); // for later
-                modeIndex  = intent.getIntExtra ("stateIndex",0); // index of mood that we need to edit
-
+        moodState = 0;
+        if (intent != null) {
+            moodState = intent.getIntExtra ("state",0);
+            moodIndex = 0; //this variable is for sorting
+            if (moodState == 1) {
+                moodTime = intent.getStringExtra ("mytime"); // get current time
+                moodDate = intent.getStringExtra ("myDate"); // get current date
+                reason.setText(intent.getStringExtra ("reason")); // get  reason
+                socialSituationSpinner.setSelection(intent.getIntExtra ("socialSituation",0)); //get social and set it to social spinner
+                moodSpiner.setSelection(intent.getIntExtra ("moodTypeName",0)); // get mood and set it within the spinner
+              //String state = intent.getStringExtra ("emotionalState");
+                moodIndex = intent.getIntExtra ("stateIndex",0); // index of mood that we need to edit
             }
         }
 
-        // uset to connect with needs to be changed User.myTempUserName
+        // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
         userDAO.get(User.myTempUserName, new UserCallback() {
             @Override
             public void onCallback(User user) {
-               // current user the is object for the login user
                 currentUser = user;
             }
         }, new VoidCallback() {
@@ -98,7 +92,6 @@ public class addNewMoodActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,34 +99,31 @@ public class addNewMoodActivity extends AppCompatActivity {
                 // read the current user mood list
                 List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
 
-                if (modeState == 0)
-                {
+                if (moodState == 0) {
                     Date date = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                     SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
                     moodDate = sdf.format(date).toString();
                     moodTime = stf.format(date).toString();
-                }// 1 edit current mood
+                }
 
-                // set current date and time
                 String reasonChoice = reason.getText().toString();
                 String emotionState = "No emotion";
-                String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSpiner.getSelectedItemPosition());
-                MoodType myType;
-                MoodEvent mymood;
-                // prepare the object of the mood
-                myType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-                // prepare the mood object
-                mymood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myType, social);
+                String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
+                MoodType myMoodType;
+                MoodEvent myMood;
 
-                // add the new mood object at location 0, ie most recent one
-                if (modeState == 0) {
-                    // add new mood at the top, location 0
-                    moodHistoryTempTemp.add(modeIndex, mymood);
+                myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
+                myMood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myMoodType, social);
+
+
+                if (moodState == 0) {
+                    // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
+                    moodHistoryTempTemp.add(moodIndex, myMood);
                 }
                 else{
                     // edit the existing mood
-                    moodHistoryTempTemp.set(modeIndex, mymood);
+                    moodHistoryTempTemp.set(moodIndex, myMood);
                 }
                 // update the user object
                 UserDAO userAdo = new UserDAO();
@@ -145,7 +135,6 @@ public class addNewMoodActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
 

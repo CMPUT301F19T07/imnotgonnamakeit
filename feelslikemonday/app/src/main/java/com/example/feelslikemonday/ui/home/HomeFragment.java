@@ -39,30 +39,24 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private User currentUser;
-
     private SwipeMenuListView SwipeMenuListView;
     private List<MoodEvent> myCurrentMoodList;
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>(); // the main Ride that handles all rides
     private EmotionBookAdapter adapter;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String s) {
-            }
-        });
+            public void onChanged(@Nullable String s) { }});
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        int x = 1;
 
         UserDAO userDAO = new UserDAO();
         userDAO.get(User.myTempUserName, new UserCallback() {
@@ -80,35 +74,26 @@ public class HomeFragment extends Fragment {
                 adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
                 SwipeMenuListView.setAdapter(adapter);
 
-
             }
         }, new VoidCallback() {
             @Override
-            public void onCallback() {
-
-            } // end of call back
+            public void onCallback() { }
         });
-
-
-
-
     } // end of onResume
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // read the current user object, now temp we are using User.myTempUserName
         UserDAO userDAO = new UserDAO();
         userDAO.get(User.myTempUserName, new UserCallback() {
             @Override
-            public void onCallback(User user) {
-                // current user the is object for the login user
+            public void onCallback(User user) { //temporarily using User.myTempUserName until login stuff is done
+
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-                for(int i = 0; i < myCurrentMoodList.size(); i++)
-                {
+                for(int i = 0; i < myCurrentMoodList.size(); i++) {
                     myEmotionList.add(myCurrentMoodList.get(i));
                 }
                 SwipeMenuListView = view.findViewById(R.id.listView);
@@ -128,7 +113,7 @@ public class HomeFragment extends Fragment {
                         // set item width
                         openItem.setWidth(170);
                         // set item title
-                        openItem.setTitle("View");
+                        openItem.setTitle("View");  //IMPORTANT: this is not the final draft of how the view will look, I will make it look nicer
                         // set item title fontsize
                         openItem.setTitleSize(18);
                         // set item title font color
@@ -193,37 +178,29 @@ public class HomeFragment extends Fragment {
             }
         }, new VoidCallback() {
             @Override
-            public void onCallback() {
-
-            } // end of call back
+            public void onCallback() { }
         });
-
     }
 
     public  void removeEmotion(@NonNull View view, int index){
-
         List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
         SwipeMenuListView = view.findViewById(R.id.listView);
         myEmotionList.remove(index);
         moodHistoryTempTemp.remove(index);
-
         UserDAO userAdo = new UserDAO();
         userAdo.createOrUpdate(currentUser,new VoidCallback(){
             @Override
-            public void onCallback() {
-            }
+            public void onCallback() { }
         });
 
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
         SwipeMenuListView.setAdapter(adapter);
-
-        // Send here the new UserObjecct to the DB
+        // Send the new UserObjecct to the DB
     }
 
     public  void viewEmotion(@NonNull View view, int index){
 
         MoodEvent CurrentModeEvent = myEmotionList.get(index);
-
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
 
         intent.putExtra("myDate", CurrentModeEvent.getDate());
@@ -253,32 +230,27 @@ public class HomeFragment extends Fragment {
         intent.putExtra("state", 1);
         intent.putExtra("stateIndex", index);
 
-
         startActivity(intent);
     }
 
     public int getCurrentSocialIndex(String social)
     {
-        int returValue = 0;
+        int returnValue = 0;
         for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
-            if (social.equals(MoodEvent.SOCIAL_SITUATIONS.get(i)))
-            {
-                returValue = i;
+            if (social.equals(MoodEvent.SOCIAL_SITUATIONS.get(i))) {
+                returnValue = i;
             }
         }
-        return returValue;
+        return returnValue;
     }
 
-    public int getCurrentMoodIndex(String mood)
-    {
+    public int getCurrentMoodIndex(String mood) {
         int returValue = 0;
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
-            if (mood.equals(MoodEvent.MOOD_TYPES.get(i).getName()))
-            {
+            if (mood.equals(MoodEvent.MOOD_TYPES.get(i).getName())) {
                 returValue = i;
             }
         }
         return returValue;
     }
-
 }

@@ -31,8 +31,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
  */
 
-
-
 public class UserDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final UserDAO instance = new UserDAO();
