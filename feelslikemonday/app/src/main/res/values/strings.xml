@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FeelsLikeMonday</string>
+
+    <string name="google_map_api_key">AIzaSyDjTqkAnE3xLCw5SYm6sDQK2hCEK3PVoOI</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Sample User</string>
