@@ -14,7 +14,8 @@
         android:layout_marginTop="288dp"
         android:drawableStart="@drawable/ic_request_name"
         android:ems="15"
-        android:hint="Username"
+        android:hint="@string/Username"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -23,13 +24,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/send_request_cancel"
+        android:id="@+id/send_request_reset"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="236dp"
-        android:text="Cancel"
+        android:text="@string/reset"
         android:background="@drawable/button_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_request_send"
@@ -43,11 +44,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="236dp"
-        android:text="Send"
+        android:text="@string/send"
         android:background="@drawable/button_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/send_request_cancel" />
+        app:layout_constraintStart_toEndOf="@+id/send_request_reset" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

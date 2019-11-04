@@ -39,8 +39,18 @@ public class UserDAOTest {
                 signal.countDown();
             }
         });
+
+        userDAO.createOrUpdate(new User("xiaole","123"),new VoidCallback(){
+            @Override
+            public void onCallback() {
+                signal.countDown();
+            }
+        });
+
+
         signal.await();
     }
+
 
     @Test
     public void getUserObject() throws InterruptedException {
@@ -50,6 +60,23 @@ public class UserDAOTest {
             public void onCallback(User user) {
                 Log.d(TAG, user.getUsername() + " " + user.getPassword());
                 assertEquals(user.getUsername(),"uTEST-sill");
+                signal.countDown();
+            }
+        }, new VoidCallback() {
+            @Override
+            public void onCallback() {
+                Log.d(TAG,"An error has occurred with the DAO");
+                fail();
+                signal.countDown();
+            }
+        });
+
+
+        userDAO.get("xiaole", new UserCallback() {
+            @Override
+            public void onCallback(User user) {
+                Log.d(TAG, user.getUsername() + " " + user.getPassword());
+                assertEquals(user.getUsername(),"xiaole");
                 signal.countDown();
             }
         }, new VoidCallback() {
