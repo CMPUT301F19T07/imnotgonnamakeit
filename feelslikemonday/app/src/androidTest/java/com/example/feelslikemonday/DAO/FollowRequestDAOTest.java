@@ -28,7 +28,17 @@ public class FollowRequestDAOTest {
                 signal.countDown();
             }
         });
+
+
+        DAO.createOrUpdate("xiaole",new FollowRequest("xiaole"),new VoidCallback(){
+            @Override
+            public void onCallback() {
+                signal.countDown();
+            }
+        });
+
         signal.await();
+
     }
 
     @Test
@@ -48,6 +58,23 @@ public class FollowRequestDAOTest {
                 signal.countDown();
             }
         });
+
+        DAO.get("xiaole", new FollowRequestCallback() {
+            @Override
+            public void onCallback(FollowRequest followRequest) {
+                assertEquals(followRequest.getRecipientUsername(),"xiaole");
+                signal.countDown();
+            }
+        }, new VoidCallback() {
+            @Override
+            public void onCallback() {
+                Log.d(TAG,"An error has occurred with the DAO");
+                fail();
+                signal.countDown();
+            }
+        });
+
         signal.await();
+
     }
 }
