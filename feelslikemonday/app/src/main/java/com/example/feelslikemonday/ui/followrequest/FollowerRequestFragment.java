@@ -1,5 +1,7 @@
 package com.example.feelslikemonday.ui.followrequest;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.model.User;
 
@@ -40,6 +43,7 @@ public class FollowerRequestFragment extends Fragment {
         String username = "your lovely follower";
         String pass = "test";
         String email = "test";
+       // ArrayList<MoodEvent> moodList = new ArrayList<>();
         User userA = new User(username,pass);
 
         userDataList.add(userA);
@@ -56,6 +60,21 @@ public class FollowerRequestFragment extends Fragment {
 
 
         return root;
+    }
+
+    private void storeFollowerPermission(String friendName){
+        //TODO: pass filename variable from MainActivity
+        SharedPreferences mySharedPreferences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
+        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
+        myEditor.putString("followerPermission", friendName);
+        myEditor.apply();
+    }
+
+    private String getFollowerPermission(){
+        SharedPreferences mySharedPrefrences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
+        //String FollowerPermission = mySharedPrefrences.getString("recipientUsername", this.getActivity().);
+        String PermittedName = "Xiaole2";
+        return PermittedName ;
     }
 }
 
