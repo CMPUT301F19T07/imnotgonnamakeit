@@ -1,9 +1,9 @@
 package com.example.feelslikemonday.DAO;
 
+
+
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-
 import com.example.feelslikemonday.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,35 +14,35 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import org.w3c.dom.Document;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.security.auth.callback.Callback;
+
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 /**
+
  * To get the DAO, simply call UserDao.getInstance()
+
  * Uses the username as the primary key
+
  * Uses documentation snippets from https://firebase.google.com/docs/firestore/manage-data/delete-data
+
  */
 
 public class UserDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     private static final UserDAO instance = new UserDAO();
-
     private final String COLLECTION_NAME = "users";
 
-    private UserDAO(){}
-
+    public UserDAO(){}
     public static UserDAO getInstance() {
         return instance;
     }
 
     public void createOrUpdate(User user , final VoidCallback onSuccess){
+
         db.collection(COLLECTION_NAME).document(user.getUsername())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -81,10 +81,12 @@ public class UserDAO {
     /**
      * Queries for a user by the user's username. A callback method will be called on success
      */
+
     public void get(String username, final UserCallback onSuccess){
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
+
     public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
                 .document(username)
@@ -101,7 +103,9 @@ public class UserDAO {
                                 }
                                 return;
                             }
+
                             // Assumes only one document will be returned
+                             User curent = doc.toObject(User.class);
                             onSuccess.onCallback(doc.toObject(User.class));
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
