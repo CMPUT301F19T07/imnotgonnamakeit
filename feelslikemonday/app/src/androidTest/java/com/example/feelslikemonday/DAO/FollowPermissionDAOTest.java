@@ -29,6 +29,13 @@ public class FollowPermissionDAOTest {
                 signal.countDown();
             }
         });
+
+        DAO.createOrUpdate("xiaole",new FollowPermission("xiaole"),new VoidCallback(){
+            @Override
+            public void onCallback() {
+                signal.countDown();
+            }
+        });
         signal.await();
     }
 
@@ -50,5 +57,6 @@ public class FollowPermissionDAOTest {
             }
         });
         signal.await();
+
     }
 }

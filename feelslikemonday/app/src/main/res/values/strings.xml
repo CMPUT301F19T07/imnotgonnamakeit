@@ -21,4 +21,7 @@
     <string name="hello_home_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_gallery_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_slideshow_second">Hello HomeSecondFragment. Arg: %1$s</string>
+    <string name="reset">Reset</string>
+    <string name="Username">Username</string>
+    <string name="send">Send</string>
 </resources>
