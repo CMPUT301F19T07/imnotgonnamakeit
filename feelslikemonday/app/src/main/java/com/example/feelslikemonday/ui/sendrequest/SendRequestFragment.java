@@ -80,7 +80,6 @@ public class SendRequestFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                final CountDownLatch signal = new CountDownLatch(1);
                 recipientUsername = usernameEditText.getText().toString();
                 //FollowRequest followRequest = new FollowRequest(recipientUsername);  //TODO: sharedPreference??
 
@@ -105,7 +104,6 @@ public class SendRequestFragment extends Fragment {
                             DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
-                                    signal.countDown();
                                 }
                             });
                             usernameEditText.setText("");
@@ -123,15 +121,9 @@ public class SendRequestFragment extends Fragment {
                         toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                         usernameEditText.setText("");
-                        signal.countDown();
                     }
                 });
 
-                //requesterUsernames = followRequest.getRequesterUsernames();
-                //requesterUsernames.add("leleTest");
-                //requesterUsernames.add("leleTest1");
-                //requesterUsernames.add("leleTest2");
-                //requesterUsernames.add("leleTest3");
             }
         });
         return root;
