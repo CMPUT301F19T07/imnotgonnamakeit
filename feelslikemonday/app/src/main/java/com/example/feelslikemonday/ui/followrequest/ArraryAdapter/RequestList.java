@@ -34,7 +34,6 @@ public class RequestList extends ArrayAdapter<String> {
     private List<String> followeeUsernames;
     private static FollowPermissionDAO DAO;
     private static FollowRequestDAO followRequestDAO;
-    private final CountDownLatch signal = new CountDownLatch(1);
 
 
     public RequestList(@NonNull Context context, ArrayList<String> users) {
@@ -77,7 +76,6 @@ public class RequestList extends ArrayAdapter<String> {
                             DAO.createOrUpdate("xiaole", followPermission, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
-                                    signal.countDown();
                                 }
                             });
                         }
@@ -95,7 +93,6 @@ public class RequestList extends ArrayAdapter<String> {
                             followRequestDAO.createOrUpdate("xiaole", followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
-                                    signal.countDown();
                                 }
                             });
                         }
@@ -121,13 +118,17 @@ public class RequestList extends ArrayAdapter<String> {
                             followRequestDAO.createOrUpdate("xiaole", followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
-                                    signal.countDown();
                                 }
                             });
+
+                            RequestList.this.remove(user);
+
                         }
 
                     }
                 },null);
+
+
 
             }
         });

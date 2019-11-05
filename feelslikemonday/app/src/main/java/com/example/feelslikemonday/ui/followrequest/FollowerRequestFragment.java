@@ -59,6 +59,7 @@ public class FollowerRequestFragment extends Fragment {
                     userAdapter = new RequestList(getContext(), new ArrayList<String>(requesterUsernames));
                     userList.setAdapter(userAdapter);
                     userAdapter.notifyDataSetChanged();
+
                 }
 
             }
