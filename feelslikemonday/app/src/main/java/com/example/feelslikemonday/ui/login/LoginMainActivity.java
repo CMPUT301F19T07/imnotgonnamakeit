@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,6 +23,7 @@ public class LoginMainActivity extends AppCompatActivity {
     String username;
     String password;
     SharedPreferences pref;
+    UserDAO userDAO = UserDAO.getInstance();
 
     public static final String PREFS_NAME = "user_preferences";
     public static final String USERNAME_KEY = "username_key";
@@ -40,24 +40,22 @@ public class LoginMainActivity extends AppCompatActivity {
         username = loginUsername.getText().toString();
         password = loginPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
-            Toast.makeText(LoginMainActivity.this, "Error: Missing input", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginMainActivity.this, "Error: Missing input", Toast.LENGTH_LONG).show();
         } else {
-            UserDAO userDao = UserDAO.getInstance();
-            userDao.get(username, new UserCallback() {
+            userDAO.get(username, new UserCallback() {
                 @Override
                 public void onCallback(User user) {
-
                     if (user.getPassword().equals(password)) {
                         Intent myIntent = new Intent(LoginMainActivity.this, MainActivity.class);
                         startActivity(myIntent);
                     } else {
-                        Toast.makeText(LoginMainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginMainActivity.this, "Incorrect Password", Toast.LENGTH_LONG).show();
                     }
                 }
             }, new VoidCallback() {
                 @Override
                 public void onCallback() {
-                    Toast.makeText(LoginMainActivity.this, "Error: User does not exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginMainActivity.this, "Error: User does not exist", Toast.LENGTH_LONG).show();
                 }
             });
         }

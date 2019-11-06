@@ -25,17 +25,16 @@ import com.example.feelslikemonday.service.UserService;
 
 /*User Preferences designed according to tutorial on:
 https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
-
-Error dialogue from:
-https://developer.android.com/guide/topics/ui/dialogs
- */
+*/
 
 public class SignupActivity extends AppCompatActivity {
 
     EditText signupUsername;
     EditText signupPassword;
     String username;
+    String password;
     SharedPreferences pref;
+    UserDAO userDAO = UserDAO.getInstance();
     public static final String PREFS_NAME = "user_preferences";
     public static final String USERNAME_KEY = "username_key";
 
@@ -46,17 +45,14 @@ public class SignupActivity extends AppCompatActivity {
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen
         username = signupUsername.getText().toString();
-        if (username.length() == 0 || signupPassword.getText().toString().length() == 0) {
-            Toast.makeText(SignupActivity.this, "Error: Missing input", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            final UserDAO userDao = UserDAO.getInstance();
+        password = signupPassword.getText().toString();
+        if ()
             final User user = new User(username, signupPassword.getText().toString());
-            userDao.get(username, new UserCallback() {
+            userDAO.get(username, new UserCallback() {
                 // User already exists in the database, so generate an error message
                 @Override
                 public void onCallback(User user) {
-                    Toast.makeText(SignupActivity.this, "Error: this user already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Error: this user already exists", Toast.LENGTH_LONG).show();
                 }
             }, new VoidCallback() {
                 // User doesn't exist in the database, so create a new user
@@ -96,7 +92,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

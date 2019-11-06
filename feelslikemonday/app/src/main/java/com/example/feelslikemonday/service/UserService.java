@@ -1,35 +1,35 @@
 package com.example.feelslikemonday.service;
 
+import android.widget.Toast;
+
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 
 public class UserService {
 
-    private static final UserService instance = new UserService();
+    static UserDAO userDAO = UserDAO.getInstance();
 
-    public UserService(){}
-    public static UserService getInstance(){return instance;}
-
-    // a work in progress-
-    // different implementation - onSuccess and onFailure do different things in login and signup
-    // doesn't currently use this to validate whether user exists
-    public boolean userExists(String username){
-        UserDAO userDao = UserDAO.getInstance();
-        userDao.get(username, new UserCallback() {
+    public static void signupUserExists(String username){
+        userDAO.get(username, new UserCallback() {
             @Override
             public void onCallback(User user) {
-                // this can't return void if it's being called to check whether user exists
-                // shouldn't usercallback return a user?
+                // SUCCESS
             }
         }, new VoidCallback() {
             @Override
             public void onCallback() {
-                // this can't return void
+                // FAILURE
             }
         });
-        return false;
+    }
+
+    public static void checkEmptyField(String username, String password){
+        if (username.length() == 0 ||password.length() == 0) {
+            return true;
+        }
     }
 
 }
