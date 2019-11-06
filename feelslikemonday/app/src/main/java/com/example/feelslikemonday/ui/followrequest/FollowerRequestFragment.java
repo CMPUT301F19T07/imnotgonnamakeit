@@ -24,7 +24,10 @@ import com.example.feelslikemonday.DAO.FollowRequestCallback;
 import com.example.feelslikemonday.DAO.FollowRequestDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
+
 import com.example.feelslikemonday.model.FollowRequest;
+import com.example.feelslikemonday.model.MoodEvent;
+
 import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.model.User;
 
@@ -79,6 +82,7 @@ public class FollowerRequestFragment extends Fragment {
                 //TODO: show the detail of the requester
             }
         });
+
 
         followerViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

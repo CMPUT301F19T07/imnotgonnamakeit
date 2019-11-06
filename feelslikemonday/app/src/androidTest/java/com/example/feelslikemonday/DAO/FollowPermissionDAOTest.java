@@ -36,9 +36,6 @@ public class FollowPermissionDAOTest {
                 signal.countDown();
             }
         });
-
-
-
         signal.await();
     }
 
@@ -59,9 +56,6 @@ public class FollowPermissionDAOTest {
                 signal.countDown();
             }
         });
-
-
-
         signal.await();
 
     }
