@@ -50,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
                 pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString(USERNAME_KEY, signupUsername.getText().toString());
+                editor.commit();
                 // Create followrequest in firebase
                 FollowRequestDAO followRequestDao = FollowRequestDAO.getInstance();
                 FollowRequest followRequest = new FollowRequest(username);

@@ -17,6 +17,8 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.ui.login.LoginMainActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +77,7 @@ public class addNewMoodActivity extends AppCompatActivity {
 
         // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
-        userDAO.get(User.myTempUserName, new UserCallback() {
+        userDAO.get(LoginMainActivity.userNameShared, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 currentUser = user;

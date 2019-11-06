@@ -1,6 +1,7 @@
 package com.example.feelslikemonday.ui.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,11 +23,14 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
+import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.EmotionBookAdapter;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.ui.login.LoginMainActivity;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
 
 import java.text.SimpleDateFormat;
@@ -43,6 +47,9 @@ public class HomeFragment extends Fragment {
     private List<MoodEvent> myCurrentMoodList;
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>(); // the main Ride that handles all rides
     private EmotionBookAdapter adapter;
+    String myUserID;
+    SharedPreferences pref;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,8 +65,12 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        // pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        // myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+
+
         UserDAO userDAO = new UserDAO();
-        userDAO.get(User.myTempUserName, new UserCallback() {
+        userDAO.get(LoginMainActivity.userNameShared, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 // current user the is object for the login user
@@ -86,7 +97,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         UserDAO userDAO = new UserDAO();
-        userDAO.get(User.myTempUserName, new UserCallback() {
+        userDAO.get(LoginMainActivity.userNameShared, new UserCallback() {
             @Override
             public void onCallback(User user) { //temporarily using User.myTempUserName until login stuff is done
 
