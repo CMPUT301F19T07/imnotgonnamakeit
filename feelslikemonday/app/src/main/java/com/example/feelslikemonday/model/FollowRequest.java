@@ -3,6 +3,7 @@ package com.example.feelslikemonday.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Object that will be stored in Firestore. Acts as a "table" to retrieve requests that have been sent to the user*/
 public class FollowRequest {
     private List<String> requesterUsernames;
     private String recipientUsername;

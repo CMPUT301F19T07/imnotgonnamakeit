@@ -33,7 +33,7 @@ import com.example.feelslikemonday.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*Resposible for  receiving feedback on the follower requests*/
 public class FollowerRequestFragment extends Fragment {
     private ListView userList;
     private ArrayAdapter<String> userAdapter;

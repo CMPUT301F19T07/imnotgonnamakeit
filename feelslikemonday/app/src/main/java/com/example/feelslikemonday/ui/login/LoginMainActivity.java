@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 
+/*Responsible for verifying username and passward*/
 public class LoginMainActivity extends AppCompatActivity {
 
     @Override

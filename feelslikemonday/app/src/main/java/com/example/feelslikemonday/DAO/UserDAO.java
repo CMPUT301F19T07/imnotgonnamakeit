@@ -31,6 +31,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
  */
 
+/*Acts as an intermediary for the app and Firestore. Used to query Users*/
 public class UserDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final UserDAO instance = new UserDAO();

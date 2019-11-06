@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/*Responsible for editing or adding a mood event*/
 public class addNewMoodActivity extends AppCompatActivity {
 
     private Button attachPhotoButton;

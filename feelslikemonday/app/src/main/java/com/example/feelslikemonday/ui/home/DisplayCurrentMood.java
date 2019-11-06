@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.example.feelslikemonday.R;
 
+/*Responsible for showing user's current mood */
 public class DisplayCurrentMood extends AppCompatActivity {
 
     @Override
