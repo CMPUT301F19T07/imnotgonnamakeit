@@ -27,8 +27,8 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/confirmButton"
-            app:layout_constraintStart_toEndOf="@+id/confirmButton">
+            app:layout_constraintEnd_toEndOf="@+id/signupConfirmButton"
+            app:layout_constraintStart_toEndOf="@+id/signupConfirmButton">
 
 
             <TextView
@@ -92,7 +92,7 @@
                 app:layout_constraintStart_toEndOf="@+id/signupPasswordView" />
 
             <Button
-                android:id="@+id/cancelButton"
+                android:id="@+id/signupCancelButton"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="84dp"
@@ -100,11 +100,11 @@
                 android:onClick="cancelSignup"
                 android:text="Cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/confirmButton"
+                app:layout_constraintEnd_toStartOf="@+id/signupConfirmButton"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/confirmButton"
+                android:id="@+id/signupConfirmButton"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="84dp"
@@ -114,7 +114,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+                app:layout_constraintStart_toEndOf="@+id/signupCancelButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

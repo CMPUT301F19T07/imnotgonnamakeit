@@ -28,7 +28,7 @@
 
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/loginTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="76dp"
@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/loginUsernameEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
@@ -56,11 +56,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
+                app:layout_constraintTop_toTopOf="@+id/loginTitle"
                 app:layout_constraintVertical_bias="0.008" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/loginPasswordEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
@@ -73,10 +73,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintTop_toBottomOf="@+id/loginUsernameEdit" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/loginConfirmButton"
                 android:layout_width="278dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -91,16 +91,16 @@
                 app:layout_constraintVertical_bias="0.913" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/signupLink"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:onClick="goToSignupProcess"
                 android:text="(New User? Make an account here)"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView21"
-                app:layout_constraintStart_toStartOf="@+id/button5"
-                app:layout_constraintTop_toBottomOf="@+id/button5" />
+                app:layout_constraintEnd_toEndOf="@+id/loginTitle"
+                app:layout_constraintStart_toStartOf="@+id/loginConfirmButton"
+                app:layout_constraintTop_toBottomOf="@+id/loginConfirmButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
