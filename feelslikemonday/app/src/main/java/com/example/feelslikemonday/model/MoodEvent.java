@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * this is a class that create the mood event object
+ */
 /*The date and time are made as strings since it should be easier to perform operations to get them.
 It doesn't seem we perform any operations that doesn't warrant them not to be strings*/
 public class MoodEvent{
