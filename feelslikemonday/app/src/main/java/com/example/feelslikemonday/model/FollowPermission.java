@@ -18,10 +18,20 @@ public class FollowPermission {
         this.followerUsername = followerUsername;
     }
 
+    /**
+     * this return the follower username, user itself
+     * @return
+     *   the username of the app
+     */
     public String getFollowerUsername(){
         return followerUsername;
     }
 
+    /**
+     * this return the followee usernames
+     * @return
+     *    the followees' username that user have approved
+     */
     public List<String> getFolloweeUsernames(){
         return followeeUsernames;
     }
