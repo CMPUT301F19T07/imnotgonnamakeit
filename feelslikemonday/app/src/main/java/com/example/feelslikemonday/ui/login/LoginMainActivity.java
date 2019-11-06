@@ -31,9 +31,6 @@ public class LoginMainActivity extends AppCompatActivity {
         editor.putString(SignupActivity.USERNAME_KEY, loginUsername.getText().toString());
         userNameShared = loginUsername.getText().toString();
         editor.commit();
-
-        String temp;
-        temp = pref.getString(SignupActivity.USERNAME_KEY,null);
         Intent myIntent = new Intent(this, MainActivity.class);
         this.startActivity(myIntent);
     }

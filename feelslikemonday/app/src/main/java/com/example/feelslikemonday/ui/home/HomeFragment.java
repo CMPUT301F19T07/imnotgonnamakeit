@@ -47,8 +47,8 @@ public class HomeFragment extends Fragment {
     private List<MoodEvent> myCurrentMoodList;
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>(); // the main Ride that handles all rides
     private EmotionBookAdapter adapter;
-    SharedPreferences pref;
-    String myUserID;
+    private SharedPreferences pref;
+    private String myUserID;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,10 +64,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        //pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-        // myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
-
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
@@ -79,8 +75,7 @@ public class HomeFragment extends Fragment {
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-                for(int i = 0; i < myCurrentMoodList.size(); i++)
-                {
+                for(int i = 0; i < myCurrentMoodList.size(); i++) {
                     myEmotionList.add(myCurrentMoodList.get(i));
                 }
                 SwipeMenuListView = getView().findViewById(R.id.listView);
@@ -261,12 +256,12 @@ public class HomeFragment extends Fragment {
     }
 
     public int getCurrentMoodIndex(String mood) {
-        int returValue = 0;
+        int returnValue = 0;
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
             if (mood.equals(MoodEvent.MOOD_TYPES.get(i).getName())) {
-                returValue = i;
+                returnValue = i;
             }
         }
-        return returValue;
+        return returnValue;
     }
 }
