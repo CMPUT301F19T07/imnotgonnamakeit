@@ -64,26 +64,54 @@ public class MoodEvent{
         this(date,time,emotionalState,"",moodType,socialSituation);
     }
 
+    /**
+     * this return the date of the mood event
+     * @return
+     *  return the string(date) of the mood event
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * this return the time of the mood event
+     * @return
+     * return the string(time) of the mood event
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * this return the emotional state of the mood event
+     * @return
+     * return teh string(emotional state) of the mood event
+     */
     public String getEmotionalState() {
         return emotionalState;
     }
 
+    /**
+     * this set up the emotinal state for the mood event
+     * @param emotionalState
+     */
     public void setEmotionalState(String emotionalState) {
         this.emotionalState = emotionalState;
     }
 
+    /**
+     *  this return the reason of my mood event
+     * @return
+     *    return the reason of this mood event
+     */
     public String getReason() {
         return reason;
     }
 
+    /**
+     * this set up the reason of this mood event
+     * @param reason
+     */
     public void setReason(String reason) {
         if(reason.length()>MAX_REASON_LEN){
             throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
@@ -91,34 +119,70 @@ public class MoodEvent{
         this.reason = reason;
     }
 
+    /**
+     *  this return the social situation of the mood event
+     * @return
+     *  return the social situation of the mood event
+     */
     public String getSocialSituation() {
         return socialSituation;
     }
 
+    /**
+     * this set up the social situation of the current mood event
+     * @param socialSituation
+     */
     public void setSocialSituation(String socialSituation) {
         this.socialSituation = socialSituation;
     }
 
+    /**
+     * this return the type of the mood
+     * @return
+     *  the type of the mood event
+     */
     public MoodType getMoodType() {
         return moodType;
     }
 
+    /**
+     * this set up the mood type of the mood event
+     * @param moodType
+     */
     public void setMoodType(MoodType moodType) {
         this.moodType = moodType;
     }
 
+    /**
+     * this return the image of the mood event
+     * @return
+     *    return the image of the mood event
+     */
     public byte[] getImage() {
         return image;
     }
 
+    /**
+     *  this sets up the image from the mood event
+     * @param image
+     */
     public void setImage(byte[] image) {
         this.image = image;
     }
 
+    /**
+     * this return this geo location of the mood event
+     * @return
+     *    return the location of the mood event
+     */
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * this set up the geo location of the mood event
+     * @param location
+     */
     public void setLocation(Location location) {
         this.location = location;
     }

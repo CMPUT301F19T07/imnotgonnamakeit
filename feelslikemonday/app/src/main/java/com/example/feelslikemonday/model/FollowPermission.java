@@ -3,6 +3,9 @@ package com.example.feelslikemonday.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  this  is a class that gets the followees who have granted permission given by the user
+ */
 public class FollowPermission {
     private String followerUsername;
     private List<String> followeeUsernames;
