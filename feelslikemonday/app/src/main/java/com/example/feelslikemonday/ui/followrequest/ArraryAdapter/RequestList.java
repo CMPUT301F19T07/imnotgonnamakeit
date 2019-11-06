@@ -95,6 +95,7 @@ public class RequestList extends ArrayAdapter<String> {
                                 public void onCallback() {
                                 }
                             });
+                            RequestList.this.remove(user);
                         }
 
                     }
