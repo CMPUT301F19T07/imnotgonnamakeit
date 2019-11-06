@@ -13,6 +13,8 @@
         android:layout_height="567dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,85 +27,61 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/button7"
-            app:layout_constraintStart_toEndOf="@+id/button7">
+            app:layout_constraintEnd_toEndOf="@+id/confirmButton"
+            app:layout_constraintStart_toEndOf="@+id/confirmButton">
 
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/signupTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="SIGNUP"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintEnd_toEndOf="@+id/editText7"
+                app:layout_constraintEnd_toEndOf="@+id/signupUsernameEdit"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintStart_toStartOf="@+id/signupUsernameView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="28dp"
-                android:text="Email"
-                app:layout_constraintBottom_toTopOf="@+id/editText4"
-                app:layout_constraintEnd_toStartOf="@+id/editText7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-            <EditText
-                android:id="@+id/editText7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView10" />
-
-
-            <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/signupUsernameView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:text="Username"
-                app:layout_constraintBaseline_toBaselineOf="@+id/editText4"
-                app:layout_constraintEnd_toStartOf="@+id/editText4"
+                app:layout_constraintBaseline_toBaselineOf="@+id/signupUsernameEdit"
+                app:layout_constraintEnd_toStartOf="@+id/signupUsernameEdit"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/signupUsernameEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/editText6"
+                app:layout_constraintBottom_toTopOf="@+id/signupPasswordEdit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintStart_toEndOf="@+id/signupUsernameView"
+                app:layout_constraintTop_toBottomOf="@+id/signupTitle" />
 
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/signupPasswordView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:text="Password"
-                app:layout_constraintBaseline_toBaselineOf="@+id/editText6"
-                app:layout_constraintEnd_toStartOf="@+id/editText6"
+                app:layout_constraintBaseline_toBaselineOf="@+id/signupPasswordEdit"
+                app:layout_constraintEnd_toStartOf="@+id/signupPasswordEdit"
                 app:layout_constraintStart_toStartOf="parent" />
 
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/signupPasswordEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="252dp"
@@ -111,10 +89,10 @@
                 android:inputType="textPassword"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView15" />
+                app:layout_constraintStart_toEndOf="@+id/signupPasswordView" />
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/cancelButton"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="84dp"
@@ -122,11 +100,11 @@
                 android:onClick="cancelSignup"
                 android:text="Cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button7"
+                app:layout_constraintEnd_toStartOf="@+id/confirmButton"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/confirmButton"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="84dp"
@@ -136,7 +114,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/button8" />
+                app:layout_constraintStart_toEndOf="@+id/cancelButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
