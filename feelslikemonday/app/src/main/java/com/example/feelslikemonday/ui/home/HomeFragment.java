@@ -47,9 +47,8 @@ public class HomeFragment extends Fragment {
     private List<MoodEvent> myCurrentMoodList;
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>(); // the main Ride that handles all rides
     private EmotionBookAdapter adapter;
-    String myUserID;
     SharedPreferences pref;
-
+    String myUserID;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,11 +65,14 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         // pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        //pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         // myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
+        pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
         UserDAO userDAO = new UserDAO();
-        userDAO.get(LoginMainActivity.userNameShared, new UserCallback() {
+        userDAO.get(myUserID, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 // current user the is object for the login user
@@ -96,8 +98,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+
         UserDAO userDAO = new UserDAO();
-        userDAO.get(LoginMainActivity.userNameShared, new UserCallback() {
+        userDAO.get(myUserID, new UserCallback() {
             @Override
             public void onCallback(User user) { //temporarily using User.myTempUserName until login stuff is done
 

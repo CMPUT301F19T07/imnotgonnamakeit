@@ -3,6 +3,7 @@ package com.example.feelslikemonday.ui.moods;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,8 +38,10 @@ public class addNewMoodActivity extends AppCompatActivity {
     private int moodState = 0; //if this variable =0 it means you're addind a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
     private String moodDate;
-
     private String moodTime;
+    private SharedPreferences pref;
+    private String myUserID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +79,11 @@ public class addNewMoodActivity extends AppCompatActivity {
             }
         }
 
+        pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
         // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
-        userDAO.get(LoginMainActivity.userNameShared, new UserCallback() {
+        userDAO.get(myUserID, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 currentUser = user;
