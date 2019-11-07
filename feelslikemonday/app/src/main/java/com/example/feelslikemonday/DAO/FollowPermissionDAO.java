@@ -14,7 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-/*Acts as an intermediary for the app and Firestore. Used to query FollowPermissions*/
+/*
+*This is a class that acts as an intermediary for the app and Firestore. Used to query FollowPermissions
+*/
 public class FollowPermissionDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final FollowPermissionDAO instance = new FollowPermissionDAO();
@@ -27,6 +29,16 @@ public class FollowPermissionDAO {
         return instance;
     }
 
+
+    /**
+     * This create a follow permission sent by a user
+     * @param username
+     * This is a candidate username who want to send the permission
+     * @param followPermission
+     *  This is a candidate permission
+     * @param onSuccess
+     * This is value that determines weather the permission is sent successfully
+     */
     public void createOrUpdate(String username, FollowPermission followPermission, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(username)
                 .set(followPermission)
@@ -44,6 +56,13 @@ public class FollowPermissionDAO {
                     }
                 });
     }
+    /**
+     * This delete a follow permission sent by a user
+     * @param username
+     * This is a candidate username who want to delete the permission
+     * @param onSuccess
+     * This is value that determines weather the permission is deleted successfully
+     */
 
     public void delete(String username, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(username)
@@ -70,6 +89,11 @@ public class FollowPermissionDAO {
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
+    /**
+     * This returns a permission sent by a user
+     * @return
+     * Return the a permission
+     */
     public void get(String username, final FollowPermissionCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
                 .document(username)
