@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_filter:
                 // another startActivity, this is for item with id "menu_item2"
                 break;
+            case R.id.action_logout:
+                finish();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
