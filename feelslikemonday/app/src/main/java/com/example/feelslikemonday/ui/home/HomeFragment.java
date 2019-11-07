@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private User currentUser;
     private SwipeMenuListView SwipeMenuListView;
     private List<MoodEvent> myCurrentMoodList;
-    private ArrayList<MoodEvent> myEmotionList = new ArrayList<>(); // the main Ride that handles all rides
+    private ArrayList<MoodEvent> myEmotionList = new ArrayList<>();
     private EmotionBookAdapter adapter;
     private SharedPreferences pref;
     private String myUserID;
@@ -211,15 +211,15 @@ public class HomeFragment extends Fragment {
 
     public  void viewEmotion(@NonNull View view, int index){
 
-        MoodEvent CurrentModeEvent = myEmotionList.get(index);
+        MoodEvent CurrentMoodEvent = myEmotionList.get(index);
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
 
-        intent.putExtra("myDate", CurrentModeEvent.getDate());
-        intent.putExtra("mytime", CurrentModeEvent.getTime());
-        intent.putExtra("emotionalState", CurrentModeEvent.getEmotionalState());
-        intent.putExtra("reason", CurrentModeEvent.getReason());
-        intent.putExtra("socialSituation", CurrentModeEvent.getSocialSituation());
-        intent.putExtra("moodType", CurrentModeEvent.getMoodType().getEmoji());
+        intent.putExtra("myDate", CurrentMoodEvent.getDate());
+        intent.putExtra("mytime", CurrentMoodEvent.getTime());
+        intent.putExtra("emotionalState", CurrentMoodEvent.getEmotionalState());
+        intent.putExtra("reason", CurrentMoodEvent.getReason());
+        intent.putExtra("socialSituation", CurrentMoodEvent.getSocialSituation());
+        intent.putExtra("moodType", CurrentMoodEvent.getMoodType().getEmoji());
     startActivity(intent);
     }
 

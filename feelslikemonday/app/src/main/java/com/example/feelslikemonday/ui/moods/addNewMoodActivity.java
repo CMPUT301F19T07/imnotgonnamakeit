@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
@@ -25,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import io.opencensus.internal.StringUtils;
 
 public class addNewMoodActivity extends AppCompatActivity {
 
@@ -100,9 +107,21 @@ public class addNewMoodActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // check that reason is max 3 words
+                String reasonChoice = reason.getText().toString().trim();
+                int count = reasonChoice.length() - reasonChoice.replaceAll(" ", "").length();
+                if (count > 2) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Reason cannot be over 3 words", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                    reason.requestFocus();
+                }
+                else{
 
                 // read the current user mood list
                 List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
@@ -115,34 +134,34 @@ public class addNewMoodActivity extends AppCompatActivity {
                     moodTime = stf.format(date).toString();
                 }
 
-                String reasonChoice = reason.getText().toString();
-                String emotionState = "No emotion";
+                String emotionState = "No emotion"; //if we do not use this attribute, remove
                 String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
                 MoodType myMoodType;
                 MoodEvent myMood;
 
-                myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-                myMood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myMoodType, social);
+                myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
+                myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social);
 
 
                 if (moodState == 0) {
                     // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
                     moodHistoryTempTemp.add(moodIndex, myMood);
-                }
-                else{
+                } else {
                     // edit the existing mood
                     moodHistoryTempTemp.set(moodIndex, myMood);
                 }
                 // update the user object
                 UserDAO userAdo = new UserDAO();
-                userAdo.createOrUpdate(currentUser,new VoidCallback(){
+                userAdo.createOrUpdate(currentUser, new VoidCallback() {
                     @Override
                     public void onCallback() {
                     }
                 });
                 finish();
-            }
+            }// end of else
+        }//end of onClick
         });
+
     }
 
 
