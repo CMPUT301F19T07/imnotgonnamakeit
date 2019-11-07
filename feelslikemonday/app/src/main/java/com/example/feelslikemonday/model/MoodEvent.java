@@ -113,9 +113,6 @@ public class MoodEvent{
      * @param reason
      */
     public void setReason(String reason) {
-        if(reason.length()>MAX_REASON_LEN){
-            throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
-        }
         this.reason = reason;
     }
 
