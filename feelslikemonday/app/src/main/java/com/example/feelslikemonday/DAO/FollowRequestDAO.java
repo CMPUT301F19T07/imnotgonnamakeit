@@ -14,6 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
+/*
+*This is a class  responsible for making requests to firestore, and returning User Requests to the activities/fragments.
+*/
 public class FollowRequestDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final FollowRequestDAO instance = new FollowRequestDAO();
@@ -25,7 +28,15 @@ public class FollowRequestDAO {
     public static FollowRequestDAO getInstance() {
         return instance;
     }
-
+    /**
+     * This create a follow request to reply the user permission
+     * @param username
+     * This is a candidate username who reply the permission
+     * @param followRequest
+     *  This is a candidate request
+     * @param onSuccess
+     * This is value that determines weather the request is sent successfully
+     */
     public void createOrUpdate(String username, FollowRequest followRequest, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(username)
                 .set(followRequest)
@@ -43,7 +54,13 @@ public class FollowRequestDAO {
                     }
                 });
     }
-
+    /**
+     * This delete a follow request to reply the user permission
+     * @param username
+     * This is a candidate username who delete the request
+     * @param onSuccess
+     * This is value that determines weather the request is deleted successfully
+     */
     public void delete(String username, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(username)
                 .delete()
@@ -69,6 +86,12 @@ public class FollowRequestDAO {
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
+
+    /**
+     * This returns a follow request to reply the user permission
+     * @return
+     * Return the a request
+     */
     public void get(String username, final FollowRequestCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
                 .document(username)

@@ -3,9 +3,10 @@ package com.example.feelslikemonday.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *  this is a class that get the list of requester username with the given recipient username
- */
+/*
+*This class acts as a "table" to retrieve requests that have been sent to the user
+*/
+
 public class FollowRequest {
     private List<String> requesterUsernames;
     private String recipientUsername;

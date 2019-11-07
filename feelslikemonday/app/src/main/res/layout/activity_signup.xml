@@ -7,134 +7,112 @@
     tools:context=".ui.login.SignupActivity">
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="320dp"
-        android:layout_height="567dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:fillViewport="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="323dp"
+            android:layout_height="188dp"
+            android:src="@drawable/moodday_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/signupUsernameView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/signupConfirmButton"
-            app:layout_constraintStart_toEndOf="@+id/signupConfirmButton">
+            android:layout_marginStart="16dp"
+            android:fontFamily="casual"
+            android:text="Username"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signupUsernameEdit"
+            app:layout_constraintEnd_toStartOf="@+id/signupUsernameEdit"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:layout_width="323dp"
-                android:layout_height="188dp"
-                android:src="@drawable/moodday_label"
-                app:layout_constraintBottom_toTopOf="@+id/signupTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+        <EditText
+            android:id="@+id/signupUsernameEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/signupPasswordEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/signupUsernameView" />
 
-            <TextView
-                android:id="@+id/signupTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="152dp"
-                android:text="SIGNUP"
-                android:fontFamily="casual"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintEnd_toEndOf="@+id/signupUsernameEdit"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/signupUsernameView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/signupUsernameView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:text="Username"
-                android:fontFamily="casual"
-                app:layout_constraintBaseline_toBaselineOf="@+id/signupUsernameEdit"
-                app:layout_constraintEnd_toStartOf="@+id/signupUsernameEdit"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
-                android:id="@+id/signupUsernameEdit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:fontFamily="casual"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/signupPasswordEdit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/signupUsernameView"
-                app:layout_constraintTop_toBottomOf="@+id/signupTitle" />
+        <TextView
+            android:id="@+id/signupPasswordView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="casual"
+            android:text="Password"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signupPasswordEdit"
+            app:layout_constraintEnd_toStartOf="@+id/signupPasswordEdit"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-            <TextView
-                android:id="@+id/signupPasswordView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="casual"
-                android:text="Password"
-                app:layout_constraintBaseline_toBaselineOf="@+id/signupPasswordEdit"
-                app:layout_constraintEnd_toStartOf="@+id/signupPasswordEdit"
-                app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/signupPasswordEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="256dp"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/signupPasswordView" />
 
+        <Button
+            android:id="@+id/signupCancelButton"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="92dp"
+            android:background="@drawable/button_rounded"
+            android:fontFamily="casual"
+            android:onClick="cancelSignup"
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/signupConfirmButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
-                android:id="@+id/signupPasswordEdit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="252dp"
-                android:ems="10"
-                android:fontFamily="casual"
-                android:inputType="textPassword"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/signupPasswordView" />
+        <Button
+            android:id="@+id/signupConfirmButton"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="92dp"
+            android:background="@drawable/button_rounded"
+            android:fontFamily="casual"
+            android:onClick="confirmSignup"
+            android:text="Confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.79"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/signupCancelButton"
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="92dp"
-                android:fontFamily="casual"
-                android:background="@drawable/button_rounded"
-                android:onClick="cancelSignup"
-                android:text="Cancel"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/signupConfirmButton"
-                app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Sign Up"
+            app:layout_constraintBottom_toTopOf="@+id/signupUsernameEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.65" />
 
-            <Button
-                android:id="@+id/signupConfirmButton"
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="92dp"
-                android:fontFamily="casual"
-                android:background="@drawable/button_rounded"
-                android:onClick="confirmSignup"
-                android:text="Confirm"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/signupCancelButton" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
