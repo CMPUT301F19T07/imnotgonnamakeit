@@ -24,9 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayoutMyMood"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/button7"
-            app:layout_constraintStart_toEndOf="@+id/button7">
+            android:layout_height="wrap_content">
 
 
             <ImageView
@@ -38,12 +36,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/sym_def_app_icon" />
 
+
             <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="156dp"
                 android:text="Value1"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,32 +52,31 @@
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="200dp"
+                android:layout_marginStart="188dp"
+                android:layout_marginTop="156dp"
                 android:text="Value2"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <TextView
                 android:id="@+id/textViewEmotionalState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="250dp"
+                android:layout_marginStart="220dp"
+                android:layout_marginTop="252dp"
                 android:text="Value3"
                 android:textSize="24sp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/textViewReason"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="392dp"
                 android:text="Value4"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,8 +86,8 @@
                 android:id="@+id/textViewsocialSituation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="350dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="324dp"
                 android:text="Value5"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,12 +95,12 @@
 
             <TextView
                 android:id="@+id/textViewMoodType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="400dp"
+                android:layout_width="319dp"
+                android:layout_height="89dp"
+                android:layout_marginTop="212dp"
                 android:text="Value6"
-                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textSize="48sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,13 +109,11 @@
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="110dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginTop="469dp"
                 android:background="@drawable/button_rounded"
                 android:text="Back"
-                android:fontFamily="casual"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button7"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
