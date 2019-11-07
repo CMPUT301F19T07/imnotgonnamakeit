@@ -26,14 +26,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:layout_width="406dp"
+                android:layout_height="194dp"
+                android:src="@drawable/moodday_label"
+                app:layout_constraintBottom_toTopOf="@+id/textView21"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.518"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/textView21"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="76dp"
+                android:layout_marginTop="164dp"
                 android:text="LOGIN"
                 android:textAlignment="center"
+                android:fontFamily="casual"
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +62,7 @@
                 android:drawableLeft="@drawable/ic_login_name"
                 android:ems="10"
                 android:hint="Username"
+                android:fontFamily="casual"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +80,7 @@
                 android:layout_marginEnd="80dp"
                 android:ems="10"
                 android:hint="Password"
+                android:fontFamily="casual"
                 android:drawableLeft="@drawable/ic_login_key"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_rounded"
+                android:fontFamily="casual"
                 android:onClick="attemptLogin"
                 android:text="LOGIN"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:onClick="goToSignupProcess"
+                android:fontFamily="casual"
                 android:text="(New User? Make an account here)"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView21"

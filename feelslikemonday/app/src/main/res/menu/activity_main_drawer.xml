@@ -7,28 +7,34 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
+            android:fontFamily="casual"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
+            android:fontFamily="casual"
             android:title="@string/menu_following" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
+            android:fontFamily="casual"
             android:title="@string/menu_settings" />
         <item
             android:id="@+id/nav_friends"
             android:icon="@android:drawable/ic_menu_myplaces"
+            android:fontFamily="casual"
             android:title="@string/menu_friends" />
 
         <item
             android:id="@+id/nav_followerrequest"
             android:icon="@android:drawable/ic_menu_myplaces"
+            android:fontFamily="casual"
             android:title="Follower Request" />
 
         <item
             android:id="@+id/nav_sendrequest"
             android:icon="@android:drawable/ic_menu_myplaces"
+            android:fontFamily="casual"
             android:title="Send Request" />
     </group>
 </menu>
