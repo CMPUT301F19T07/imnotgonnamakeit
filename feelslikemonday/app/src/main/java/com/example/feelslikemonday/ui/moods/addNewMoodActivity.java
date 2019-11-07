@@ -48,6 +48,7 @@ public class addNewMoodActivity extends AppCompatActivity {
     private String moodTime;
     private SharedPreferences pref;
     private String myUserID;
+    private static final int maxSpacesForReason= 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class addNewMoodActivity extends AppCompatActivity {
                 // check that reason is max 3 words
                 String reasonChoice = reason.getText().toString().trim();
                 int count = reasonChoice.length() - reasonChoice.replaceAll(" ", "").length();
-                if (count > 2) {
+                if (count > maxSpacesForReason) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Reason cannot be over 3 words", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
