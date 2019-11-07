@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.feelslikemonday.R;
 
+/*Responsible for listing all followers' moods and related information */
 public class FriendsFragment extends Fragment {
 
     private FriendsViewModel friendsViewModel;

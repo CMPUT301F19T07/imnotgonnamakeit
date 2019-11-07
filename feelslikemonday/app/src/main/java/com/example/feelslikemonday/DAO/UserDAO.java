@@ -31,6 +31,9 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
  */
 
+/*
+*This class acts as an intermediary for the app and firestore. Used to query Users
+*/
 public class UserDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final UserDAO instance = new UserDAO();
@@ -40,7 +43,13 @@ public class UserDAO {
     public static UserDAO getInstance() {
         return instance;
     }
-
+    /**
+     * This create a user
+     * @param user
+     * This is a candidate username that needs to be created
+     * @param onSuccess
+     * This is value that determines weather the user is created successfully
+     */
     public void createOrUpdate(User user , final VoidCallback onSuccess){
 
         db.collection(COLLECTION_NAME).document(user.getUsername())
@@ -59,6 +68,13 @@ public class UserDAO {
                     }
                 });
     }
+    /**
+     * This delete a follow request to reply the user permission
+     * @param user
+     * This is the user that needs to be deleted
+     * @param onSuccess
+     * This is value that determines weather the user is deleted successfully
+     */
 
     public void delete(User user, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(user.getUsername())
@@ -81,11 +97,15 @@ public class UserDAO {
     /**
      * Queries for a user by the user's username. A callback method will be called on success
      */
-
     public void get(String username, final UserCallback onSuccess){
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
+    /**
+     * This returns a user
+     * @return
+     * Return the a user
+     */
 
     public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
@@ -107,6 +127,27 @@ public class UserDAO {
                             // Assumes only one document will be returned
                              User curent = doc.toObject(User.class);
                             onSuccess.onCallback(doc.toObject(User.class));
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            if (onFail != null){
+                                onFail.onCallback();
+                            }
+                        }
+                    }
+                });
+    }
+
+    public void checkIfExists(String username, final BooleanCallback onSuccess, final VoidCallback onFail){
+        db.collection(COLLECTION_NAME)
+                .document(username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot doc = task.getResult();
+                            //Return if the queried document is non-null and exists
+                            onSuccess.onCallback(doc != null && doc.exists());
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             if (onFail != null){
