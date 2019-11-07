@@ -33,6 +33,7 @@
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="150dp"
+                    android:fontFamily="casual"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Emotional State" />
@@ -57,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="casual"
                     android:text="Reason" />
 
                 <EditText
@@ -83,6 +85,7 @@
                     android:layout_width="133dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="casual"
                     android:text="Social Situation" />
 
                 <Spinner
@@ -103,12 +106,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="casual"
                     android:text="photo" />
 
                 <Button
                     android:id="@+id/mood_attach_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="casual"
                     android:layout_weight="1"
                     android:text="Attach photo" />
             </LinearLayout>
@@ -138,6 +143,7 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="casual"
                     android:layout_weight="1"
                     android:text="Location" />
 
@@ -145,6 +151,7 @@
                     android:id="@+id/button9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="casual"
                     android:layout_weight="1"
                     android:text="Add location" />
             </LinearLayout>
@@ -165,6 +172,7 @@
                     android:id="@+id/mood_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="casual"
                     android:layout_weight="1"
                     android:text="cancel" />
 
@@ -172,6 +180,7 @@
                     android:id="@+id/button11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="casual"
                     android:layout_weight="1"
                     android:onClick="Save"
                     android:text="save" />

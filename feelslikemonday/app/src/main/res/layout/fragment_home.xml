@@ -15,8 +15,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="600dp"
             android:orientation="vertical">
+=======
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:fontFamily="casual">
+>>>>>>> 7eda78ec20aa8783dc984c7f6b6c61d0cf31299f
 
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
