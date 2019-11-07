@@ -33,6 +33,8 @@ import java.util.List;
 
 import io.opencensus.internal.StringUtils;
 
+/*Responsible for editing or adding a mood event*/
+
 public class addNewMoodActivity extends AppCompatActivity {
 
     private Button attachPhotoButton;

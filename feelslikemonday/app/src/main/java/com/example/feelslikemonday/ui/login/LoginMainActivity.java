@@ -16,6 +16,8 @@ import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.User;
 
+/*Responsible for verifying username and passward*/
+
 public class LoginMainActivity extends AppCompatActivity {
 
     EditText loginUsername;
