@@ -1,6 +1,7 @@
 package com.example.feelslikemonday.ui.followrequest.ArraryAdapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,8 @@ public class RequestList extends ArrayAdapter<String> {
     private List<String> followeeUsernames;
     private static FollowPermissionDAO DAO;
     private static FollowRequestDAO followRequestDAO;
+    private SharedPreferences pref;
+    private String myUserID;
 
 
     public RequestList(@NonNull Context context, ArrayList<String> users) {
@@ -48,6 +52,9 @@ public class RequestList extends ArrayAdapter<String> {
         //return super.getView(position, convertView, parent);
         DAO = FollowPermissionDAO.getInstance();
         followRequestDAO = FollowRequestDAO.getInstance();
+        pref = getContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+
         View view = convertView;
 
         if(view == null){
@@ -66,14 +73,14 @@ public class RequestList extends ArrayAdapter<String> {
             public void onClick(View view) {
                 Log.i("testListView", "clickAcceptButton");
 
-                DAO.get("xiaole", new FollowPermissionCallback(){
+                DAO.get(myUserID, new FollowPermissionCallback(){
                     @Override
                     public void onCallback(FollowPermission followPermission) {
-                        if(followPermission.getFollowerUsername().equals("xiaole")){
+                        if(followPermission.getFollowerUsername().equals(myUserID)){
                             followeeUsernames = followPermission.getFolloweeUsernames();
                             followeeUsernames.add(user);
 
-                            DAO.createOrUpdate("xiaole", followPermission, new VoidCallback() {
+                            DAO.createOrUpdate(myUserID, followPermission, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }
@@ -83,14 +90,14 @@ public class RequestList extends ArrayAdapter<String> {
                     }
                 }, null);
 
-                followRequestDAO.get("xiaole", new FollowRequestCallback(){
+                followRequestDAO.get(myUserID, new FollowRequestCallback(){
                     @Override
                     public void onCallback(FollowRequest followRequest) {
-                        if(followRequest.getRecipientUsername().equals("xiaole")){
+                        if(followRequest.getRecipientUsername().equals(myUserID)){
                             requesterUsernames = followRequest.getRequesterUsernames();
                             requesterUsernames.remove(user);
 
-                            followRequestDAO.createOrUpdate("xiaole", followRequest, new VoidCallback() {
+                            followRequestDAO.createOrUpdate(myUserID, followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }
@@ -109,14 +116,14 @@ public class RequestList extends ArrayAdapter<String> {
             public void onClick(View view) {
                 Log.i("testListView", "clickRejectButton");
 
-                followRequestDAO.get("xiaole", new FollowRequestCallback(){
+                followRequestDAO.get(myUserID, new FollowRequestCallback(){
                     @Override
                     public void onCallback(FollowRequest followRequest) {
-                        if(followRequest.getRecipientUsername().equals("xiaole")){
+                        if(followRequest.getRecipientUsername().equals(myUserID)){
                             requesterUsernames = followRequest.getRequesterUsernames();
                             requesterUsernames.remove(user);
 
-                            followRequestDAO.createOrUpdate("xiaole", followRequest, new VoidCallback() {
+                            followRequestDAO.createOrUpdate(myUserID, followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }

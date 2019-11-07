@@ -86,45 +86,52 @@ public class SendRequestFragment extends Fragment {
             public void onClick(View view) {
 
                 recipientUsername = usernameEditText.getText().toString();
-                //FollowRequest followRequest = new FollowRequest(recipientUsername);  //TODO: sharedPreference??
+                if (recipientUsername.matches("") ){
+                    Toast toast = Toast.makeText(getActivity(), "Please input a username", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }else{
+                    DAO = FollowRequestDAO.getInstance();
 
+                    //Check Input User exists in the database
+                    DAO.get(recipientUsername, new FollowRequestCallback(){
+                        @Override
+                        public void onCallback(FollowRequest followRequest) {
+                            if(followRequest.getRecipientUsername().equals(recipientUsername)){
+                                requesterUsernames = followRequest.getRequesterUsernames();
+                                requesterUsernames.add(myUserID);   //TODO: check you have not request twice.
+                                Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                                followRequest_ok = followRequest;
 
-                DAO = FollowRequestDAO.getInstance();
+                                DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
+                                    @Override
+                                    public void onCallback() {
+                                    }
+                                });
+                                usernameEditText.setText("");
 
-                //Check Input User exists in the database
-                DAO.get(recipientUsername, new FollowRequestCallback(){
-                    @Override
-                    public void onCallback(FollowRequest followRequest) {
-                        if(followRequest.getRecipientUsername().equals(recipientUsername)){
-                            requesterUsernames = followRequest.getRequesterUsernames();
-                            requesterUsernames.add(myUserID);   //TODO: check you have not request twice.
-                            Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
+                                Toast toast1 = Toast.makeText(getActivity(), "Send Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
+                                toast1.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast1.show();
+                            }
+
+                        }
+                    }, new VoidCallback() {
+                        @Override
+                        public void onCallback() {
+                            Toast toast = Toast.makeText(getActivity(), "User Not Exist, Invite your friend", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();
-                            followRequest_ok = followRequest;
-
-                            DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
-                                @Override
-                                public void onCallback() {
-                                }
-                            });
                             usernameEditText.setText("");
-
-                            Toast toast1 = Toast.makeText(getActivity(), "Send Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
-                            toast1.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast1.show();
                         }
+                    });
 
-                    }
-                }, new VoidCallback() {
-                    @Override
-                    public void onCallback() {
-                        Toast toast = Toast.makeText(getActivity(), "User Not Exist, Invite your friend", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-                        usernameEditText.setText("");
-                    }
-                });
+                }
+
+
+
 
             }
         });
