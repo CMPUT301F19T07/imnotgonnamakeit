@@ -12,6 +12,7 @@
         android:layout_width="220dp"
         android:layout_height="45dp"
         android:layout_marginTop="288dp"
+        android:layout_marginBottom="398dp"
         android:drawableStart="@drawable/ic_request_name"
         android:ems="15"
         android:hint="@string/Username"
@@ -28,27 +29,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
+        android:layout_marginTop="447dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="236dp"
-        android:text="@string/reset"
         android:background="@drawable/button_rounded"
+        android:text="@string/reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_request_send"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/send_request_send"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="447dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="236dp"
-        android:text="@string/send"
         android:background="@drawable/button_rounded"
+        android:text="@string/send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/send_request_reset" />
+        app:layout_constraintStart_toEndOf="@+id/send_request_reset"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
