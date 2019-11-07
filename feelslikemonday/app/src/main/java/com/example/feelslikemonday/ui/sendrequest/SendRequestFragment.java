@@ -24,6 +24,7 @@ import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.ui.followrequest.FollowerRequestViewModel;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
@@ -39,6 +40,8 @@ public class SendRequestFragment extends Fragment {
     private String recipientUsername;
     private List<String> requesterUsernames;
     private FollowRequest followRequest_ok;
+    private SharedPreferences pref;
+    private String myUserID;
 
     private SendRequestViewModel sendRequestViewModel;
     private static FollowRequestDAO DAO; // = FollowRequestDAO.getInstance();
@@ -51,6 +54,8 @@ public class SendRequestFragment extends Fragment {
         resetButton =  root.findViewById(R.id.send_request_reset);
         sendButton =  root .findViewById(R.id.send_request_send);
         usernameEditText =  root .findViewById(R.id.send_request_username);
+        pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
         sendRequestViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -92,10 +97,7 @@ public class SendRequestFragment extends Fragment {
                     public void onCallback(FollowRequest followRequest) {
                         if(followRequest.getRecipientUsername().equals(recipientUsername)){
                             requesterUsernames = followRequest.getRequesterUsernames();
-                            requesterUsernames.add("leleTest");   //TODO: check you have not request twice.
-                            requesterUsernames.add("leleTest1");
-                            requesterUsernames.add("leleTest2");
-                            requesterUsernames.add("leleTest3");
+                            requesterUsernames.add(myUserID);   //TODO: check you have not request twice.
                             Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();
