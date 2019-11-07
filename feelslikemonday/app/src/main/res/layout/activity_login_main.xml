@@ -26,25 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="406dp"
-                android:layout_height="194dp"
-                android:src="@drawable/moodday_label"
-                app:layout_constraintBottom_toTopOf="@+id/textView21"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.518"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/loginTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="164dp"
+                android:layout_marginTop="76dp"
                 android:text="LOGIN"
                 android:textAlignment="center"
-                android:fontFamily="casual"
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/loginUsernameEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
@@ -62,17 +51,16 @@
                 android:drawableLeft="@drawable/ic_login_name"
                 android:ems="10"
                 android:hint="Username"
-                android:fontFamily="casual"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
+                app:layout_constraintTop_toTopOf="@+id/loginTitle"
                 app:layout_constraintVertical_bias="0.008" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/loginPasswordEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
@@ -80,21 +68,19 @@
                 android:layout_marginEnd="80dp"
                 android:ems="10"
                 android:hint="Password"
-                android:fontFamily="casual"
                 android:drawableLeft="@drawable/ic_login_key"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintTop_toBottomOf="@+id/loginUsernameEdit" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/loginConfirmButton"
                 android:layout_width="278dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_rounded"
-                android:fontFamily="casual"
                 android:onClick="attemptLogin"
                 android:text="LOGIN"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -105,17 +91,16 @@
                 app:layout_constraintVertical_bias="0.913" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/signupLink"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:onClick="goToSignupProcess"
-                android:fontFamily="casual"
                 android:text="(New User? Make an account here)"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView21"
-                app:layout_constraintStart_toStartOf="@+id/button5"
-                app:layout_constraintTop_toBottomOf="@+id/button5" />
+                app:layout_constraintEnd_toEndOf="@+id/loginTitle"
+                app:layout_constraintStart_toStartOf="@+id/loginConfirmButton"
+                app:layout_constraintTop_toBottomOf="@+id/loginConfirmButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
