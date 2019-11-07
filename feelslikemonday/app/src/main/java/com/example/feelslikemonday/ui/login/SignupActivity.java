@@ -1,9 +1,7 @@
 package com.example.feelslikemonday.ui.login;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +31,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText signupPassword;
     String username;
     String password;
+    User user;
     SharedPreferences pref;
     UserDAO userDAO = UserDAO.getInstance();
     public static final String PREFS_NAME = "user_preferences";
@@ -46,8 +45,10 @@ public class SignupActivity extends AppCompatActivity {
         // Create user, follow request, then follower permission in firebase before going to main screen
         username = signupUsername.getText().toString();
         password = signupPassword.getText().toString();
-        if ()
-            final User user = new User(username, signupPassword.getText().toString());
+        if (username.length() == 0 || password.length() == 0) {
+            Toast.makeText(SignupActivity.this, "Error: Empty Field", Toast.LENGTH_LONG).show();
+        } else {
+            user = new User(username, password);
             userDAO.get(username, new UserCallback() {
                 // User already exists in the database, so generate an error message
                 @Override
@@ -55,11 +56,17 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "Error: this user already exists", Toast.LENGTH_LONG).show();
                 }
             }, new VoidCallback() {
-                // User doesn't exist in the database, so create a new user
                 @Override
                 public void onCallback() {
                     // Create user in firebase
-                    userDao.createOrUpdate(user, new VoidCallback() {
+                    // User doesn't exist in the database, so create a new user
+                    // Save user to shared preferences
+                    // 0 in second argument indicates file holding username can only be accessed by calling the application
+                    pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString(USERNAME_KEY, signupUsername.getText().toString());
+                    editor.commit();
+                    userDAO.createOrUpdate(user, new VoidCallback() {
                         @Override
                         public void onCallback() {
                             // Save user to shared preferences
@@ -74,7 +81,6 @@ public class SignupActivity extends AppCompatActivity {
                             followRequestDao.createOrUpdate(username, followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
-
                                     // Create followerpermission in firebase
                                     FollowPermissionDAO followPermissionDao = FollowPermissionDAO.getInstance();
                                     FollowPermission followPermission = new FollowPermission(username);
@@ -92,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
         }
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

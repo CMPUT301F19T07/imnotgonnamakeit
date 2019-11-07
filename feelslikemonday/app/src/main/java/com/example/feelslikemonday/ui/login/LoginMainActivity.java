@@ -46,6 +46,10 @@ public class LoginMainActivity extends AppCompatActivity {
                 @Override
                 public void onCallback(User user) {
                     if (user.getPassword().equals(password)) {
+                        pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString(USERNAME_KEY, username);
+                        editor.commit();
                         Intent myIntent = new Intent(LoginMainActivity.this, MainActivity.class);
                         startActivity(myIntent);
                     } else {

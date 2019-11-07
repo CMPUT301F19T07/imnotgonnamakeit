@@ -13,7 +13,9 @@ import com.example.feelslikemonday.R;
 
 import java.util.ArrayList;
 
-
+/**
+ * this is a class that serves as an adapter for the emotion book
+ */
 public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
 
     private Context context;

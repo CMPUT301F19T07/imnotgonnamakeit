@@ -26,9 +26,11 @@ public class UserService {
         });
     }
 
-    public static void checkEmptyField(String username, String password){
+    public static boolean checkEmptyField(String username, String password){
         if (username.length() == 0 ||password.length() == 0) {
             return true;
+        } else {
+            return false;
         }
     }
 
