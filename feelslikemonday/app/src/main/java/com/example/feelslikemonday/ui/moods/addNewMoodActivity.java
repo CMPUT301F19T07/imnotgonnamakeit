@@ -3,13 +3,19 @@ package com.example.feelslikemonday.ui.moods;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
@@ -17,11 +23,18 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.ui.login.LoginMainActivity;
+import com.example.feelslikemonday.ui.login.SignupActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import io.opencensus.internal.StringUtils;
+
 /*Responsible for editing or adding a mood event*/
+
 public class addNewMoodActivity extends AppCompatActivity {
 
     private Button attachPhotoButton;
@@ -34,8 +47,11 @@ public class addNewMoodActivity extends AppCompatActivity {
     private int moodState = 0; //if this variable =0 it means you're addind a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
     private String moodDate;
-
     private String moodTime;
+    private SharedPreferences pref;
+    private String myUserID;
+    private static final int maxSpacesForReason= 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +89,11 @@ public class addNewMoodActivity extends AppCompatActivity {
             }
         }
 
+        pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
         // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
-        userDAO.get(User.myTempUserName, new UserCallback() {
+        userDAO.get(myUserID, new UserCallback() {
             @Override
             public void onCallback(User user) {
                 currentUser = user;
@@ -92,9 +110,21 @@ public class addNewMoodActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // check that reason is max 3 words
+                String reasonChoice = reason.getText().toString().trim();
+                int count = reasonChoice.length() - reasonChoice.replaceAll(" ", "").length();
+                if (count > maxSpacesForReason) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Reason cannot be over 3 words", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                    reason.requestFocus();
+                }
+                else{
 
                 // read the current user mood list
                 List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
@@ -107,34 +137,34 @@ public class addNewMoodActivity extends AppCompatActivity {
                     moodTime = stf.format(date).toString();
                 }
 
-                String reasonChoice = reason.getText().toString();
-                String emotionState = "No emotion";
+                String emotionState = "No emotion"; //if we do not use this attribute, remove
                 String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
                 MoodType myMoodType;
                 MoodEvent myMood;
 
-                myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(),MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-                myMood = new MoodEvent(moodDate,moodTime, emotionState, reasonChoice,  myMoodType, social);
+                myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
+                myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social);
 
 
                 if (moodState == 0) {
                     // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
                     moodHistoryTempTemp.add(moodIndex, myMood);
-                }
-                else{
+                } else {
                     // edit the existing mood
                     moodHistoryTempTemp.set(moodIndex, myMood);
                 }
                 // update the user object
                 UserDAO userAdo = new UserDAO();
-                userAdo.createOrUpdate(currentUser,new VoidCallback(){
+                userAdo.createOrUpdate(currentUser, new VoidCallback() {
                     @Override
                     public void onCallback() {
                     }
                 });
                 finish();
-            }
+            }// end of else
+        }//end of onClick
         });
+
     }
 
 

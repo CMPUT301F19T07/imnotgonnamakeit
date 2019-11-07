@@ -8,12 +8,10 @@ import java.util.List;
 */
 //Assumes that usernames passwords and emails cannot be altered
 
+/**
+ * This is a class that store User's information
+ */
 public class User {
-
-    public static final String myTempUserName = "testRehab3";
-    // uTEST-sill
-    //testRehab3
-    //Used so it's clear in firebase as to what version of Users are being stored
 
     final int version = 0;
     private String username;
@@ -28,18 +26,47 @@ public class User {
         this.moodHistory = new ArrayList<>();
     }
 
+    /**
+     * This return a username of user
+     * @return
+     *    String username
+     */
     public String getUsername() { return username; }
+
+    /**
+     * this return the password of user
+     * @return
+     *   String password
+     */
     public String getPassword() {return password; }
+
+    /**
+     * this return the information/detail of user's mood history
+     * @return
+     *    return the mood event list
+     */
     public List<MoodEvent> getMoodHistory(){return moodHistory;}
 
+    /**
+     * this set up the username for the user
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * this set up the password for the user
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * this set up the mood event list to the user
+     * @param moodHistory
+     */
     public void setMoodHistory(List<MoodEvent> moodHistory) {
         this.moodHistory = moodHistory;
     }

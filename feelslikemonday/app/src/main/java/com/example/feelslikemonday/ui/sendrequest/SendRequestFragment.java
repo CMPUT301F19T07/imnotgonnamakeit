@@ -24,6 +24,7 @@ import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.ui.followrequest.FollowerRequestViewModel;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
@@ -39,6 +40,8 @@ public class SendRequestFragment extends Fragment {
     private String recipientUsername;
     private List<String> requesterUsernames;
     private FollowRequest followRequest_ok;
+    private SharedPreferences pref;
+    private String myUserID;
 
     private SendRequestViewModel sendRequestViewModel;
     private static FollowRequestDAO DAO; // = FollowRequestDAO.getInstance();
@@ -51,6 +54,8 @@ public class SendRequestFragment extends Fragment {
         resetButton =  root.findViewById(R.id.send_request_reset);
         sendButton =  root .findViewById(R.id.send_request_send);
         usernameEditText =  root .findViewById(R.id.send_request_username);
+        pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
         sendRequestViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -81,48 +86,52 @@ public class SendRequestFragment extends Fragment {
             public void onClick(View view) {
 
                 recipientUsername = usernameEditText.getText().toString();
-                //FollowRequest followRequest = new FollowRequest(recipientUsername);  //TODO: sharedPreference??
+                if (recipientUsername.matches("") ){
+                    Toast toast = Toast.makeText(getActivity(), "Please input a username", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }else{
+                    DAO = FollowRequestDAO.getInstance();
 
+                    //Check Input User exists in the database
+                    DAO.get(recipientUsername, new FollowRequestCallback(){
+                        @Override
+                        public void onCallback(FollowRequest followRequest) {
+                            if(followRequest.getRecipientUsername().equals(recipientUsername)){
+                                requesterUsernames = followRequest.getRequesterUsernames();
+                                requesterUsernames.add(myUserID);   //TODO: check you have not request twice.
+                                Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                                followRequest_ok = followRequest;
 
-                DAO = FollowRequestDAO.getInstance();
+                                DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
+                                    @Override
+                                    public void onCallback() {
+                                    }
+                                });
+                                usernameEditText.setText("");
 
-                //Check Input User exists in the database
-                DAO.get(recipientUsername, new FollowRequestCallback(){
-                    @Override
-                    public void onCallback(FollowRequest followRequest) {
-                        if(followRequest.getRecipientUsername().equals(recipientUsername)){
-                            requesterUsernames = followRequest.getRequesterUsernames();
-                            requesterUsernames.add("leleTest");   //TODO: check you have not request twice.
-                            requesterUsernames.add("leleTest1");
-                            requesterUsernames.add("leleTest2");
-                            requesterUsernames.add("leleTest3");
-                            Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
+                                Toast toast1 = Toast.makeText(getActivity(), "Send Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
+                                toast1.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast1.show();
+                            }
+
+                        }
+                    }, new VoidCallback() {
+                        @Override
+                        public void onCallback() {
+                            Toast toast = Toast.makeText(getActivity(), "User Not Exist, Invite your friend", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();
-                            followRequest_ok = followRequest;
-
-                            DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
-                                @Override
-                                public void onCallback() {
-                                }
-                            });
                             usernameEditText.setText("");
-
-                            Toast toast1 = Toast.makeText(getActivity(), "Send Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
-                            toast1.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast1.show();
                         }
+                    });
 
-                    }
-                }, new VoidCallback() {
-                    @Override
-                    public void onCallback() {
-                        Toast toast = Toast.makeText(getActivity(), "User Not Exist, Invite your friend", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-                        usernameEditText.setText("");
-                    }
-                });
+                }
+
+
+
 
             }
         });

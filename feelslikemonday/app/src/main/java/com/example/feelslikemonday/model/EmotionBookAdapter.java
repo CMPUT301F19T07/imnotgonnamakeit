@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /*
  *This class acts as a array adapter of the emotion book
- */
+
 public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
 
     private Context context;

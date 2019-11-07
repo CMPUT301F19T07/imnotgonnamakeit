@@ -6,6 +6,7 @@ import java.util.List;
 /*
 *This class acts as a "table" to retrieve requests that have been sent to the user
 */
+
 public class FollowRequest {
     private List<String> requesterUsernames;
     private String recipientUsername;
@@ -18,9 +19,20 @@ public class FollowRequest {
         this.recipientUsername = recipientUsername;
     }
 
+    /**
+     * this return a list of requester username given the recipient username
+     * @return
+     *    a list of requester username
+     */
     public List<String> getRequesterUsernames() {
         return requesterUsernames;
     }
+
+    /**
+     * this return the recipient username, the user itself
+     * @return
+     *    return the recipient username
+     */
     public String getRecipientUsername() {
         return recipientUsername;
     }

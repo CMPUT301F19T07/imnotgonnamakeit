@@ -30,6 +30,7 @@ import com.example.feelslikemonday.model.MoodEvent;
 
 import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,8 @@ public class FollowerRequestFragment extends Fragment {
     private ArrayAdapter<String> userAdapter;
     private List<String> requesterUsernames;
     private static FollowRequestDAO DAO;
+    private SharedPreferences pref;
+    private String myUserID;
 
 
     private FollowerRequestViewModel followerViewModel;
@@ -50,13 +53,15 @@ public class FollowerRequestFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_follower_request, container, false);
         userList = (ListView) root.findViewById(R.id.request_username_list);
+        pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
         DAO = FollowRequestDAO.getInstance();
         //TODO: PASS mySharedPreference filename
-        DAO.get("xiaole", new FollowRequestCallback(){
+        DAO.get(myUserID, new FollowRequestCallback(){
             @Override
             public void onCallback(FollowRequest followRequest) {
-                if(followRequest.getRecipientUsername().equals("xiaole")){
+                if(followRequest.getRecipientUsername().equals(myUserID)){
 
                     requesterUsernames = followRequest.getRequesterUsernames();
                     userAdapter = new RequestList(getContext(), new ArrayList<String>(requesterUsernames));

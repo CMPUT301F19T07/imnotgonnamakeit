@@ -7,11 +7,6 @@
         android:title="@string/new_entry"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_sort"
-        android:orderInCategory="100"
-        android:title="@string/sort_entry"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_filter"
         android:orderInCategory="100"
         android:title="@string/filter_entry"
@@ -20,6 +15,11 @@
         android:id="@+id/action_show_map"
         android:orderInCategory="100"
         android:title="@string/show_map_entry"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Logout"
         app:showAsAction="never" />
 
 </menu>
