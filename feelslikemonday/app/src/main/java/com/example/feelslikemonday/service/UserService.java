@@ -1,5 +1,9 @@
 package com.example.feelslikemonday.service;
 
+/*
+ *This class checks if a user exists
+ */
+
 import android.widget.Toast;
 
 import com.example.feelslikemonday.DAO.UserCallback;

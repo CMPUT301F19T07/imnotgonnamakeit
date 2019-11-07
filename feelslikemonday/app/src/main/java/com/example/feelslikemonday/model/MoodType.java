@@ -1,8 +1,9 @@
 package com.example.feelslikemonday.model;
 
-/**
- * this is  class that show the different mood type
- */
+/*
+*This class represents the type of moods that are present in the app.
+*/
+
 public class MoodType {
     private String name;
     private String emoji;

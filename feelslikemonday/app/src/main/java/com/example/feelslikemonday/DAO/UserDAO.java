@@ -31,6 +31,9 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
  */
 
+/*
+*This class acts as an intermediary for the app and firestore. Used to query Users
+*/
 public class UserDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final UserDAO instance = new UserDAO();
@@ -40,7 +43,13 @@ public class UserDAO {
     public static UserDAO getInstance() {
         return instance;
     }
-
+    /**
+     * This create a user
+     * @param user
+     * This is a candidate username that needs to be created
+     * @param onSuccess
+     * This is value that determines weather the user is created successfully
+     */
     public void createOrUpdate(User user , final VoidCallback onSuccess){
 
         db.collection(COLLECTION_NAME).document(user.getUsername())
@@ -59,6 +68,13 @@ public class UserDAO {
                     }
                 });
     }
+    /**
+     * This delete a follow request to reply the user permission
+     * @param user
+     * This is the user that needs to be deleted
+     * @param onSuccess
+     * This is value that determines weather the user is deleted successfully
+     */
 
     public void delete(User user, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(user.getUsername())
@@ -85,6 +101,11 @@ public class UserDAO {
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
+    /**
+     * This returns a user
+     * @return
+     * Return the a user
+     */
 
     public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)

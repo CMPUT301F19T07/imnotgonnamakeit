@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/*Responsible for listing all user's moods and related information */
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;

@@ -3,6 +3,9 @@ package com.example.feelslikemonday.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+*This class is responsible for storing information about the user
+*/
 //Assumes that usernames passwords and emails cannot be altered
 
 /**
