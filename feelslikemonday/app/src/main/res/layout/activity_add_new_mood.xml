@@ -113,8 +113,9 @@
                     android:id="@+id/mood_attach_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
                     android:layout_weight="1"
+                    android:fontFamily="casual"
+                    android:onClick="photoButton"
                     android:text="Attach photo" />
             </LinearLayout>
 
@@ -172,8 +173,9 @@
                     android:id="@+id/mood_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="casual"
                     android:layout_weight="1"
+                    android:fontFamily="casual"
+                    android:onClick="cancelButton"
                     android:text="cancel" />
 
                 <Button
