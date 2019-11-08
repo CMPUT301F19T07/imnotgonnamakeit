@@ -19,6 +19,7 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.service.UserService;
 
 /*User Preferences designed according to tutorial on:
 https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
@@ -44,8 +45,8 @@ public class SignupActivity extends AppCompatActivity {
         // Create user, follow request, then follower permission in firebase before going to main screen
         username = signupUsername.getText().toString();
         password = signupPassword.getText().toString();
-        if (username.length() == 0 || password.length() == 0) {
-            Toast.makeText(SignupActivity.this, "Error: Empty Field", Toast.LENGTH_LONG).show();
+        if (UserService.checkEmptyField(username, password)) {
+            Toast.makeText(SignupActivity.this, "Please enter username or password", Toast.LENGTH_LONG).show();
         } else {
             user = new User(username, password);
             userDAO.checkIfExists(username, new BooleanCallback() {

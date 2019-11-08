@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 // another startActivity, this is for item with id "menu_item2"
                 break;
             case R.id.action_logout:
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
                 finish();
                 break;
             default:
@@ -98,4 +102,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }

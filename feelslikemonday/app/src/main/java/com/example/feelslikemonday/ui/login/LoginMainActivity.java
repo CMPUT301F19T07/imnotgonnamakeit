@@ -15,8 +15,9 @@ import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.User;
+import com.example.feelslikemonday.service.UserService;
 
-/*Responsible for verifying username and passward*/
+/*Responsible for verifying username and password*/
 
 public class LoginMainActivity extends AppCompatActivity {
 
@@ -41,8 +42,8 @@ public class LoginMainActivity extends AppCompatActivity {
     public void attemptLogin(View view){
         username = loginUsername.getText().toString();
         password = loginPassword.getText().toString();
-        if (username.length() == 0 || password.length() == 0) {
-            Toast.makeText(LoginMainActivity.this, "Error: Missing input", Toast.LENGTH_LONG).show();
+        if (UserService.checkEmptyField(username,password)) {
+            Toast.makeText(LoginMainActivity.this, "Please enter username or password", Toast.LENGTH_LONG).show();
         } else {
             userDAO.get(username, new UserCallback() {
                 @Override
