@@ -37,7 +37,6 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
         String var2_time = getItem(position).getTime().toString();
         String var3_dist = getItem(position).getMoodType().getEmoji().toString();
 
-
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(mResource,parent,false);
 
