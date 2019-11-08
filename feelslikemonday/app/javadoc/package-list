@@ -1,0 +1,15 @@
+com.example.feelslikemonday
+com.example.feelslikemonday.DAO
+com.example.feelslikemonday.Home
+com.example.feelslikemonday.UI
+com.example.feelslikemonday.model
+com.example.feelslikemonday.service
+com.example.feelslikemonday.ui.following
+com.example.feelslikemonday.ui.followrequest
+com.example.feelslikemonday.ui.followrequest.ArraryAdapter
+com.example.feelslikemonday.ui.friends
+com.example.feelslikemonday.ui.home
+com.example.feelslikemonday.ui.login
+com.example.feelslikemonday.ui.moods
+com.example.feelslikemonday.ui.sendrequest
+com.example.feelslikemonday.ui.settings
