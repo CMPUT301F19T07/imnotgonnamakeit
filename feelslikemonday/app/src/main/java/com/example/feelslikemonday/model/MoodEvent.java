@@ -19,7 +19,7 @@ public class MoodEvent{
                                                         new MoodType("Anger","\uD83D\uDE20"),
                                                         new MoodType("Disgust","\uD83E\uDD2E"),
                                                         new MoodType("Fear","\uD83D\uDE31"),
-                                                        new MoodType("Happiness","☺️"),
+                                                        new MoodType("Happiness","\uD83D\uDE03"),
                                                         new MoodType("Sadness","\uD83D\uDE22"),
                                                         new MoodType("Surprise","\uD83D\uDE32")
                                                     );

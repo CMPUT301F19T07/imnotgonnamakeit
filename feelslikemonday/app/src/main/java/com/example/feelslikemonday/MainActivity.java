@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

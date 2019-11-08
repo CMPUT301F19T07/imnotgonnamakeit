@@ -29,14 +29,16 @@ public class attachPhotoActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button cancelButton;
     private Context PostImage;
+    private Button saveButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attach_photo);
-        imageView =(ImageView)findViewById(R.id.attach_myphoto);
+        imageView =findViewById(R.id.attach_myphoto);
         cancelButton = findViewById(R.id.attach_cancel);
+        saveButton = findViewById(R.id.save_image_button);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override

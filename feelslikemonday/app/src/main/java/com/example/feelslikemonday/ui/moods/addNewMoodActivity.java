@@ -37,60 +37,57 @@ import io.opencensus.internal.StringUtils;
 
 public class addNewMoodActivity extends AppCompatActivity {
 
-    private Button attachPhotoButton;
-    private Button cancelButton;
-    private Button saveButton;
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
     private EditText reason;
-    private User currentUser;
+    public User currentUser;
     private int moodState = 0; //if this variable =0 it means you're addind a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
     private String moodDate;
     private String moodTime;
     private SharedPreferences pref;
+    public List<MoodEvent> moodHistory;
     private String myUserID;
-    private static final int maxSpacesForReason= 2;
+    private MoodType myMoodType;
+    private MoodEvent myMood;
+    private static final int maxSpacesForReason = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_mood);
-        cancelButton = findViewById(R.id.mood_cancel);
-        attachPhotoButton = findViewById(R.id.mood_attach_photo);
-        saveButton = findViewById(R.id.button11);
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
 
-        // still need to read the image and location - left it for later
         fillSpinners();
-        attachPhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(addNewMoodActivity.this, attachPhotoActivity.class);
-                startActivity(intent);
-            }
-        });
+        addExistingForEdit();
+        setupDAO();
 
+    }
+
+    private void addExistingForEdit() {
         Intent intent = getIntent();
         moodState = 0;
         if (intent != null) {
-            moodState = intent.getIntExtra ("state",0);
+            moodState = intent.getIntExtra("state", 0);
             moodIndex = 0; //this variable is for sorting
             if (moodState == 1) {
-                moodTime = intent.getStringExtra ("mytime"); // get current time
-                moodDate = intent.getStringExtra ("myDate"); // get current date
-                reason.setText(intent.getStringExtra ("reason")); // get  reason
-                socialSituationSpinner.setSelection(intent.getIntExtra ("socialSituation",0)); //get social and set it to social spinner
-                moodSpiner.setSelection(intent.getIntExtra ("moodTypeName",0)); // get mood and set it within the spinner
-              //String state = intent.getStringExtra ("emotionalState");
-                moodIndex = intent.getIntExtra ("stateIndex",0); // index of mood that we need to edit
+                moodTime = intent.getStringExtra("mytime"); // get current time
+                moodDate = intent.getStringExtra("myDate"); // get current date
+                reason.setText(intent.getStringExtra("reason")); // get  reason
+                socialSituationSpinner.setSelection(intent.getIntExtra("socialSituation", 0)); //get social and set it to social spinner
+                moodSpiner.setSelection(intent.getIntExtra("moodTypeName", 0)); // get mood and set it within the spinner
+                //String state = intent.getStringExtra ("emotionalState");
+                moodIndex = intent.getIntExtra("stateIndex", 0); // index of mood that we need to edit
             }
         }
 
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
+    }
+
+    private void setupDAO() {
         // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
         userDAO.get(myUserID, new UserCallback() {
@@ -103,87 +100,90 @@ public class addNewMoodActivity extends AppCompatActivity {
             public void onCallback() {
             }
         });
+    }
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // check that reason is max 3 words
-                String reasonChoice = reason.getText().toString().trim();
-                int count = reasonChoice.length() - reasonChoice.replaceAll(" ", "").length();
-                if (count > maxSpacesForReason) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Reason cannot be over 3 words", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                    reason.requestFocus();
-                }
-                else{
-
-                // read the current user mood list
-                List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
-
-                if (moodState == 0) {
-                    Date date = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                    SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
-                    moodDate = sdf.format(date).toString();
-                    moodTime = stf.format(date).toString();
-                }
-
-                String emotionState = "No emotion"; //if we do not use this attribute, remove
-                String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
-                MoodType myMoodType;
-                MoodEvent myMood;
-
-                myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-                myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social);
-
-
-                if (moodState == 0) {
-                    // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
-                    moodHistoryTempTemp.add(moodIndex, myMood);
-                } else {
-                    // edit the existing mood
-                    moodHistoryTempTemp.set(moodIndex, myMood);
-                }
-                // update the user object
-                UserDAO userAdo = new UserDAO();
-                userAdo.createOrUpdate(currentUser, new VoidCallback() {
-                    @Override
-                    public void onCallback() {
-                    }
-                });
-                finish();
-            }// end of else
-        }//end of onClick
-        });
+    public void cancelButton(View view) {
+        finish();
 
     }
 
+    public void photoButton(View view) {
+        Intent intent = new Intent(addNewMoodActivity.this, attachPhotoActivity.class);
+        startActivity(intent);
+    }
 
     public void Save(View view) {
+        moodHistory = currentUser.getMoodHistory();
+        myMood = getMoodDetails();
+        addMoodToList(myMood);
+        updateUserWithNewMood(currentUser);
+    }
 
-        Log.v("button", "save pressed");
+    public MoodEvent getMoodDetails() {
+
+        // check that reason is max 3 words
+        String reasonChoice = reason.getText().toString().trim();
+        int count = reasonChoice.length() - reasonChoice.replaceAll(" ", "").length();
+        if (count > maxSpacesForReason) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Reason cannot be over 3 words", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+            reason.requestFocus();
+        } else {
+
+            // read the current user mood list
+
+            if (moodState == 0) {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
+                moodDate = sdf.format(date).toString();
+                moodTime = stf.format(date).toString();
+            }
+
+            String emotionState = "No emotion"; //if we do not use this attribute, remove
+            String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
+
+
+            myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social);
+
+            finish();
+        }  // end of else
+        return myMood;
+
+    }
+
+    public void addMoodToList(MoodEvent myMood) {
+        if (moodState == 0) {
+            // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
+            moodHistory.add(moodIndex, myMood);
+        } else {
+            // edit the existing mood
+            moodHistory.set(moodIndex, myMood);
         }
+    }
 
+    public void updateUserWithNewMood(User currentUser) {
+        // update the user object
+        UserDAO userAdo = new UserDAO();
+        userAdo.createOrUpdate(currentUser, new VoidCallback() {
+            @Override
+            public void onCallback() {
+            }
+        });
+    }
 
-// List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS
-    private void fillSpinners( ) {
+    // List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS
+    private void fillSpinners() {
 
-        List<String> moodSpinner =  new ArrayList<>();
+        List<String> moodSpinner = new ArrayList<>();
 
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
-            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji()+ " ( "+MoodEvent.MOOD_TYPES.get(i).getName()+" )");
+            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji() + " ( " + MoodEvent.MOOD_TYPES.get(i).getName() + " )");
         }
 
-        List<String> socialSpinner =  new ArrayList<>();
+        List<String> socialSpinner = new ArrayList<>();
 
         for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
             socialSpinner.add(MoodEvent.SOCIAL_SITUATIONS.get(i));

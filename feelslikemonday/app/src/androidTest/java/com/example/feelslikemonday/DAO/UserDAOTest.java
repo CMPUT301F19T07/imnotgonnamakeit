@@ -62,7 +62,7 @@ public class UserDAOTest {
                 signal.countDown();
             }
         });
-        
+
         signal.await();
     }
 }
