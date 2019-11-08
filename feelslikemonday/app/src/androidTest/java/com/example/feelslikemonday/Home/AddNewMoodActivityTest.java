@@ -44,7 +44,6 @@ public class AddNewMoodActivityTest {
      * Gets the activity
      * @throws Exception
      */
-
     @Test
     public void start()throws Exception{
         Activity activity = rule.getActivity();
@@ -65,7 +64,6 @@ public class AddNewMoodActivityTest {
     /**
      * This tests adding a new mood event
      */
-
     @Test
     public  void addMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
@@ -85,6 +83,81 @@ public class AddNewMoodActivityTest {
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
     }
+
+    /**
+     * This tests canceling a mood after wanting to add a new mood event
+     */
+    @Test
+    public  void cancelAddMoodTest() {
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnButton("LOGIN");
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("New");
+        solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
+        solo.clickOnView(solo.getView(R.id.mood_spinner));
+        solo.pressSpinnerItem(0, 0);
+        solo.enterText((EditText) solo.getView(R.id.editText8), "going to cancel"); // reason
+        solo.clickOnView(solo.getView(R.id.social_spinner));
+        solo.pressSpinnerItem(0, 0);
+        solo.clickOnButton("save");
+        solo.sleep(500);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
+    }
+/*
+    //PLEASE DO NOT REMOVE, I AM STILL WORKING ON FIGURING OUT HOW TO SWIPE IN A TEST
+
+    @Test
+    public  void editMoodTest(){
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnButton("LOGIN");
+        solo.sleep(2000);
+        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
+        // click on edit, index =0
+        //still figuring out how to use robotium to test the swiping feature
+        solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.editText8), "edited");
+        solo.clickOnButton("save");
+        solo.sleep(500);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
+    }
+
+    @Test
+    public  void viewMoodTest(){
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnButton("LOGIN");
+        solo.sleep(2000);
+        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
+        // click on view, index =1
+        //still figuring out how to use robotium to test the swiping feature
+        solo.assertCurrentActivity("Wrong Activity", DisplayCurrentMood.class);
+        solo.clickOnButton("BACK");
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.sleep(500);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
+    }
+
+    @Test
+    public  void deleteMoodTest(){
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnButton("LOGIN");
+        solo.sleep(2000);
+        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
+        // click on delete, index =2
+        //still figuring out how to use robotium to test the swiping feature
+        //check that mood is no longer in user's moodhistory
+        solo.sleep(500);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
+    }
+ */
 
     /**
      * Closes the activity after each test
