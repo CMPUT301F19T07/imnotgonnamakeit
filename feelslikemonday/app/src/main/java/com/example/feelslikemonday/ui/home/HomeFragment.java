@@ -194,7 +194,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public  void removeEmotion(@NonNull View view, int index){
+    public void removeEmotion(@NonNull View view, int index){
         List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
         SwipeMenuListView = view.findViewById(R.id.listView);
         myEmotionList.remove(index);
@@ -210,7 +210,7 @@ public class HomeFragment extends Fragment {
         // Send the new UserObjecct to the DB
     }
 
-    public  void viewEmotion(@NonNull View view, int index){
+    public void viewEmotion(@NonNull View view, int index){
 
         MoodEvent CurrentMoodEvent = myEmotionList.get(index);
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
@@ -224,7 +224,7 @@ public class HomeFragment extends Fragment {
     startActivity(intent);
     }
 
-    public  void editEmotion(@NonNull View view, int index){
+    public void editEmotion(@NonNull View view, int index){
 
         MoodEvent CurrentModeEvent = myEmotionList.get(index);
 

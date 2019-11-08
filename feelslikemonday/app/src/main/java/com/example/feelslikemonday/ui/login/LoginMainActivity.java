@@ -20,12 +20,12 @@ import com.example.feelslikemonday.model.User;
 
 public class LoginMainActivity extends AppCompatActivity {
 
-    EditText loginUsername;
-    EditText loginPassword;
-    String username;
-    String password;
-    SharedPreferences pref;
-    UserDAO userDAO = UserDAO.getInstance();
+    private EditText loginUsername;
+    private EditText loginPassword;
+    private String username;
+    private String password;
+    private SharedPreferences pref;
+    private UserDAO userDAO = UserDAO.getInstance();
 
     public static final String PREFS_NAME = "user_preferences";
     public static final String USERNAME_KEY = "username_key";

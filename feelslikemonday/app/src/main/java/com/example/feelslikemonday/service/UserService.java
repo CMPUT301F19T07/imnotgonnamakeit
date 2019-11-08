@@ -14,7 +14,7 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 
 public class UserService {
 
-    static UserDAO userDAO = UserDAO.getInstance();
+    private static UserDAO userDAO = UserDAO.getInstance();
 
     public static void signupUserExists(String username){
         userDAO.get(username, new UserCallback() {

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 public class SendRequestViewModel extends ViewModel {
 
-
     private MutableLiveData<String> mText;
 
     public SendRequestViewModel() {
