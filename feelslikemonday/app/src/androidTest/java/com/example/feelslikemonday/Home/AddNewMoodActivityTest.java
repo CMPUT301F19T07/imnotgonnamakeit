@@ -75,12 +75,14 @@ public class AddNewMoodActivityTest {
         solo.clickOnMenuItem("New");
         solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
         solo.clickOnView(solo.getView(R.id.mood_spinner));
-        solo.pressSpinnerItem(0, 3);
+        solo.pressSpinnerItem(0, 0);
         solo.enterText((EditText) solo.getView(R.id.editText8), "going to cancel"); // reason
         solo.clickOnView(solo.getView(R.id.social_spinner));
-        solo.pressSpinnerItem(0, 2);
+        solo.pressSpinnerItem(0, 0);
         solo.clickOnButton("save");
         solo.sleep(500);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
     }
 
     /**
@@ -97,12 +99,14 @@ public class AddNewMoodActivityTest {
         solo.clickOnMenuItem("New");
         solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
         solo.clickOnView(solo.getView(R.id.mood_spinner));
-        solo.pressSpinnerItem(0, 3);
+        solo.pressSpinnerItem(0, 0);
         solo.enterText((EditText) solo.getView(R.id.editText8), "didn't drink coffee"); // reason
         solo.clickOnView(solo.getView(R.id.social_spinner));
-        solo.pressSpinnerItem(0, 2);
+        solo.pressSpinnerItem(0, 0);
         solo.clickOnButton("save");
         solo.sleep(500);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
     }
 
 /*
