@@ -63,29 +63,6 @@ public class AddNewMoodActivityTest {
     }
 
     /**
-     * This tests canceling a mood after wanting to add a new mood event
-     */
-    @Test
-    public  void cancelAddMoodTest() {
-        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("New");
-        solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
-        solo.clickOnView(solo.getView(R.id.mood_spinner));
-        solo.pressSpinnerItem(0, 0);
-        solo.enterText((EditText) solo.getView(R.id.editText8), "going to cancel"); // reason
-        solo.clickOnView(solo.getView(R.id.social_spinner));
-        solo.pressSpinnerItem(0, 0);
-        solo.clickOnButton("save");
-        solo.sleep(500);
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
-    }
-
-    /**
      * This tests adding a new mood event
      */
 
@@ -108,20 +85,6 @@ public class AddNewMoodActivityTest {
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
     }
-
-/*
-    //not done
-    @Test
-    public  void deleteTest(){
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.sleep(2000);
-        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
-        //still figuring out how to use robotium to test the swiping feature
-    }
-
- */
 
     /**
      * Closes the activity after each test
