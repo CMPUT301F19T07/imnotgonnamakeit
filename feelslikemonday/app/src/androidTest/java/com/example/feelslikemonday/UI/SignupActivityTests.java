@@ -1,4 +1,4 @@
-package com.example.feelslikemonday.UI;
+package com.example.feelslikemonday.ui;
 
 import android.app.Activity;
 import android.widget.EditText;
@@ -103,6 +103,50 @@ public class SignupActivityTests {
         });
         //TO-DO: ADD LATCH
     }
+
+    /**
+     * This tests existing user
+     */
+    @Test
+    public  void existingUserSignUpTest() {
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        solo.clickOnView(tv);
+        solo.waitForActivity(SignupActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), "user");
+        solo.enterText((EditText) solo.getView(R.id.signupPasswordEdit), "12345");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Error: This user already exists");
+    }
+
+    /**
+     * This tests empty username
+     */
+    @Test
+    public  void emptyUsernameSignUpTest() {
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        solo.clickOnView(tv);
+        solo.waitForActivity(SignupActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.signupPasswordEdit), "12345");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Error: Empty Field");
+    }
+
+    /**
+     * This tests empty password
+     */
+    @Test
+    public void emptyPasswordSignUpTest() {
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        solo.clickOnView(tv);
+        solo.waitForActivity(SignupActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), "user");
+        solo.clickOnButton("Confirm");
+        solo.waitForText("Error: Empty Field");
+    }
+
 
     @After
     public void tearDown() throws Exception{
