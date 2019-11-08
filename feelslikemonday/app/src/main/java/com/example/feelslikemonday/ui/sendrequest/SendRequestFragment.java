@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-/*Resposible for  sending request to the uesr that you want to follow*/
+/*Resposible for  sending request to the user that you want to follow*/
 public class SendRequestFragment extends Fragment {
 
     private Button resetButton;
