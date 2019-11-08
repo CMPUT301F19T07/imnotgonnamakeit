@@ -26,13 +26,13 @@ https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText signupUsername;
-    EditText signupPassword;
-    String username;
-    String password;
-    User user;
-    SharedPreferences pref;
-    UserDAO userDAO = UserDAO.getInstance();
+    private EditText signupUsername;
+    private EditText signupPassword;
+    private String username;
+    private String password;
+    private User user;
+    private SharedPreferences pref;
+    private UserDAO userDAO = UserDAO.getInstance();
     public static final String PREFS_NAME = "user_preferences";
     public static final String USERNAME_KEY = "username_key";
 

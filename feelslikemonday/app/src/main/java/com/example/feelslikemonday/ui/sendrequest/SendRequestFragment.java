@@ -127,18 +127,11 @@ public class SendRequestFragment extends Fragment {
                             usernameEditText.setText("");
                         }
                     });
-
                 }
-
-
-
-
             }
         });
         return root;
     }
-
-
 
 
     /**
@@ -164,7 +157,5 @@ public class SendRequestFragment extends Fragment {
         String RecipientUsername = "Xiaole2";
         return RecipientUsername;
     }
-
-
 
 }

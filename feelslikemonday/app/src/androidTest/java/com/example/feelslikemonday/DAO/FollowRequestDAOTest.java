@@ -29,16 +29,7 @@ public class FollowRequestDAOTest {
             }
         });
 
-
-        DAO.createOrUpdate("xiaole",new FollowRequest("xiaole"),new VoidCallback(){
-            @Override
-            public void onCallback() {
-                signal.countDown();
-            }
-        });
-
         signal.await();
-
     }
 
     @Test
