@@ -7,9 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.following.FollowingFragment">
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/followee_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="8dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

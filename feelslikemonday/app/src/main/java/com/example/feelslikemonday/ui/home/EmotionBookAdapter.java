@@ -1,4 +1,4 @@
-package com.example.feelslikemonday.model;
+package com.example.feelslikemonday.ui.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.model.MoodEvent;
 
 
 import java.util.ArrayList;
