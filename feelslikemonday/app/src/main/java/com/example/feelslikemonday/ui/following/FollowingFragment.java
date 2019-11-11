@@ -61,7 +61,7 @@ public class FollowingFragment extends Fragment {
 
             @Override
             public void onChanged(@Nullable String s) {
-
+                userVisited = 0;
                 pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
                 myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
                 userList = getView().findViewById(R.id.followee_list);
