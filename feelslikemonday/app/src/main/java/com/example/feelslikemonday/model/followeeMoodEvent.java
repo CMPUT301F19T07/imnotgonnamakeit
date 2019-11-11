@@ -1,5 +1,9 @@
 package com.example.feelslikemonday.model;
 
+/**
+ * This is a model class for every user that your follow
+ * It keeps track of their username and most recent Mood event
+ */
 public class followeeMoodEvent {
 
     private String username;
