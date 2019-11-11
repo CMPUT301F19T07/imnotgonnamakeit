@@ -4,12 +4,12 @@ package com.example.feelslikemonday.model;
  * This is a model class for every user that your follow
  * It keeps track of their username and most recent Mood event
  */
-public class followeeMoodEvent {
+public class FolloweeMoodEvent {
 
     private String username;
     private MoodEvent recentMood;
 
-    public followeeMoodEvent(String username, MoodEvent recentMood) {
+    public FolloweeMoodEvent(String username, MoodEvent recentMood) {
         this.username = username;
         this.recentMood = recentMood;
     }

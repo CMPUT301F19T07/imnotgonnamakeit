@@ -9,19 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.feelslikemonday.R;
-import com.example.feelslikemonday.model.followeeMoodEvent;
+import com.example.feelslikemonday.model.FolloweeMoodEvent;
 import java.util.ArrayList;
 
 /*
  *This class acts as a array adapter for the followee's on the following page
 */
 
-public class FolloweeBookAdapter extends ArrayAdapter<followeeMoodEvent> {
+public class FolloweeBookAdapter extends ArrayAdapter<FolloweeMoodEvent> {
 
     private Context context;
     private int mResource;
 
-    public FolloweeBookAdapter(Context context, int resource, ArrayList<followeeMoodEvent> objects) {
+    public FolloweeBookAdapter(Context context, int resource, ArrayList<FolloweeMoodEvent> objects) {
         super(context, resource, objects);
         this.context = context;
         mResource = resource;

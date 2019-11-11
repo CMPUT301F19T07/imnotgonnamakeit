@@ -23,9 +23,9 @@ import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
+import com.example.feelslikemonday.model.FolloweeMoodEvent;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.User;
-import com.example.feelslikemonday.model.followeeMoodEvent;
 import com.example.feelslikemonday.service.SortObjectDateTime;
 import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.SignupActivity;
@@ -50,7 +50,7 @@ public class FollowingFragment extends Fragment {
     private SharedPreferences pref;
     private String myUserID;
     private List<MoodEvent> followeeUserMoodList;
-    private ArrayList<followeeMoodEvent> myfolloweeList = new ArrayList<>();
+    private ArrayList<FolloweeMoodEvent> myfolloweeList = new ArrayList<>();
     private int userVisited = 0;
     private String  userCurrent;
 
@@ -166,7 +166,7 @@ public class FollowingFragment extends Fragment {
         followeeUserMoodList = user.getMoodHistory();
         if (followeeUserMoodList.size() > 0) {
             MoodEvent recentMood = user.getMoodHistory().get(0);
-            followeeMoodEvent userlatestMood = new followeeMoodEvent(user.getUsername(), recentMood);
+            FolloweeMoodEvent userlatestMood = new FolloweeMoodEvent(user.getUsername(), recentMood);
             myfolloweeList.add(userlatestMood);
         }
     }
