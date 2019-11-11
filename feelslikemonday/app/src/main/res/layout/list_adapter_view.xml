@@ -10,6 +10,7 @@ android:weightSum="100">
         android:layout_height="match_parent"
         android:layout_weight="23"
         android:fontFamily="casual"
+        android:hint="date"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
@@ -18,6 +19,7 @@ android:weightSum="100">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="33"
+        android:hint="time"
         android:fontFamily="casual"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
@@ -30,7 +32,6 @@ android:weightSum="100">
         android:fontFamily="casual"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
-
 
 
 </LinearLayout>
