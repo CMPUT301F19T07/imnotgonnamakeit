@@ -14,9 +14,8 @@ import com.example.feelslikemonday.R;
 
 import java.util.ArrayList;
 
-/*
+/**
  *This class acts as a array adapter of the emotion book
-
  */
 
 public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
@@ -24,12 +23,26 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
     private Context context;
     private int mResource;
 
-    // constructor
+
+    /**
+     * this is a constructor that create the Emotion Book Adapter
+     * @param context
+     * @param resource
+     * @param objects
+     */
     public EmotionBookAdapter(Context context, int resource, ArrayList<MoodEvent> objects) {
         super(context, resource, objects);
         this.context = context;
         mResource = resource;
     }
+
+    /**
+     * This return the view of the EmotionBookAdapter, it takes position , view and parent.
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return the view of the Emotion BookAdapter
+     */
 
     @NonNull
     @Override
