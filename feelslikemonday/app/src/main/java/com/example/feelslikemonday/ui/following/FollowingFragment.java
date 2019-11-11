@@ -51,7 +51,7 @@ public class FollowingFragment extends Fragment {
     private String myUserID;
     private List<MoodEvent> followeeUserMoodList;
     private ArrayList<followeeMoodEvent> myfolloweeList = new ArrayList<>();
-    private int xIteration;
+    private int i;
     private int userVisited = 0;
     private String  userCurrent;
 
@@ -77,8 +77,8 @@ public class FollowingFragment extends Fragment {
 
                             UserDAO userDAO = new UserDAO();
 
-                            for (xIteration=0; xIteration<followeeUsernames.size(); xIteration++){
-                                 userCurrent = followeeUsernames.get(xIteration);
+                            for (i =0; i <followeeUsernames.size(); i++){
+                                 userCurrent = followeeUsernames.get(i);
                                  userDAO.get(userCurrent, new UserCallback() {
                                     @Override
                                     public void onCallback(User user) {
