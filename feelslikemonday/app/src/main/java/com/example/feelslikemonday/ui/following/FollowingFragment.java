@@ -30,11 +30,13 @@ import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.model.followeeMoodEvent;
+import com.example.feelslikemonday.service.SortObjectDateTime;
 import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -107,6 +109,7 @@ public class FollowingFragment extends Fragment {
                                        //     Collections.sort(myfolloweeList,followeeMoodEvent);
 // https://www.thejavaprogrammer.com/sort-arraylist-objects-java/
 
+                                            Collections.sort(myfolloweeList, new SortObjectDateTime());
                                             adapter = new FolloweeBookAdapter(getContext(), R.layout.followee_adapter_view, myfolloweeList);
                                             userList.setAdapter(adapter);
 
@@ -150,8 +153,6 @@ public class FollowingFragment extends Fragment {
                                                     return false;
                                                 }
                                             });
-
-
                                         }
                                     }
                                 }, new VoidCallback() {
@@ -160,10 +161,8 @@ public class FollowingFragment extends Fragment {
                                     }
                                 });
                             }
-
                             // until here each users
                         }
-
                     }
                 }, new VoidCallback() {
                     @Override
@@ -173,7 +172,6 @@ public class FollowingFragment extends Fragment {
                         toast.show();
                     }
                 });
-
             }
         });
         return root;
@@ -194,3 +192,5 @@ public class FollowingFragment extends Fragment {
 
     }
     }
+
+
