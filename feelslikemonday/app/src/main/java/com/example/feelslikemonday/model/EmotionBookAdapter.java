@@ -1,6 +1,7 @@
 package com.example.feelslikemonday.model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
 
     private Context context;
     private int mResource;
+
     // constructor
     public EmotionBookAdapter(Context context, int resource, ArrayList<MoodEvent> objects) {
         super(context, resource, objects);
@@ -36,6 +38,7 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
         String var1_date = getItem(position).getDate().toString();//??-----
         String var2_time = getItem(position).getTime().toString();
         String var3_dist = getItem(position).getMoodType().getEmoji().toString();
+        String moodname = getItem(position).getMoodType().getName().toString();
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(mResource,parent,false);
@@ -47,6 +50,25 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
         tvDate.setText(var1_date);
         tvTime.setText(var2_time);
         tvEmotion.setText(var3_dist);
+
+        if (moodname.equals("Anger")){
+            convertView.setBackgroundColor(Color.rgb(255, 124, 84));  //orange-red
+        }
+        else if (moodname.equals("Disgust")){
+            convertView.setBackgroundColor(Color.rgb(89, 207, 93)); // green
+        }
+        else if (moodname.equals("Fear")){
+            convertView.setBackgroundColor(Color.rgb(142, 75, 209)); //purple
+        }
+        else if (moodname.equals("Happiness")){
+            convertView.setBackgroundColor(Color.rgb(237, 26, 160));  //pink
+        }
+        else if (moodname.equals("Sadness")){
+            convertView.setBackgroundColor(Color.rgb(66, 168, 227)); //blue
+        }
+        else if (moodname.equals("Surprise")){
+            convertView.setBackgroundColor(Color.rgb(255, 221, 84)); //yellow-orange
+        }
 
         return convertView;
     }
