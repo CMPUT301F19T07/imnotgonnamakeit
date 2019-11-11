@@ -84,7 +84,6 @@ public class FollowingFragment extends Fragment {
                                     public void onCallback(User user) {
 
                                         checkFollowee(user);
-                                        //was here
 
                                         userVisited = userVisited + 1;
                                         if (userVisited == followeeUsernames.size()){
