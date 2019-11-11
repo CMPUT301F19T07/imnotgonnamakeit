@@ -44,7 +44,7 @@ public class FollowingFragment extends Fragment {
 
     private FollowingViewModel followingViewModel;
     private SwipeMenuListView userList;
-    private FolloweeBookAdapter adapter;
+    private FollowingPageAdapter adapter;
     private List<String> followeeUsernames;
     private static FollowPermissionDAO DAO;
     private SharedPreferences pref;
@@ -88,7 +88,7 @@ public class FollowingFragment extends Fragment {
                                         if (userVisited == followeeUsernames.size()){
                                             Collections.sort(myfolloweeList, new SortObjectDateTime());
 
-                                            adapter = new FolloweeBookAdapter(getContext(), R.layout.followee_adapter_view, myfolloweeList);
+                                            adapter = new FollowingPageAdapter(getContext(), R.layout.followee_adapter_view, myfolloweeList);
                                             userList.setAdapter(adapter);
                                             SwipeMenuCreator creator = new SwipeMenuCreator() {
 

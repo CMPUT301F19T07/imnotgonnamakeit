@@ -16,12 +16,12 @@ import java.util.ArrayList;
  *This class acts as a array adapter for the followee's on the following page
 */
 
-public class FolloweeBookAdapter extends ArrayAdapter<FolloweeMoodEvent> {
+public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
 
     private Context context;
     private int mResource;
 
-    public FolloweeBookAdapter(Context context, int resource, ArrayList<FolloweeMoodEvent> objects) {
+    public FollowingPageAdapter(Context context, int resource, ArrayList<FolloweeMoodEvent> objects) {
         super(context, resource, objects);
         this.context = context;
         mResource = resource;
@@ -31,10 +31,10 @@ public class FolloweeBookAdapter extends ArrayAdapter<FolloweeMoodEvent> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        String var0_fUser = getItem(position).getUsername().toString();
-        String var1_date = getItem(position).getRecentMood().getDate().toString();
-        String var2_time = getItem(position).getRecentMood().getTime().toString();
-        String var3_dist = getItem(position).getRecentMood().getMoodType().getEmoji().toString();
+        String followeeUsername = getItem(position).getUsername().toString();
+        String datePosted = getItem(position).getRecentMood().getDate().toString();
+        String timePosted = getItem(position).getRecentMood().getTime().toString();
+        String mood = getItem(position).getRecentMood().getMoodType().getEmoji().toString();
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(mResource,parent,false);
@@ -44,10 +44,10 @@ public class FolloweeBookAdapter extends ArrayAdapter<FolloweeMoodEvent> {
         TextView tvDate = (TextView) convertView.findViewById(R.id.fdatelbl);
         TextView tvTime = (TextView) convertView.findViewById(R.id.ftimelbl);
         TextView tvEmotion = (TextView) convertView.findViewById(R.id.femotionlbl);
-        tvfUser.setText(var0_fUser);
-        tvDate.setText(var1_date);
-        tvTime.setText(var2_time);
-        tvEmotion.setText(var3_dist);
+        tvfUser.setText(followeeUsername);
+        tvDate.setText(datePosted);
+        tvTime.setText(timePosted);
+        tvEmotion.setText(mood);
 
         return convertView;
     }
