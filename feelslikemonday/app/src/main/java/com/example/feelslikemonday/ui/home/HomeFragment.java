@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) { }});
+        root.setBackgroundColor(Color.GREEN);
         return root;
     }
 
@@ -74,6 +75,7 @@ public class HomeFragment extends Fragment {
                 }
                 SwipeMenuListView = getView().findViewById(R.id.listView);
                 adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
+                SwipeMenuListView.setBackgroundColor(Color.YELLOW);
                 SwipeMenuListView.setAdapter(adapter);
 
             }
