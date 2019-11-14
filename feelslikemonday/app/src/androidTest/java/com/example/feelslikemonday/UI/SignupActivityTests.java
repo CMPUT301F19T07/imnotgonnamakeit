@@ -15,8 +15,8 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.login.SignupActivity;
-import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
 import com.robotium.solo.Solo;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

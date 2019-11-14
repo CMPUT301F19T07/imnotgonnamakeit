@@ -3,7 +3,6 @@ package com.example.feelslikemonday.DAO;
 import android.util.Log;
 
 import com.example.feelslikemonday.model.FollowPermission;
-import com.example.feelslikemonday.model.FollowRequest;
 
 import org.junit.Test;
 
