@@ -23,8 +23,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.feelslikemonday.DAO.UserCallback;
@@ -45,6 +47,8 @@ import java.util.List;
 
 import io.opencensus.internal.StringUtils;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 /*Responsible for editing or adding a mood event*/
 
 public class addNewMoodActivity extends AppCompatActivity {
@@ -52,6 +56,8 @@ public class addNewMoodActivity extends AppCompatActivity {
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
+    private Switch locationSwitch;
+    private boolean saveLocation = false;
     private EditText reason;
     public User currentUser;
     private int moodState = 0; //if this variable =0 it means you're adding a new mood, it 1 you're editing the current mood
@@ -74,6 +80,13 @@ public class addNewMoodActivity extends AppCompatActivity {
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
+        locationSwitch = findViewById(R.id.location_switch);
+
+        locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveLocation = isChecked;
+            }
+        });
 
         fillSpinners();
         addExistingForEdit();
@@ -119,6 +132,7 @@ public class addNewMoodActivity extends AppCompatActivity {
         });
     }
 
+
     public void cancelButton(View view) {
         finish();
     }
@@ -161,7 +175,11 @@ public class addNewMoodActivity extends AppCompatActivity {
             String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-            currentLocation = getLocation();
+            if (saveLocation) {
+                currentLocation = getLocation();
+            } else {
+                currentLocation = NULL;
+            }
             myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation);
 
             finish();

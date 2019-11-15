@@ -30,6 +30,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -112,6 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 case "Surprise":
                     markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
                     break;
+            }
+            if (markerLocation.equals(NULL)){
+                continue;
             }
             String[] latLongSplit = markerLocation.split(" ");
             currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
