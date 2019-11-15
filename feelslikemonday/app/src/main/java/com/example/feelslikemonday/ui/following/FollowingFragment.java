@@ -46,7 +46,7 @@ public class FollowingFragment extends Fragment {
     private SwipeMenuListView userList;
     private FollowingPageAdapter adapter;
     private List<String> followeeUsernames;
-    private static FollowPermissionDAO DAO;
+    private static FollowPermissionDAO DAO = FollowPermissionDAO.getInstance();
     private SharedPreferences pref;
     private String myUserID;
     private List<MoodEvent> followeeUserMoodList;
@@ -66,7 +66,6 @@ public class FollowingFragment extends Fragment {
                 myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
                 userList = getView().findViewById(R.id.followee_list);
 
-                DAO = FollowPermissionDAO.getInstance();
                 DAO.get(myUserID, new FollowPermissionCallback(){
                     @Override
                     public void onCallback(FollowPermission followPermission) {
