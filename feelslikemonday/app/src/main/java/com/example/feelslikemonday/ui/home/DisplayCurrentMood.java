@@ -19,6 +19,7 @@ public class DisplayCurrentMood extends AppCompatActivity {
         
         Intent intent = getIntent();
 
+        TextView View_followee = findViewById(R.id.followeeUsername);
         TextView View_date = findViewById(R.id.textViewDate);
         TextView View_time = findViewById(R.id.textViewTime);
         TextView View_emotionalState = findViewById(R.id.textViewEmotionalState);
@@ -26,6 +27,7 @@ public class DisplayCurrentMood extends AppCompatActivity {
         TextView View_socialSituation = findViewById(R.id.textViewsocialSituation);
         TextView View_moodType = findViewById(R.id.textViewMoodType);
 
+        View_followee.setText(intent.getStringExtra ("followeeUsername"));
         View_date.setText(intent.getStringExtra ("myDate"));
         View_time.setText(intent.getStringExtra ("mytime"));
         View_emotionalState.setText(intent.getStringExtra ("emotionalState"));
