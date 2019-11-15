@@ -143,19 +143,19 @@ public class SendRequestFragment extends Fragment {
      */
 
 
-    private void storeRecipientUsername(String friendName){
-        //TODO: pass filename variable from MainActivity
-        SharedPreferences mySharedPreferences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
-        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
-        myEditor.putString("recipientUsername", friendName);
-        myEditor.apply();
-    }
-
-    private String getRecipientUsername(){
-        SharedPreferences mySharedPrefrences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
-        //String RecipientUsername = mySharedPrefrences.getString("recipientUsername", this.getActivity().);
-        String RecipientUsername = "Xiaole2";
-        return RecipientUsername;
-    }
+//    private void storeRecipientUsername(String friendName){
+//        //TODO: pass filename variable from MainActivity
+//        SharedPreferences mySharedPreferences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
+//        myEditor.putString("recipientUsername", friendName);
+//        myEditor.apply();
+//    }
+//
+//    private String getRecipientUsername(){
+//        SharedPreferences mySharedPrefrences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
+//        //String RecipientUsername = mySharedPrefrences.getString("recipientUsername", this.getActivity().);
+//        String RecipientUsername = "Xiaole2";
+//        return RecipientUsername;
+//    }
 
 }
