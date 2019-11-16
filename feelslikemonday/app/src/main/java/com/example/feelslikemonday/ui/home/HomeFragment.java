@@ -23,20 +23,14 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
-import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.EmotionBookAdapter;
 import com.example.feelslikemonday.model.MoodEvent;
-import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
-import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.login.SignupActivity;
-import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
+import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /*Responsible for listing all user's moods and related information */
@@ -230,7 +224,7 @@ public class HomeFragment extends Fragment {
 
         MoodEvent CurrentModeEvent = myEmotionList.get(index);
 
-        Intent intent = new Intent(getContext(), addNewMoodActivity.class);
+        Intent intent = new Intent(getContext(), AddNewMoodActivity.class);
 
         int indexSoical = getCurrentSocialIndex(CurrentModeEvent.getSocialSituation());
         int indexMood = getCurrentMoodIndex(CurrentModeEvent.getMoodType().getName());

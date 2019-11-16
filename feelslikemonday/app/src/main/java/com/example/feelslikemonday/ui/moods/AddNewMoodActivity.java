@@ -5,13 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,7 +19,6 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
-import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.text.SimpleDateFormat;
@@ -31,12 +26,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import io.opencensus.internal.StringUtils;
-
 /*Responsible for editing or adding a mood event*/
 
-public class addNewMoodActivity extends AppCompatActivity {
-
+public class AddNewMoodActivity extends AppCompatActivity {
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
     private EditText reason;
@@ -108,8 +100,8 @@ public class addNewMoodActivity extends AppCompatActivity {
     }
 
     public void photoButton(View view) {
-        Intent intent = new Intent(addNewMoodActivity.this, attachPhotoActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(AddNewMoodActivity.this, AttachPhotoActivity.class);
+        startActivityForResult(intent, AttachPhotoActivity.REQUEST_CODE);
     }
 
     public void Save(View view) {

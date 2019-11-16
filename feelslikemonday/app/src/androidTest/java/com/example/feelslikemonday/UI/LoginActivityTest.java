@@ -10,7 +10,6 @@ import androidx.test.rule.ActivityTestRule;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
-import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;

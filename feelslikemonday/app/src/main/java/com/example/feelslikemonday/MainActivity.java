@@ -9,9 +9,7 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import com.example.feelslikemonday.ui.login.SignupActivity;
-import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent myIntent = new Intent(this, addNewMoodActivity.class);
+                Intent myIntent = new Intent(this, AddNewMoodActivity.class);
                 this.startActivity(myIntent);
                 break;
             case R.id.action_filter:

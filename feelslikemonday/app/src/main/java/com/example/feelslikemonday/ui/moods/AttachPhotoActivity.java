@@ -22,11 +22,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class attachPhotoActivity extends AppCompatActivity {
-
+public class AttachPhotoActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE = 100;
     public static final int CAMERA_REQUEST = 9999;
     public static final int ALBUM_REQUEST = 1111;
     private ImageView imageView;
+    private Bitmap savedBitmap;
     private Button cancelButton;
     private Context PostImage;
     private Button saveButton;
@@ -48,17 +49,21 @@ public class attachPhotoActivity extends AppCompatActivity {
         });
     }
 
-    public void OpenCamera(View view){
+    public void openCamera(View view){
 
         Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,CAMERA_REQUEST);
 
     }
-    public void OpenAlbum(View view){
+    public void openAlbum(View view){
         Intent intent =  new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent,ALBUM_REQUEST);
 
+    }
+    public void saveImage(){
+        Intent output = new Intent();
+        output.putExtra();
     }
 
     @Override
