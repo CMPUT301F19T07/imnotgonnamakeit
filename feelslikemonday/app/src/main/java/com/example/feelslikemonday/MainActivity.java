@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.example.feelslikemonday.ui.home.HomeFragment;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
 import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
@@ -15,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -82,7 +84,13 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(add);
                 break;
             case R.id.action_filter:
-                // another startActivity, this is for item with id "menu_item2"
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("filter", true);
+                HomeFragment filter = new HomeFragment();
+                filter.setArguments(bundle);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, filter).commit();
                 break;
             case R.id.action_show_map:
                 Intent maps = new Intent(this, MapsActivity.class);
