@@ -3,6 +3,8 @@ package com.example.feelslikemonday.model;
 //import java.io.Serializable;
 import android.location.Location;
 
+import com.google.firebase.firestore.Blob;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,13 +40,26 @@ public class MoodEvent{
     private String reason;
     private String socialSituation;
     private MoodType moodType;
-    private byte[] image;
+    private Blob image;
 
     //To be attached when editing
     private Location location;
 
     //Used to deserialize
     public MoodEvent(){}
+
+    public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation, Blob image) {
+        if(reason.length()>MAX_REASON_LEN){
+            throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
+        }
+        this.date = date;
+        this.time = time;
+        this.emotionalState = emotionalState;
+        this.reason = reason;
+        this.moodType = moodType;
+        this.socialSituation = socialSituation;
+        this.image = image;
+    }
 
     public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation) {
         if(reason.length()>MAX_REASON_LEN){
@@ -156,15 +171,15 @@ public class MoodEvent{
      * @return
      *    return the image of the mood event
      */
-    public byte[] getImage() {
+    public Blob getImage() {
         return image;
     }
 
     /**
-     *  this sets up the image from the mood event
+     * Stores the image
      * @param image
      */
-    public void setImage(byte[] image) {
+    public void setImage(Blob image) {
         this.image = image;
     }
 
