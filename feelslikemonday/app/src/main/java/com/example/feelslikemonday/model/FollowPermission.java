@@ -30,7 +30,7 @@ public class FollowPermission {
     }
 
     /**
-     * this return the followee usernames
+     * this return the FolloweeMoodEvent usernames
      * @return
      *    the followees' username that user have approved
      */
