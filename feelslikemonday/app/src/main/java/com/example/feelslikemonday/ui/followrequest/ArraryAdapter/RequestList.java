@@ -34,7 +34,7 @@ public class RequestList extends ArrayAdapter<String> {
     private Context context;
     private List<String> requesterUsernames;
     private List<String> followeeUsernames;
-    private static FollowPermissionDAO DAO;
+    private static FollowPermissionDAO followPermissionDAO;
     private static FollowRequestDAO followRequestDAO;
     private SharedPreferences pref;
     private String myUserID;
@@ -50,7 +50,7 @@ public class RequestList extends ArrayAdapter<String> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //return super.getView(position, convertView, parent);
-        DAO = FollowPermissionDAO.getInstance();
+        followPermissionDAO = FollowPermissionDAO.getInstance();
         followRequestDAO = FollowRequestDAO.getInstance();
         pref = getContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
@@ -60,10 +60,10 @@ public class RequestList extends ArrayAdapter<String> {
         if(view == null){
             view = LayoutInflater.from(context).inflate(R.layout.content_follow_request, parent, false);
         }
-        final String user = requesterUsernames.get(position);
+        final String requesterUsername = requesterUsernames.get(position);
 
         TextView userName = view.findViewById(R.id.username_text);
-        userName.setText(user);
+        userName.setText(requesterUsername);
 
         Button acceptButton = view.findViewById(R.id.request_accept_button);
         Button rejectButton = view.findViewById(R.id.request_reject_button);
@@ -73,14 +73,14 @@ public class RequestList extends ArrayAdapter<String> {
             public void onClick(View view) {
                 Log.i("testListView", "clickAcceptButton");
 
-                DAO.get(myUserID, new FollowPermissionCallback(){
+                followPermissionDAO.get(myUserID, new FollowPermissionCallback(){
                     @Override
                     public void onCallback(FollowPermission followPermission) {
                         if(followPermission.getFollowerUsername().equals(myUserID)){
                             followeeUsernames = followPermission.getFolloweeUsernames();
-                            followeeUsernames.add(user);
+                            followeeUsernames.add(requesterUsername);
 
-                            DAO.createOrUpdate(myUserID, followPermission, new VoidCallback() {
+                            followPermissionDAO.createOrUpdate(myUserID, followPermission, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }
@@ -95,19 +95,18 @@ public class RequestList extends ArrayAdapter<String> {
                     public void onCallback(FollowRequest followRequest) {
                         if(followRequest.getRecipientUsername().equals(myUserID)){
                             requesterUsernames = followRequest.getRequesterUsernames();
-                            requesterUsernames.remove(user);
+                            requesterUsernames.remove(requesterUsername);
 
                             followRequestDAO.createOrUpdate(myUserID, followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }
                             });
-                            RequestList.this.remove(user);
+                            RequestList.this.remove(requesterUsername);
                         }
 
                     }
                 },null);
-
             }
         });
 
@@ -121,28 +120,19 @@ public class RequestList extends ArrayAdapter<String> {
                     public void onCallback(FollowRequest followRequest) {
                         if(followRequest.getRecipientUsername().equals(myUserID)){
                             requesterUsernames = followRequest.getRequesterUsernames();
-                            requesterUsernames.remove(user);
+                            requesterUsernames.remove(requesterUsername);
 
                             followRequestDAO.createOrUpdate(myUserID, followRequest, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }
                             });
-
-                            RequestList.this.remove(user);
-
+                            RequestList.this.remove(requesterUsername);
                         }
-
                     }
                 },null);
-
-
-
             }
         });
         return view;
-
-
-
     }
 }
