@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,14 +20,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feelslikemonday.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class attachPhotoActivity extends AppCompatActivity {
-
+public class AttachPhotoActivity extends AppCompatActivity {
+    //Request codes
+    public static final int REQUEST_CODE = 100;
     public static final int CAMERA_REQUEST = 9999;
     public static final int ALBUM_REQUEST = 1111;
+
+    //Result codes
+    public static final int RES_OK = 0;
+    
+    //Extra codes
+    public static final String BITMAP_BYTE_ARRAY_EXTRA = "BITMAP_STRING_EXTRA";
+
     private ImageView imageView;
     private Button cancelButton;
     private Context PostImage;
@@ -48,17 +59,37 @@ public class attachPhotoActivity extends AppCompatActivity {
         });
     }
 
-    public void OpenCamera(View view){
+    public void openCamera(View view){
 
         Intent intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,CAMERA_REQUEST);
 
     }
-    public void OpenAlbum(View view){
+    public void openAlbum(View view){
         Intent intent =  new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent,ALBUM_REQUEST);
 
+    }
+    public void saveImage(View view){
+        Intent output = new Intent();
+        //Get image from the imageView, convert it into a byte array, and then pass it as an extra
+        output.putExtra(BITMAP_BYTE_ARRAY_EXTRA,bitmapToByteArray(((BitmapDrawable)imageView.getDrawable()).getBitmap()));
+        setResult(RES_OK,output);
+        finish();
+    }
+
+    /**
+     * Converts bitmap to string. Code obtained from https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+     * @param bitmap
+     * @return
+     */
+    public byte[] bitmapToByteArray(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        bitmap.recycle();
+        return byteArray;
     }
 
     @Override
@@ -67,7 +98,6 @@ public class attachPhotoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==CAMERA_REQUEST && resultCode == RESULT_OK ){
-
             Bitmap bitmap= (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(bitmap);
         }

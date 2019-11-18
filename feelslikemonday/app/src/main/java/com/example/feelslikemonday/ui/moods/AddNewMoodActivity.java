@@ -4,15 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,20 +22,17 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
-import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.google.firebase.firestore.Blob;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import io.opencensus.internal.StringUtils;
-
 /*Responsible for editing or adding a mood event*/
 
-public class addNewMoodActivity extends AppCompatActivity {
-
+public class AddNewMoodActivity extends AppCompatActivity {
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
     private EditText reason;
@@ -50,6 +46,7 @@ public class addNewMoodActivity extends AppCompatActivity {
     private String myUserID;
     private MoodType myMoodType;
     private MoodEvent myMood;
+    private byte[] moodBitmapByteArray;
     private static final int maxSpacesForReason = 2;
 
     @Override
@@ -108,11 +105,34 @@ public class addNewMoodActivity extends AppCompatActivity {
     }
 
     public void photoButton(View view) {
-        Intent intent = new Intent(addNewMoodActivity.this, attachPhotoActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(AddNewMoodActivity.this, AttachPhotoActivity.class);
+        startActivityForResult(intent, AttachPhotoActivity.REQUEST_CODE);
     }
 
-    public void Save(View view) {
+    /**
+     * Method currently used to get photos from the photo activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(resultCode,resultCode,data);
+        if (requestCode == AttachPhotoActivity.REQUEST_CODE && resultCode == AttachPhotoActivity.RES_OK && data != null) {
+            byte[] img = data.getByteArrayExtra(AttachPhotoActivity.BITMAP_BYTE_ARRAY_EXTRA);
+            moodBitmapByteArray = img;
+            byteArrayToBitmap(img);
+        }
+    }
+
+    public Bitmap byteArrayToBitmap(byte[] input){
+        Bitmap bmp = BitmapFactory.decodeByteArray(input, 0, input.length);
+        ImageView imageView = findViewById(R.id.myphoto);
+        imageView.setImageBitmap(bmp);
+        return bmp;
+    }
+
+    public void save(View view) {
         moodHistory = currentUser.getMoodHistory();
         myMood = getMoodDetails();
         addMoodToList(myMood);
@@ -146,7 +166,7 @@ public class addNewMoodActivity extends AppCompatActivity {
 
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social);
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, Blob.fromBytes(moodBitmapByteArray));
 
             finish();
         }  // end of else
@@ -166,8 +186,8 @@ public class addNewMoodActivity extends AppCompatActivity {
 
     public void updateUserWithNewMood(User currentUser) {
         // update the user object
-        UserDAO userAdo = new UserDAO();
-        userAdo.createOrUpdate(currentUser, new VoidCallback() {
+        UserDAO userDao = new UserDAO();
+        userDao.createOrUpdate(currentUser, new VoidCallback() {
             @Override
             public void onCallback() {
             }

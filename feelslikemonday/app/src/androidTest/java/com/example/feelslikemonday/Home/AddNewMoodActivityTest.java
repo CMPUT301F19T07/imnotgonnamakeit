@@ -1,14 +1,13 @@
 package com.example.feelslikemonday.Home;
 
 import android.app.Activity;
-import android.graphics.PointF;
 import android.widget.EditText;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
-import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
+import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.robotium.solo.Solo;
 import com.example.feelslikemonday.R;
 import org.junit.After;
@@ -16,7 +15,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static junit.framework.TestCase.*;
 
 /**
  * Test class for AddNewMoodActivity. All the UI tests are written here.
@@ -72,7 +70,7 @@ public class AddNewMoodActivityTest {
         solo.clickOnButton("LOGIN");
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("New");
-        solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
         solo.clickOnView(solo.getView(R.id.mood_spinner));
         solo.pressSpinnerItem(0, 0);
         solo.enterText((EditText) solo.getView(R.id.editText8), "didn't drink coffee"); // reason
@@ -95,7 +93,7 @@ public class AddNewMoodActivityTest {
         solo.clickOnButton("LOGIN");
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("New");
-        solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
         solo.clickOnView(solo.getView(R.id.mood_spinner));
         solo.pressSpinnerItem(0, 0);
         solo.enterText((EditText) solo.getView(R.id.editText8), "going to cancel"); // reason
@@ -118,7 +116,7 @@ public class AddNewMoodActivityTest {
         solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
         // click on edit, index =0
         //still figuring out how to use robotium to test the swiping feature
-        solo.assertCurrentActivity("Wrong Activity", addNewMoodActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
         solo.enterText((EditText) solo.getView(R.id.editText8), "edited");
         solo.clickOnButton("save");
         solo.sleep(500);
