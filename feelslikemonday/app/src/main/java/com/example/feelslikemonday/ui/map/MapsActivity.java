@@ -115,14 +115,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
                     break;
             }
-            if (markerLocation.equals(NULL)){
+            if (markerLocation.equals(NULL)) {
+                currentLocation = null;
                 continue;
             }
             String[] latLongSplit = markerLocation.split(" ");
             currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
             mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType));
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        if (currentLocation != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        }
     }
 
 }

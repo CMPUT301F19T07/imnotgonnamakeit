@@ -57,7 +57,7 @@ public class addNewMoodActivity extends AppCompatActivity {
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
     private Switch locationSwitch;
-    private boolean saveLocation = false;
+    private boolean saveLocation = true;
     private EditText reason;
     public User currentUser;
     private int moodState = 0; //if this variable =0 it means you're adding a new mood, it 1 you're editing the current mood
@@ -275,7 +275,6 @@ public class addNewMoodActivity extends AppCompatActivity {
                         .create()
                         .show();
 
-
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
@@ -289,8 +288,7 @@ public class addNewMoodActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -302,11 +300,11 @@ public class addNewMoodActivity extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
-                    } else {
-                        //permissions not given
-                        finish();
                     }
-
+                } else {
+                    //permissions not given
+                    Toast.makeText(addNewMoodActivity.this, "This app requires location permissions to work", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
             return;
