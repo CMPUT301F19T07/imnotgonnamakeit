@@ -1,19 +1,27 @@
 package com.example.feelslikemonday.ui.moods;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
@@ -23,21 +31,26 @@ import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.SignupActivity;
-import com.google.firebase.firestore.Blob;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 /*Responsible for editing or adding a mood event*/
 
 public class AddNewMoodActivity extends AppCompatActivity {
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
+    private Switch locationSwitch;
+    private boolean saveLocation = true;
     private EditText reason;
     public User currentUser;
-    private int moodState = 0; //if this variable =0 it means you're addind a new mood, it 1 you're editing the current mood
+    private int moodState = 0; //if this variable =0 it means you're adding a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
     private String moodDate;
     private String moodTime;
@@ -46,8 +59,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private String myUserID;
     private MoodType myMoodType;
     private MoodEvent myMood;
-    private byte[] moodBitmapByteArray;
     private static final int maxSpacesForReason = 2;
+    private LocationManager locationManager;
+    private String currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +70,20 @@ public class AddNewMoodActivity extends AppCompatActivity {
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
+        locationSwitch = findViewById(R.id.location_switch);
+
+        locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveLocation = isChecked;
+            }
+        });
 
         fillSpinners();
         addExistingForEdit();
-        setupDAO();
+        checkLocationPermission();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        setupDAO();
     }
 
     private void addExistingForEdit() {
@@ -99,40 +122,17 @@ public class AddNewMoodActivity extends AppCompatActivity {
         });
     }
 
+
     public void cancelButton(View view) {
         finish();
-
     }
 
     public void photoButton(View view) {
         Intent intent = new Intent(AddNewMoodActivity.this, AttachPhotoActivity.class);
-        startActivityForResult(intent, AttachPhotoActivity.REQUEST_CODE);
+        startActivity(intent);
     }
 
-    /**
-     * Method currently used to get photos from the photo activity
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(resultCode,resultCode,data);
-        if (requestCode == AttachPhotoActivity.REQUEST_CODE && resultCode == AttachPhotoActivity.RES_OK && data != null) {
-            byte[] img = data.getByteArrayExtra(AttachPhotoActivity.BITMAP_BYTE_ARRAY_EXTRA);
-            moodBitmapByteArray = img;
-            byteArrayToBitmap(img);
-        }
-    }
-
-    public Bitmap byteArrayToBitmap(byte[] input){
-        Bitmap bmp = BitmapFactory.decodeByteArray(input, 0, input.length);
-        ImageView imageView = findViewById(R.id.myphoto);
-        imageView.setImageBitmap(bmp);
-        return bmp;
-    }
-
-    public void save(View view) {
+    public void Save(View view) {
         moodHistory = currentUser.getMoodHistory();
         myMood = getMoodDetails();
         addMoodToList(myMood);
@@ -164,9 +164,13 @@ public class AddNewMoodActivity extends AppCompatActivity {
             String emotionState = "No emotion"; //if we do not use this attribute, remove
             String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
 
-
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, Blob.fromBytes(moodBitmapByteArray));
+            if (saveLocation) {
+                currentLocation = getLocation();
+            } else {
+                currentLocation = NULL;
+            }
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation);
 
             finish();
         }  // end of else
@@ -186,8 +190,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     public void updateUserWithNewMood(User currentUser) {
         // update the user object
-        UserDAO userDao = new UserDAO();
-        userDao.createOrUpdate(currentUser, new VoidCallback() {
+        UserDAO userAdo = new UserDAO();
+        userAdo.createOrUpdate(currentUser, new VoidCallback() {
             @Override
             public void onCallback() {
             }
@@ -223,5 +227,80 @@ public class AddNewMoodActivity extends AppCompatActivity {
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);
         socialSpinnerSpinner.setAdapter(adapter1);
     }
+
+
+    private String getLocation() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        String Long = location.getLongitude() + "";
+        String Lat = location.getLatitude() + "";
+
+        return Long + " " + Lat;
+    }
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("need lcoation")
+                        .setMessage("gib location pls")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(AddNewMoodActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                    }
+                } else {
+                    //permissions not given
+                    Toast.makeText(AddNewMoodActivity.this, "This app requires location permissions to work", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+            return;
+        }
+    }
 }
+
+
 

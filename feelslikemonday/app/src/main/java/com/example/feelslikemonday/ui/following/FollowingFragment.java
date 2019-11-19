@@ -10,11 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
@@ -29,12 +34,10 @@ import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.service.SortObjectDateTime;
 import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.SignupActivity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
 
 /**
  * Responsible for listing all followees' moods and related information
