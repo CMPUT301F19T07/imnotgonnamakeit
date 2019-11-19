@@ -26,6 +26,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.feelslikemonday.ui.moods.addNewMoodActivity;
+import com.example.feelslikemonday.ui.moods.moodMapActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -113,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_filter:
                 // another startActivity, this is for item with id "menu_item2"
+                break;
+            case R.id.action_show_map:
+                Intent intent = new Intent(this, moodMapActivity.class);
+                this.startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
