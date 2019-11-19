@@ -16,7 +16,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
 import com.example.feelslikemonday.ui.home.HomeFragment;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
@@ -97,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(maps);
                 break;
             case R.id.action_logout:
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove(USERNAME_KEY);
+                editor.apply();
                 finish();
                 break;
             default:
