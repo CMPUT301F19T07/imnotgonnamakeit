@@ -95,7 +95,6 @@ public class AttachPhotoActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        bitmap.recycle();
         return byteArray;
     }
 
@@ -111,13 +110,14 @@ public class AttachPhotoActivity extends AppCompatActivity {
         }
 
         //if(requestCode==ALBUM_REQUEST && requestCode == RESULT_OK && null!=data){
-        else if(requestCode==ALBUM_REQUEST){
+        else if(requestCode==ALBUM_REQUEST && resultCode == RESULT_OK ){
             try {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                returnBitmap = selectedImage;
-                imageView.setImageBitmap(selectedImage);
+                //Copy bitmap to prevent recycling errors
+                returnBitmap = selectedImage.copy(selectedImage.getConfig(),selectedImage.isMutable());
+                imageView.setImageBitmap(returnBitmap);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
