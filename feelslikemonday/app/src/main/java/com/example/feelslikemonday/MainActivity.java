@@ -11,6 +11,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.example.feelslikemonday.ui.home.HomeFragment;
+import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
+import com.example.feelslikemonday.ui.map.MapsActivity;
+import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -80,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 Intent add = new Intent(this, AddNewMoodActivity.class);
                 this.startActivity(add);
+                Intent myIntent = new Intent(this, AddNewMoodActivity.class);
+                this.startActivity(myIntent);
                 break;
             case R.id.action_filter:
                 Bundle bundle = new Bundle();

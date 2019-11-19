@@ -5,6 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+<<<<<<< HEAD
+=======
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ArrayAdapter;
+>>>>>>> 3a675e1278b1f933c7ae601033dfe8fcc9df16cd
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -36,7 +45,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+import io.opencensus.internal.StringUtils;
+>>>>>>> 3a675e1278b1f933c7ae601033dfe8fcc9df16cd
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 /*Responsible for editing or adding a mood event*/
@@ -165,6 +178,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
             String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
+
             if (saveLocation) {
                 currentLocation = getLocation();
             } else {
