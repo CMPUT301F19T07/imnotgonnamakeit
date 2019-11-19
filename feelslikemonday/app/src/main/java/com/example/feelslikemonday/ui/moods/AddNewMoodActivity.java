@@ -36,6 +36,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private Spinner moodSpiner;
     private Spinner socialSituationSpinner;
     private EditText reason;
+    private ImageView imageView;
+
     public User currentUser;
     private int moodState = 0; //if this variable =0 it means you're addind a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
@@ -53,6 +55,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_mood);
+        imageView = findViewById(R.id.myphoto);
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
@@ -60,7 +63,6 @@ public class AddNewMoodActivity extends AppCompatActivity {
         fillSpinners();
         addExistingForEdit();
         setupDAO();
-
     }
 
     private void addExistingForEdit() {
@@ -70,6 +72,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodState = intent.getIntExtra("state", 0);
             moodIndex = 0; //this variable is for sorting
             if (moodState == 1) {
+                byte[] imageByteArr = intent.getByteArrayExtra("image");
+                if(imageByteArr != null){
+                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
+                    imageView.setImageBitmap(imageBitmap);
+                }
                 moodTime = intent.getStringExtra("mytime"); // get current time
                 moodDate = intent.getStringExtra("myDate"); // get current date
                 reason.setText(intent.getStringExtra("reason")); // get  reason
@@ -157,8 +164,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
-                moodDate = sdf.format(date).toString();
-                moodTime = stf.format(date).toString();
+                moodDate = sdf.format(date);
+                moodTime = stf.format(date);
             }
 
             String emotionState = "No emotion"; //if we do not use this attribute, remove
@@ -166,7 +173,12 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, Blob.fromBytes(moodBitmapByteArray));
+
+            Blob moodBlob = null;
+            if(moodBitmapByteArray != null){
+                moodBlob = Blob.fromBytes(moodBitmapByteArray);
+            }
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, moodBlob);
 
             finish();
         }  // end of else

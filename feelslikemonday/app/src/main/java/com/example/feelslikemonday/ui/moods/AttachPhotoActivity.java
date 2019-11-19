@@ -42,6 +42,8 @@ public class AttachPhotoActivity extends AppCompatActivity {
     private Context PostImage;
     private Button saveButton;
 
+    Bitmap returnBitmap = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -72,11 +74,16 @@ public class AttachPhotoActivity extends AppCompatActivity {
 
     }
     public void saveImage(View view){
-        Intent output = new Intent();
-        //Get image from the imageView, convert it into a byte array, and then pass it as an extra
-        output.putExtra(BITMAP_BYTE_ARRAY_EXTRA,bitmapToByteArray(((BitmapDrawable)imageView.getDrawable()).getBitmap()));
-        setResult(RES_OK,output);
-        finish();
+        if(returnBitmap != null){
+            Intent output = new Intent();
+            //Get image from the imageView, convert it into a byte array, and then pass it as an extra
+            output.putExtra(BITMAP_BYTE_ARRAY_EXTRA,bitmapToByteArray(returnBitmap));
+            setResult(RES_OK,output);
+            finish();
+        }
+        else{
+            Toast.makeText(PostImage, "No image to save",Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -98,7 +105,8 @@ public class AttachPhotoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==CAMERA_REQUEST && resultCode == RESULT_OK ){
-            Bitmap bitmap= (Bitmap) data.getExtras().get("data");
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            returnBitmap = bitmap;
             imageView.setImageBitmap(bitmap);
         }
 
@@ -108,6 +116,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                returnBitmap = selectedImage;
                 imageView.setImageBitmap(selectedImage);
 
             } catch (FileNotFoundException e) {

@@ -128,7 +128,7 @@
                     android:id="@+id/myphoto"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    app:srcCompat="@android:drawable/sym_def_app_icon" />
+                    app:srcCompat="@drawable/ic_no_photo" />
 
             </LinearLayout>
 
