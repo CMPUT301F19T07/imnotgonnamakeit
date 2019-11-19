@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -223,14 +224,38 @@ public class AddNewMoodActivity extends AppCompatActivity {
         socialSpinnerSpinner.setAdapter(adapter1);
     }
 
+    private LocationListener mListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            // Previously mock location is cleared.
+            // getLastKnownLocation(LocationManager.GPS_PROVIDER); will not return mock location.
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+        }
+    };
 
     private String getLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location location;
+
+            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 10, mListener);
+           location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
         String Long = location.getLongitude() + "";
         String Lat = location.getLatitude() + "";
-
         return Long + " " + Lat;
+
     }
 
     public boolean checkLocationPermission() {
