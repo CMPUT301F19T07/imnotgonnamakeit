@@ -69,14 +69,15 @@ public class RequestList extends ArrayAdapter<String> {
             public void onClick(View view) {
                 Log.i("testListView", "clickAcceptButton");
 
-                followPermissionDAO.get(myUserID, new FollowPermissionCallback(){
+                //swap the following
+                followPermissionDAO.get(requesterUsername, new FollowPermissionCallback(){
                     @Override
                     public void onCallback(FollowPermission followPermission) {
-                        if(followPermission.getFollowerUsername().equals(myUserID)){
+                        if(followPermission.getFollowerUsername().equals(requesterUsername)){
                             followeeUsernames = followPermission.getFolloweeUsernames();
-                            followeeUsernames.add(requesterUsername);
+                            followeeUsernames.add( myUserID);
 
-                            followPermissionDAO.createOrUpdate(myUserID, followPermission, new VoidCallback() {
+                            followPermissionDAO.createOrUpdate(requesterUsername, followPermission, new VoidCallback() {
                                 @Override
                                 public void onCallback() {
                                 }
