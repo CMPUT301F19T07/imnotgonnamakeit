@@ -36,7 +36,22 @@ public class LoginMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_main);
         loginUsername = findViewById(R.id.loginUsernameEdit);
         loginPassword = findViewById(R.id.loginPasswordEdit);
+        String loggedInUsername = getApplicationContext().getSharedPreferences(PREFS_NAME, 0).getString(USERNAME_KEY,null);
+        //if user is already logged in
+        if (loggedInUsername != null){
+            Intent myIntent = new Intent(LoginMainActivity.this, MainActivity.class);
+            startActivity(myIntent);
+        }
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //Clear fields
+        loginUsername.setText("");
+        loginPassword.setText("");
+    }
+
 
     public void attemptLogin(View view){
         username = loginUsername.getText().toString();
@@ -51,7 +66,7 @@ public class LoginMainActivity extends AppCompatActivity {
                         pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString(USERNAME_KEY, username);
-                        editor.commit();
+                        editor.apply();
                         Intent myIntent = new Intent(LoginMainActivity.this, MainActivity.class);
                         startActivity(myIntent);
                     } else {

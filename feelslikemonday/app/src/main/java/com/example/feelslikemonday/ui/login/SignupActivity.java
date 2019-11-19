@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
                         pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString(USERNAME_KEY, signupUsername.getText().toString());
-                        editor.commit();
+                        editor.apply();
                         userDAO.createOrUpdate(user, new VoidCallback() {
                             @Override
                             public void onCallback() {

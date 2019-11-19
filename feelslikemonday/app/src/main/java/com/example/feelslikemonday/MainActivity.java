@@ -19,6 +19,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
+
 /*
 This class is responsible for displaying all of the signed in user's moods in sorted order
 */
@@ -82,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 // another startActivity, this is for item with id "menu_item2"
                 break;
             case R.id.action_logout:
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove(USERNAME_KEY);
+                editor.apply();
                 finish();
                 break;
             default:
