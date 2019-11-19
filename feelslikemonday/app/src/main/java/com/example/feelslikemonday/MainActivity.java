@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_friends, R.id.nav_followerrequest,R.id.nav_sendrequest)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_followerrequest,R.id.nav_sendrequest)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 Intent add = new Intent(this, AddNewMoodActivity.class);
                 this.startActivity(add);
-                Intent myIntent = new Intent(this, AddNewMoodActivity.class);
-                this.startActivity(myIntent);
                 break;
             case R.id.action_filter:
                 Bundle bundle = new Bundle();

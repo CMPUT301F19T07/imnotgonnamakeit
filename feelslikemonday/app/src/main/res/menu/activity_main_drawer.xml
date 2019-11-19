@@ -15,17 +15,6 @@
             android:fontFamily="casual"
             android:title="@string/menu_following" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:fontFamily="casual"
-            android:title="@string/menu_settings" />
-        <item
-            android:id="@+id/nav_friends"
-            android:icon="@android:drawable/ic_menu_myplaces"
-            android:fontFamily="casual"
-            android:title="@string/menu_friends" />
-
-        <item
             android:id="@+id/nav_followerrequest"
             android:icon="@android:drawable/ic_menu_myplaces"
             android:fontFamily="casual"
