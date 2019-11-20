@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
 import com.example.feelslikemonday.ui.home.HomeFragment;
 import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.example.feelslikemonday.ui.map.FollowingMapActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -96,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_show_map:
                 Intent maps = new Intent(this, MapsActivity.class);
                 this.startActivity(maps);
+                break;
+            case R.id.action_show_following_map:
+                Intent following_maps = new Intent(this, FollowingMapActivity.class);
+                this.startActivity(following_maps);
                 break;
             case R.id.action_logout:
                 SharedPreferences.Editor editor = pref.edit();
