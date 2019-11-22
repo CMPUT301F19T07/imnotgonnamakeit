@@ -13,6 +13,11 @@ public class UserService {
 
     private static UserDAO userDAO = UserDAO.getInstance();
 
+    /**
+     * This checks if a user exists
+     * @param username
+     * This is a candidate username
+     */
     public static void signupUserExists(String username){
         userDAO.get(username, new UserCallback() {
             @Override
@@ -26,7 +31,13 @@ public class UserService {
             }
         });
     }
-
+    /**
+     * This checks empty field
+     * @param username
+     * This is a candidate username
+     * @param password
+     * This is a user's password
+     */
     public static boolean checkEmptyField(String username, String password){
         if (username.length() == 0 ||password.length() == 0) {
             return true;

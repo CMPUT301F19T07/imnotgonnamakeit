@@ -14,7 +14,11 @@ public class FollowPermission {
     //Empty Constructor for Firestore deserialization
     public FollowPermission(){}
 
-
+    /**
+     * This is a class that keeps track of a follow permssion
+     * @param followerUsername
+     * This is a username of follower
+     */
     public FollowPermission(String followerUsername){
         this.followeeUsernames = new ArrayList<>();
         this.followerUsername = followerUsername;
@@ -23,16 +27,16 @@ public class FollowPermission {
     /**
      * this return the follower username, user itself
      * @return
-     *   the username of the app
+     *      return the username of follower
      */
     public String getFollowerUsername(){
         return followerUsername;
     }
 
     /**
-     * this return the FolloweeMoodEvent usernames
+     * this returns a list of followers' usernames
      * @return
-     *    the followees' username that user have approved
+     *      return a list of followers' usernames
      */
     public List<String> getFolloweeUsernames(){
         return followeeUsernames;

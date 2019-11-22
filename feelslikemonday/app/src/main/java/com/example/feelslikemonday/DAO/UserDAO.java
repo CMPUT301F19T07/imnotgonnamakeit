@@ -33,15 +33,22 @@ public class UserDAO {
     private final String COLLECTION_NAME = "users";
 
     public UserDAO(){}
+
+    /**
+     * This returns a instance of user dao
+     * @return
+     * Return a instance of user dao
+     */
     public static UserDAO getInstance() {
         return instance;
     }
+
     /**
-     * This create a user
+     * This creates or updates a user
      * @param user
-     * This is a candidate username that needs to be created
+     * This is a candidate username that needs to be created or updated
      * @param onSuccess
-     * This is value that determines weather the user is created successfully
+     * This is the function returned when the user is created or updated successfully
      */
     public void createOrUpdate(User user , final VoidCallback onSuccess){
 
@@ -61,14 +68,14 @@ public class UserDAO {
                     }
                 });
     }
+
     /**
-     * This delete a follow request to reply the user permission
+     * This deletes a follow request to reply the user permission
      * @param user
      * This is the user that needs to be deleted
      * @param onSuccess
-     * This is value that determines weather the user is deleted successfully
+     * This is the function returned when the user is deleted successfully
      */
-
     public void delete(User user, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(user.getUsername())
                 .delete()
@@ -88,18 +95,26 @@ public class UserDAO {
     }
 
     /**
-     * Queries for a user by the user's username. A callback method will be called on success
+     * This queries for a user by the user's username. A callback method will be called on success
+     * @param username
+     * This is the name of user that we want to get data from
+     * @param onSuccess
+     * This is the function returned when the user's data is obtained successfully
      */
     public void get(String username, final UserCallback onSuccess){
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
         get(username,onSuccess,null);
     }
-    /**
-     * This returns a user
-     * @return
-     * Return the a user
-     */
 
+    /**
+     * This returns a user data
+     * @param username
+     * This is the name of user that we want to get data from
+     *@param onSuccess
+     * This is the function returned when the user's data is obtained successfully
+     * @param onFail
+     * This is the function returned when the user's data is obtained unsuccessfully
+     */
     public void get(String username, final UserCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
                 .document(username)
@@ -130,6 +145,15 @@ public class UserDAO {
                 });
     }
 
+    /**
+     * This check if a user data exists in firebase
+     * @param username
+     * This is the name of user that we want to get data from
+     *@param onSuccess
+     * This is the function returned when the user data exists
+     * @param onFail
+     * This is the function returned when the user data doesn't exist
+     */
     public void checkIfExists(String username, final BooleanCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)
                 .document(username)
