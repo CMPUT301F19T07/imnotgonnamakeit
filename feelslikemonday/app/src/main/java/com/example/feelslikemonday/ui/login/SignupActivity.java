@@ -1,13 +1,13 @@
 package com.example.feelslikemonday.ui.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feelslikemonday.DAO.BooleanCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
                         pref = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString(USERNAME_KEY, signupUsername.getText().toString());
-                        editor.commit();
+                        editor.apply();
                         userDAO.createOrUpdate(user, new VoidCallback() {
                             @Override
                             public void onCallback() {

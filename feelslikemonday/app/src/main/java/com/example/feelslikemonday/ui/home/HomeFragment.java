@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ScrollView;
+import android.widget.Switch;
 
-
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -44,15 +47,84 @@ public class HomeFragment extends Fragment {
     private EmotionBookAdapter adapter;
     private SharedPreferences pref;
     private String myUserID;
+    private Switch anger;
+    private Switch disgust;
+    private Switch fear;
+    private Switch happiness;
+    private Switch sadness;
+    private Switch surprise;
+    private boolean showAnger = true;
+    private boolean showDisgust = true;
+    private boolean showFear = true;
+    private boolean showHappiness= true;
+    private boolean showSadness = true;
+    private boolean showSurprise = true;
+    public ScrollView filterPopup;
+    public Button okButton;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        filterPopup = root.findViewById(R.id.filterPopup);
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("filter")) {
+                filterPopup.setVisibility(View.VISIBLE);
+            }
+        }
+        okButton = root.findViewById(R.id.ok_button);
+        anger = root.findViewById(R.id.switch1);
+        disgust = root.findViewById(R.id.switch2);
+        fear = root.findViewById(R.id.switch3);
+        happiness = root.findViewById(R.id.switch4);
+        sadness = root.findViewById(R.id.switch5);
+        surprise = root.findViewById(R.id.switch6);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String s) { }});
+            public void onChanged(@Nullable String s) {
+            }
+        });
         root.setBackgroundColor(Color.GREEN);
+
+        anger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showAnger = isChecked;
+            }
+        });
+        disgust.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showDisgust = isChecked;
+            }
+        });
+        fear.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showFear = isChecked;
+            }
+        });
+        happiness.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showHappiness = isChecked;
+            }
+        });
+        sadness.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showSadness = isChecked;
+            }
+        });
+        surprise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showSurprise = isChecked;
+            }
+        });
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterPopup.setVisibility(View.INVISIBLE);
+                onResume();
+            }
+        });
+
         return root;
     }
 
@@ -61,7 +133,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
         UserDAO userDAO = new UserDAO();
         userDAO.get(myUserID, new UserCallback() {
@@ -71,7 +143,27 @@ public class HomeFragment extends Fragment {
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-                for(int i = 0; i < myCurrentMoodList.size(); i++) {
+                for (int i = 0; i < myCurrentMoodList.size(); i++) {
+
+                    if (myCurrentMoodList.get(i).getMoodType().getName().equals("Anger") && !showAnger) {
+                        continue;
+                    }
+                    if (myCurrentMoodList.get(i).getMoodType().getName().equals("Disgust") && !showDisgust) {
+                        continue;
+                    }
+                    if (myCurrentMoodList.get(i).getMoodType().getName().equals("Happiness") && !showHappiness) {
+                        continue;
+                    }
+                    if (myCurrentMoodList.get(i).getMoodType().getName().equals("Sadness") && !showSadness) {
+                        continue;
+                    }
+                    if (myCurrentMoodList.get(i).getMoodType().getName().equals("Fear") && !showFear) {
+                        continue;
+                    }
+                    if (myCurrentMoodList.get(i).getMoodType().getName().equals("Surprise") && !showSurprise) {
+                        continue;
+                    }
+
                     myEmotionList.add(myCurrentMoodList.get(i));
                 }
                 SwipeMenuListView = getView().findViewById(R.id.listView);
@@ -82,7 +174,8 @@ public class HomeFragment extends Fragment {
             }
         }, new VoidCallback() {
             @Override
-            public void onCallback() { }
+            public void onCallback() {
+            }
         });
     } // end of onResume
 
@@ -91,7 +184,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
         UserDAO userDAO = new UserDAO();
         userDAO.get(myUserID, new UserCallback() {
@@ -101,7 +194,7 @@ public class HomeFragment extends Fragment {
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-                for(int i = 0; i < myCurrentMoodList.size(); i++) {
+                for (int i = 0; i < myCurrentMoodList.size(); i++) {
                     myEmotionList.add(myCurrentMoodList.get(i));
                 }
                 SwipeMenuListView = view.findViewById(R.id.listView);
@@ -186,19 +279,21 @@ public class HomeFragment extends Fragment {
             }
         }, new VoidCallback() {
             @Override
-            public void onCallback() { }
+            public void onCallback() {
+            }
         });
     }
 
-    public void removeEmotion(@NonNull View view, int index){
+    public void removeEmotion(@NonNull View view, int index) {
         List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
         SwipeMenuListView = view.findViewById(R.id.listView);
         myEmotionList.remove(index);
         moodHistoryTempTemp.remove(index);
         UserDAO userDAO = new UserDAO();
-        userDAO.createOrUpdate(currentUser,new VoidCallback(){
+        userDAO.createOrUpdate(currentUser, new VoidCallback() {
             @Override
-            public void onCallback() { }
+            public void onCallback() {
+            }
         });
 
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
@@ -206,7 +301,7 @@ public class HomeFragment extends Fragment {
         // Send the new UserObjecct to the DB
     }
 
-    public void viewEmotion(@NonNull View view, int index){
+    public void viewEmotion(@NonNull View view, int index) {
 
         MoodEvent currentMoodEvent = myEmotionList.get(index);
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
@@ -229,7 +324,7 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
-    public void editEmotion(@NonNull View view, int index){
+    public void editEmotion(@NonNull View view, int index) {
 
         MoodEvent currentMoodEvent = myEmotionList.get(index);
 
@@ -258,8 +353,7 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
-    public int getCurrentSocialIndex(String social)
-    {
+    public int getCurrentSocialIndex(String social) {
         int returnValue = 0;
         for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
             if (social.equals(MoodEvent.SOCIAL_SITUATIONS.get(i))) {

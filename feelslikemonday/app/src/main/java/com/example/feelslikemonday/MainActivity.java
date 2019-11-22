@@ -3,15 +3,15 @@ package com.example.feelslikemonday;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.TextView;
 
-import com.example.feelslikemonday.ui.login.SignupActivity;
-import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +19,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
+import com.example.feelslikemonday.ui.home.HomeFragment;
+import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.example.feelslikemonday.ui.map.MapsActivity;
+import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
+import com.google.android.material.navigation.NavigationView;
 /*
 This class is responsible for displaying all of the signed in user's moods in sorted order
 */
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_friends, R.id.nav_followerrequest,R.id.nav_sendrequest)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_followerrequest,R.id.nav_sendrequest)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -75,13 +81,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent myIntent = new Intent(this, AddNewMoodActivity.class);
-                this.startActivity(myIntent);
+                Intent add = new Intent(this, AddNewMoodActivity.class);
+                this.startActivity(add);
                 break;
             case R.id.action_filter:
-                // another startActivity, this is for item with id "menu_item2"
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("filter", true);
+                HomeFragment filter = new HomeFragment();
+                filter.setArguments(bundle);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, filter).commit();
+                break;
+            case R.id.action_show_map:
+                Intent maps = new Intent(this, MapsActivity.class);
+                this.startActivity(maps);
                 break;
             case R.id.action_logout:
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove(USERNAME_KEY);
+                editor.apply();
                 finish();
                 break;
             default:

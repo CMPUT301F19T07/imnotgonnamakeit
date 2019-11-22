@@ -1,6 +1,5 @@
 package com.example.feelslikemonday.ui.followrequest;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,12 +22,8 @@ import com.example.feelslikemonday.DAO.FollowRequestCallback;
 import com.example.feelslikemonday.DAO.FollowRequestDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
-
 import com.example.feelslikemonday.model.FollowRequest;
-import com.example.feelslikemonday.model.MoodEvent;
-
 import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
-import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;

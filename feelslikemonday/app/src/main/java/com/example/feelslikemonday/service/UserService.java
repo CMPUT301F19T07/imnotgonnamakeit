@@ -4,13 +4,10 @@ package com.example.feelslikemonday.service;
  *This class checks if a user exists
  */
 
-import android.widget.Toast;
-
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.model.User;
-import com.example.feelslikemonday.ui.login.SignupActivity;
 
 public class UserService {
 

@@ -1,9 +1,7 @@
 package com.example.feelslikemonday.ui.sendrequest;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +21,9 @@ import com.example.feelslikemonday.DAO.FollowRequestDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowRequest;
-import com.example.feelslikemonday.ui.followrequest.FollowerRequestViewModel;
 import com.example.feelslikemonday.ui.login.SignupActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 /*Resposible for  sending request to the user that you want to follow*/
 public class SendRequestFragment extends Fragment {
 
