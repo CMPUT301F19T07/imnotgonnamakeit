@@ -44,7 +44,7 @@ import java.util.List;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-/*Responsible for editing or adding a mood event*/
+/*This class is responsible for editing or adding a mood event*/
 
 public class AddNewMoodActivity extends AppCompatActivity {
 
@@ -71,6 +71,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private String currentLocation;
     private byte[] moodBitmapByteArray;
 
+    /**
+     * This initializes AddNewMoodActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +100,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
         setupDAO();
     }
 
+    /**
+     * This edits the existing mood event
+     */
     private void addExistingForEdit() {
         Intent intent = getIntent();
         moodState = 0;
@@ -120,6 +128,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
     }
 
+    /**
+     * This sets up UserDAO
+     */
     private void setupDAO() {
         // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
@@ -134,10 +145,17 @@ public class AddNewMoodActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * This finishes AddNewMoodActivity when user cancel it
+     */
     public void cancelButton(View view) {
         finish();
     }
 
+
+    /**
+     * This goes to AttachPhotoActivity when user click photoButton
+     */
     public void photoButton(View view) {
         Intent intent = new Intent(AddNewMoodActivity.this, AttachPhotoActivity.class);
         startActivityForResult(intent, AttachPhotoActivity.REQUEST_CODE);
@@ -166,6 +184,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
         return bmp;
     }
 
+    /**
+     * This saves the current mood event
+     */
     public void Save(View view) {
         moodHistory = currentUser.getMoodHistory();
         myMood = getMoodDetails();
@@ -173,6 +194,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
         updateUserWithNewMood(currentUser);
     }
 
+    /**
+     * This gets the details of the current mood event
+     * @return
+     *      return the mood event
+     */
     public MoodEvent getMoodDetails() {
 
         // check that reason is max 3 words
@@ -216,6 +242,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This adds mood event to the moodHistory
+     * @param myMood
+     * This is the current mood event
+     */
     public void addMoodToList(MoodEvent myMood) {
         if (moodState == 0) {
             // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
@@ -225,7 +256,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodHistory.set(moodIndex, myMood);
         }
     }
-
+    /**
+     * This adds mood event to the moodHistory
+     * @param currentUser
+     * This is the current user
+     */
     public void updateUserWithNewMood(User currentUser) {
         // update the user object
         UserDAO userAdo = new UserDAO();
@@ -236,7 +271,10 @@ public class AddNewMoodActivity extends AppCompatActivity {
         });
     }
 
-    // List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS
+
+    /**
+     * This lists mood types and social situations
+     */
     private void fillSpinners() {
 
         List<String> moodSpinner = new ArrayList<>();
@@ -265,7 +303,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);
         socialSpinnerSpinner.setAdapter(adapter1);
     }
-
+    /**
+     * This receives notifications from the LocationManager when the location has changed
+     */
     private LocationListener mListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -286,6 +326,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * This gets the location of the current mood event
+     * @return
+     *      return the string consisting of longitude and latitude
+     */
     private String getLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location;
@@ -300,6 +345,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This checks if the user permits location
+     * @return
+     *      return boolean result
+     */
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -339,6 +389,15 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This callbacks for the result from requesting permissions.
+     * @param requestCode
+     * This is the request code passed in.
+     * @param permissions
+     * This is the requested permissions
+     * @param grantResults
+     * This is the grant results for the corresponding permissions
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

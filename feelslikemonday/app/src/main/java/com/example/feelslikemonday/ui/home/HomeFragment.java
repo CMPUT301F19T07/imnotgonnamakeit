@@ -36,7 +36,7 @@ import com.google.firebase.firestore.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Responsible for listing all user's moods and related information */
+/*This class is responsible for listing all user's moods and related information */
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -62,6 +62,17 @@ public class HomeFragment extends Fragment {
     public ScrollView filterPopup;
     public Button okButton;
 
+    /**
+     * This initializes HomeFragment
+     * @param inflater
+     * This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container
+     * This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState
+     * This is a previous saved state
+     * @return
+     *      return the View for the fragment's UI, or null
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
@@ -127,7 +138,9 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-
+    /**
+     * This shows user's mood list when the HomeFragment is at onResume stage
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -179,6 +192,13 @@ public class HomeFragment extends Fragment {
         });
     } // end of onResume
 
+    /**
+     * This gives subclasses a chance to initialize themselves once they know their view hierarchy has been completely created
+     * @param view
+     * This is the View returned by onCreateView()
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -284,6 +304,13 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * This removes the moodevent from user's mood history
+     * @param view
+     * This is the View returned by onCreateView()
+     * @param index
+     * This is a index of the moodevent that user want to delete
+     */
     public void removeEmotion(@NonNull View view, int index) {
         List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
         SwipeMenuListView = view.findViewById(R.id.listView);
@@ -301,6 +328,13 @@ public class HomeFragment extends Fragment {
         // Send the new UserObjecct to the DB
     }
 
+    /**
+     * This shows the moodevent from user's mood history
+     * @param view
+     * This is the View returned by onViewCreated()
+     * @param index
+     * This is a index of the moodevent that user want to view
+     */
     public void viewEmotion(@NonNull View view, int index) {
 
         MoodEvent currentMoodEvent = myEmotionList.get(index);
@@ -324,6 +358,13 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
+    /**
+     * This edits the moodevent from user's mood history
+     * @param view
+     * This is the View returned by onCreateView()
+     * @param index
+     * This is a index of the moodevent that user want to edit
+     */
     public void editEmotion(@NonNull View view, int index) {
 
         MoodEvent currentMoodEvent = myEmotionList.get(index);
@@ -352,7 +393,13 @@ public class HomeFragment extends Fragment {
 
         startActivity(intent);
     }
-
+    /**
+     * This returns the index of the current social situation
+     * @param social
+     * This is the current social situation
+     * @return
+     *      return the index of the current social situation
+     */
     public int getCurrentSocialIndex(String social) {
         int returnValue = 0;
         for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
@@ -363,6 +410,13 @@ public class HomeFragment extends Fragment {
         return returnValue;
     }
 
+    /**
+     * This returns the index of the current mood
+     * @param mood
+     * This is the current mood
+     * @return
+     *      return the index of the current mood
+     */
     public int getCurrentMoodIndex(String mood) {
         int returnValue = 0;
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {

@@ -25,17 +25,23 @@ public class FollowRequestDAO {
 
     private FollowRequestDAO(){}
 
+    /**
+     * This returns a instance of follow request dao
+     * @return
+     * Return the a instance of follow request dao
+     */
     public static FollowRequestDAO getInstance() {
         return instance;
     }
+
     /**
-     * This create a follow request to reply the user permission
+     * This creates or updates a follow request to reply the user permission
      * @param username
      * This is a candidate username who reply the permission
      * @param followRequest
      *  This is a candidate request
      * @param onSuccess
-     * This is value that determines weather the request is sent successfully
+     * This is function returned when the request is created or updated successfully
      */
     public void createOrUpdate(String username, FollowRequest followRequest, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(username)
@@ -54,12 +60,13 @@ public class FollowRequestDAO {
                     }
                 });
     }
+
     /**
-     * This delete a follow request to reply the user permission
+     * This deletes a follow request to reply the user permission
      * @param username
-     * This is a candidate username who delete the request
+     * This is a candidate username who reply the permission
      * @param onSuccess
-     * This is value that determines weather the request is deleted successfully
+     * This is the function returned when the request is deleted successfully
      */
     public void delete(String username, final VoidCallback onSuccess){
         db.collection(COLLECTION_NAME).document(username)
@@ -80,7 +87,11 @@ public class FollowRequestDAO {
     }
 
     /**
-     * Queries for a FollowPermission by the user's username. A callback method will be called on success
+     * This queries for a FollowPermission by the user's username. A callback method will be called on success
+     * @param username
+     * This is a candidate username
+     * @param onSuccess
+     * This is the function returned when the request is obtained successfully
      */
     public void get(String username, final FollowRequestCallback onSuccess){
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
@@ -89,8 +100,12 @@ public class FollowRequestDAO {
 
     /**
      * This returns a follow request to reply the user permission
-     * @return
-     * Return the a request
+     * @param username
+     * This is a candidate username
+     * @param onSuccess
+     * This is the function returned when the request is obtained successfully
+     * @param onFail
+     * This is the function returned when the request is obtained unsuccessfully
      */
     public void get(String username, final FollowRequestCallback onSuccess, final VoidCallback onFail){
         db.collection(COLLECTION_NAME)

@@ -44,6 +44,25 @@ public class MoodEvent{
     //Used to deserialize
     public MoodEvent(){}
 
+      /**
+     * This is a class that keeps track of a mood event
+     * @param date
+     * This is the date of the mood event
+     * @param time
+     * This is the time of the mood event
+     * @param emotionalState
+     * This is the emotional state of user when posting the mood event
+     * @param reason
+     * This is the reason why user posts the mood event
+     * @param moodType
+     * This is the mood type of the mood event
+     * @param socialSituation
+     * This is the social situation of the user when posting the mood event
+     * @param location
+     * This is the location of the user when posting the mood event
+     * @param image
+     * Blob that stores an image relating to moods
+     */
     public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation, String location, Blob image) {
         if(reason.length()>MAX_REASON_LEN){
             throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
@@ -66,42 +85,43 @@ public class MoodEvent{
     }
 
     /**
-     * this return the date of the mood event
+     * this returns the date of the mood event
      * @return
-     *  return the string(date) of the mood event
+     *      return the string(date) of the mood event
      */
     public String getDate() {
         return date;
     }
 
     /**
-     * this return the time of the mood event
+     * this returns the time of the mood event
      * @return
-     * return the string(time) of the mood event
+     *      return the string(time) of the mood event
      */
     public String getTime() {
         return time;
     }
 
     /**
-     * this return the emotional state of the mood event
+     * this returns the emotional state of the mood event
      * @return
-     * return teh string(emotional state) of the mood event
+     *      return the string(emotional state) of the mood event
      */
     public String getEmotionalState() {
         return emotionalState;
     }
 
     /**
-     * this set up the emotinal state for the mood event
+     * this sets up the emotinal state for the mood event
      * @param emotionalState
+     * This is the emotional state of user when posting the mood event
      */
     public void setEmotionalState(String emotionalState) {
         this.emotionalState = emotionalState;
     }
 
     /**
-     *  this return the reason of my mood event
+     * this returns the reason of my mood event
      * @return
      *    return the reason of this mood event
      */
@@ -110,49 +130,52 @@ public class MoodEvent{
     }
 
     /**
-     * this set up the reason of this mood event
+     * this sets up the reason of this mood event
      * @param reason
+     * This is the reason why user posts the mood event
      */
     public void setReason(String reason) {
         this.reason = reason;
     }
 
     /**
-     *  this return the social situation of the mood event
-     * @return
-     *  return the social situation of the mood event
+     *  this returns the social situation of the mood event
+     *  @return
+     *         return the social situation of the mood event
      */
     public String getSocialSituation() {
         return socialSituation;
     }
 
     /**
-     * this set up the social situation of the current mood event
+     * this sets up the social situation of the current mood event
      * @param socialSituation
+     * This is the emotional state of user when posting the mood event
      */
     public void setSocialSituation(String socialSituation) {
         this.socialSituation = socialSituation;
     }
 
     /**
-     * this return the type of the mood
+     * this returns the type of the mood
      * @return
-     *  the type of the mood event
+     *      return the type of the mood event
      */
     public MoodType getMoodType() {
         return moodType;
     }
 
     /**
-     * this set up the mood type of the mood event
+     * this sets up the mood type of the mood event
      * @param moodType
+     * This is the mood type of the mood event
      */
     public void setMoodType(MoodType moodType) {
         this.moodType = moodType;
     }
 
     /**
-     * this return the image of the mood event
+     * this returns the image of the mood event
      * @return
      *    return the image of the mood event
      */
@@ -163,13 +186,14 @@ public class MoodEvent{
     /**
      *  this sets up the image from the mood event
      * @param image
+     * This is the image of the mood event
      */
     public void setImage(Blob image) {
         this.image = image;
     }
 
     /**
-     * this return this geo location of the mood event
+     * this returns this geo location of the mood event
      * @return
      *    return the location of the mood event
      */
@@ -178,8 +202,9 @@ public class MoodEvent{
     }
 
     /**
-     * this set up the geo location of the mood event
+     * this sets up the geo location of the mood event
      * @param location
+     * This is the location of the user when posting the mood event
      */
     public void setLocation( String location) {
         this.location = location;
