@@ -37,6 +37,8 @@ public class UserService {
      * This is a candidate username
      * @param password
      * This is a user's password
+     * @return
+     *      return boolean result
      */
     public static boolean checkEmptyField(String username, String password){
         if (username.length() == 0 ||password.length() == 0) {

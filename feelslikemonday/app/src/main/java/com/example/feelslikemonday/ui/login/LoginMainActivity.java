@@ -16,7 +16,7 @@ import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.User;
 
-/*Responsible for verifying username and passward*/
+/*This class is responsible for verifying username and passward*/
 
 public class LoginMainActivity extends AppCompatActivity {
 
@@ -30,6 +30,11 @@ public class LoginMainActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "user_preferences";
     public static final String USERNAME_KEY = "username_key";
 
+    /**
+     * This initializes LoginMainActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,9 @@ public class LoginMainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This clears Username and Passward fields at OnResume stage
+     */
     @Override
     protected void onResume(){
         super.onResume();
@@ -52,7 +60,11 @@ public class LoginMainActivity extends AppCompatActivity {
         loginPassword.setText("");
     }
 
-
+    /**
+     * This checks username and password when user attempts to log in
+     * @param view
+     * This is a view returned by onCreate()
+     */
     public void attemptLogin(View view){
         username = loginUsername.getText().toString();
         password = loginPassword.getText().toString();
@@ -82,6 +94,11 @@ public class LoginMainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This goes to SignupActivity when user want to sign up
+     * @param view
+     * This is a view returned by onCreate()
+     */
     public void goToSignupProcess(View view){
         Intent myIntent = new Intent(this, SignupActivity.class);
         this.startActivity(myIntent);

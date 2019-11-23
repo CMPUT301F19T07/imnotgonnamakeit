@@ -87,7 +87,7 @@ public class FollowPermissionDAO {
     }
 
     /**
-     * This queries for a FollowPermission by the user's username. A callback method will be called on success
+     * This queries for a FollowPermission by the user's username. A callback method will be called on success.
      * @param username
      * This is a candidate username
      * @param onSuccess

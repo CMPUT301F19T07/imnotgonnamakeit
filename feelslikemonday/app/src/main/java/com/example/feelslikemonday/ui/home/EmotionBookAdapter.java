@@ -29,8 +29,11 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
     /**
      * this is a constructor that create the Emotion Book Adapter
      * @param context
+     * This is the current context. This value must never be null
      * @param resource
+     * This is the resource ID for a layout file containing a TextView to use when instantiating views
      * @param objects
+     * This is the objects to represent in the ListView. This value must never be null
      */
     public EmotionBookAdapter(Context context, int resource, ArrayList<MoodEvent> objects) {
         super(context, resource, objects);
@@ -39,13 +42,16 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
     }
 
     /**
-     * This return the view of the EmotionBookAdapter, it takes position , view and parent.
+     * This return the view of the EmotionBookAdapter, it takes position , view and parent
      * @param position
+     * This is a position of the item within the adapter's data set of the item whose view we want
      * @param convertView
+     * This is the view. This value must never be null
      * @param parent
-     * @return the view of the Emotion BookAdapter
+     * This is the view group. This value must never be null
+     * @return
+     *      return the view of the Emotion BookAdapter
      */
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

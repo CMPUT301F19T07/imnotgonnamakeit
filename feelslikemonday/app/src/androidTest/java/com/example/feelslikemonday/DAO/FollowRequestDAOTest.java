@@ -11,7 +11,9 @@ import java.util.concurrent.CountDownLatch;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
+/**
+ * Test class for FollowRequestDAO
+ */
 public class FollowRequestDAOTest {
     private static FollowRequestDAO DAO = FollowRequestDAO.getInstance();
 
