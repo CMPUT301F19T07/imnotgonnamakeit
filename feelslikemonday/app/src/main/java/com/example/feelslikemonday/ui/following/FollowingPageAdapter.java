@@ -16,7 +16,7 @@ import com.example.feelslikemonday.model.FolloweeMoodEvent;
 
 import java.util.ArrayList;
 
-/*
+/**
  *This class acts as a array adapter for the followee's on the following page
 */
 
@@ -25,12 +25,25 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
     private Context context;
     private int mResource;
 
+    /**
+     * This is a constructor that creates the Following Page Adapter
+     * @param context
+     * @param resource
+     * @param objects
+     */
     public FollowingPageAdapter(Context context, int resource, ArrayList<FolloweeMoodEvent> objects) {
         super(context, resource, objects);
         this.context = context;
         mResource = resource;
     }
 
+    /**
+     * This is view of FollowingPage Adapter, it takes position, convertView and parent
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return the view of Following page Adapter
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

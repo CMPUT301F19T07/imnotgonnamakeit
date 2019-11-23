@@ -26,6 +26,9 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class acts as an array Adapter for the requested people
+ */
 public class RequestList extends ArrayAdapter<String> {
     private Context context;
     private List<String> requesterUsernames;
@@ -35,13 +38,24 @@ public class RequestList extends ArrayAdapter<String> {
     private SharedPreferences pref;
     private String myUserID;
 
-
+    /**
+     * This is a constructor that creates the RequestListAdapter
+     * @param context
+     * @param users
+     */
     public RequestList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
         this.requesterUsernames = users;
         this.context = context;
     }
 
+    /**
+     * This is a view of RequestList Adapter, it takes position, convertView, and parent
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view of requested people of the user
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
