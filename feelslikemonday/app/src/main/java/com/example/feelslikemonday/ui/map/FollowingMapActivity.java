@@ -3,18 +3,14 @@ package com.example.feelslikemonday.ui.map;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.fragment.app.FragmentActivity;
-
 import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
-import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
-import com.example.feelslikemonday.model.FolloweeMoodEvent;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.SignupActivity;
@@ -26,7 +22,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +44,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private String followeeName;
     private MoodEvent recentMoodEvent;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
