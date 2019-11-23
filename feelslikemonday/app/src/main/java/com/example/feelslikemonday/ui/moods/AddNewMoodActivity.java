@@ -200,7 +200,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         List<String> moodSpinner = new ArrayList<>();
 
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
-            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji() + " ( " + MoodEvent.MOOD_TYPES.get(i).getName() + " )");
+            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji() + " " + MoodEvent.MOOD_TYPES.get(i).getName());
         }
 
         List<String> socialSpinner = new ArrayList<>();
@@ -210,14 +210,14 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, moodSpinner);
+                this, R.layout.my_spinner, moodSpinner);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner moodSpinnerSpinner = findViewById(R.id.mood_spinner);
         moodSpinnerSpinner.setAdapter(adapter);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, socialSpinner);
+                this, R.layout.my_spinner, socialSpinner);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);
