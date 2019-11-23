@@ -1,11 +1,15 @@
 package com.example.feelslikemonday.ui.moods;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,6 +19,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -30,6 +35,8 @@ import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.google.firebase.firestore.Blob;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +54,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private Switch locationSwitch;
     private boolean saveLocation = true;
     private EditText reason;
+    private ImageView imageView;
+
     public User currentUser;
     private int moodState = 0; //if this variable =0 it means you're adding a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
@@ -60,6 +69,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private static final int maxSpacesForReason = 2;
     private LocationManager locationManager;
     private String currentLocation;
+    private byte[] moodBitmapByteArray;
 
     /**
      * This initializes AddNewMoodActivity
@@ -70,6 +80,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_mood);
+        imageView = findViewById(R.id.myphoto);
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
@@ -99,6 +110,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodState = intent.getIntExtra("state", 0);
             moodIndex = 0; //this variable is for sorting
             if (moodState == 1) {
+                byte[] imageByteArr = intent.getByteArrayExtra("image");
+                if(imageByteArr != null){
+                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
+                    imageView.setImageBitmap(imageBitmap);
+                }
                 moodTime = intent.getStringExtra("mytime"); // get current time
                 moodDate = intent.getStringExtra("myDate"); // get current date
                 reason.setText(intent.getStringExtra("reason")); // get  reason
@@ -142,7 +158,30 @@ public class AddNewMoodActivity extends AppCompatActivity {
      */
     public void photoButton(View view) {
         Intent intent = new Intent(AddNewMoodActivity.this, AttachPhotoActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, AttachPhotoActivity.REQUEST_CODE);
+    }
+
+    /**
+     * Method currently used to get photos from the photo activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(resultCode,resultCode,data);
+        if (requestCode == AttachPhotoActivity.REQUEST_CODE && resultCode == AttachPhotoActivity.RES_OK && data != null) {
+            byte[] img = data.getByteArrayExtra(AttachPhotoActivity.BITMAP_BYTE_ARRAY_EXTRA);
+            moodBitmapByteArray = img;
+            byteArrayToBitmap(img);
+        }
+    }
+
+    public Bitmap byteArrayToBitmap(byte[] input){
+        Bitmap bmp = BitmapFactory.decodeByteArray(input, 0, input.length);
+        ImageView imageView = findViewById(R.id.myphoto);
+        imageView.setImageBitmap(bmp);
+        return bmp;
     }
 
     /**
@@ -178,21 +217,24 @@ public class AddNewMoodActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
-                moodDate = sdf.format(date).toString();
-                moodTime = stf.format(date).toString();
+                moodDate = sdf.format(date);
+                moodTime = stf.format(date);
             }
 
             String emotionState = "No emotion"; //if we do not use this attribute, remove
             String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-
+            Blob moodBlob = null;
+            if(moodBitmapByteArray != null){
+                moodBlob = Blob.fromBytes(moodBitmapByteArray);
+            }
             if (saveLocation) {
                 currentLocation = getLocation();
             } else {
                 currentLocation = NULL;
             }
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation);
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation, Blob.fromBytes(moodBitmapByteArray));
 
             finish();
         }  // end of else
@@ -293,8 +335,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location;
 
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 10, mListener);
-           location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 10, mListener);
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
         String Long = location.getLongitude() + "";

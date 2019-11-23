@@ -1,9 +1,12 @@
 package com.example.feelslikemonday.ui.home;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,21 +27,27 @@ public class DisplayCurrentMood extends AppCompatActivity {
         
         Intent intent = getIntent();
 
-        TextView View_followee = findViewById(R.id.followeeUsername);
-        TextView View_date = findViewById(R.id.textViewDate);
-        TextView View_time = findViewById(R.id.textViewTime);
-        TextView View_emotionalState = findViewById(R.id.textViewEmotionalState);
-        TextView View_reason = findViewById(R.id.textViewReason);
-        TextView View_socialSituation = findViewById(R.id.textViewsocialSituation);
-        TextView View_moodType = findViewById(R.id.textViewMoodType);
+        ImageView imageView = findViewById(R.id.mood_photo);
+        TextView followeeTextView = findViewById(R.id.followeeUsername);
+        TextView dateTextView = findViewById(R.id.textViewDate);
+        TextView timeTextView = findViewById(R.id.textViewTime);
+        TextView emotionalStateTextView = findViewById(R.id.textViewEmotionalState);
+        TextView reasonTextView = findViewById(R.id.textViewReason);
+        TextView socialSituationTextView = findViewById(R.id.textViewsocialSituation);
+        TextView moodTypeTextView = findViewById(R.id.textViewMoodType);
 
-        View_followee.setText(intent.getStringExtra ("followeeUsername"));
-        View_date.setText(intent.getStringExtra ("myDate"));
-        View_time.setText(intent.getStringExtra ("mytime"));
-        View_emotionalState.setText(intent.getStringExtra ("emotionalState"));
-        View_reason.setText(intent.getStringExtra ("reason"));
-        View_socialSituation.setText(intent.getStringExtra ("socialSituation"));
-        View_moodType.setText(intent.getStringExtra ("moodType"));
+        byte[] imageByteArr = intent.getByteArrayExtra("image");
+        if(imageByteArr != null){
+            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
+            imageView.setImageBitmap(imageBitmap);
+        }
+        followeeTextView.setText(intent.getStringExtra ("followeeUsername"));
+        dateTextView.setText(intent.getStringExtra ("myDate"));
+        timeTextView.setText(intent.getStringExtra ("mytime"));
+        emotionalStateTextView.setText(intent.getStringExtra ("emotionalState"));
+        reasonTextView.setText(intent.getStringExtra ("reason"));
+        socialSituationTextView.setText(intent.getStringExtra ("socialSituation"));
+        moodTypeTextView.setText(intent.getStringExtra ("moodType"));
 
         Button button = (Button) findViewById(R.id.button_back);
 

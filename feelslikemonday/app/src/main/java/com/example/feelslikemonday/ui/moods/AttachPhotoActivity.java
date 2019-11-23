@@ -39,6 +39,8 @@ public class AttachPhotoActivity extends AppCompatActivity {
     private Context PostImage;
     private Button saveButton;
 
+    private Bitmap returnBitmap = null;
+
     /**
      * This initializes AttachPhotoActivity
      * @param savedInstanceState
@@ -91,11 +93,16 @@ public class AttachPhotoActivity extends AppCompatActivity {
      * This is a view returned by onCreate()
      */
     public void saveImage(View view){
-        Intent output = new Intent();
-        //Get image from the imageView, convert it into a byte array, and then pass it as an extra
-        output.putExtra(BITMAP_BYTE_ARRAY_EXTRA,bitmapToByteArray(((BitmapDrawable)imageView.getDrawable()).getBitmap()));
-        setResult(RES_OK,output);
-        finish();
+        if(returnBitmap != null){
+            Intent output = new Intent();
+            //Get image from the imageView, convert it into a byte array, and then pass it as an extra
+            output.putExtra(BITMAP_BYTE_ARRAY_EXTRA,bitmapToByteArray(returnBitmap));
+            setResult(RES_OK,output);
+            finish();
+        }
+        else{
+            Toast.makeText(PostImage, "No image to save",Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -109,7 +116,6 @@ public class AttachPhotoActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        bitmap.recycle();
         return byteArray;
     }
 
@@ -129,17 +135,20 @@ public class AttachPhotoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==CAMERA_REQUEST && resultCode == RESULT_OK ){
-            Bitmap bitmap= (Bitmap) data.getExtras().get("data");
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            returnBitmap = bitmap;
             imageView.setImageBitmap(bitmap);
         }
 
         //if(requestCode==ALBUM_REQUEST && requestCode == RESULT_OK && null!=data){
-        else if(requestCode==ALBUM_REQUEST){
+        else if(requestCode==ALBUM_REQUEST && resultCode == RESULT_OK ){
             try {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                imageView.setImageBitmap(selectedImage);
+                //Copy bitmap to prevent recycling errors
+                returnBitmap = selectedImage.copy(selectedImage.getConfig(),selectedImage.isMutable());
+                imageView.setImageBitmap(returnBitmap);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
