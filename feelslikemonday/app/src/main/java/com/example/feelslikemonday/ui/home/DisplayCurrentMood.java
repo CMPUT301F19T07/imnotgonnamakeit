@@ -10,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feelslikemonday.R;
 
-/*Responsible for showing user's current mood */
+/*This class is responsible for showing user's current mood */
 public class DisplayCurrentMood extends AppCompatActivity {
-
+    /**
+     * This initializes DisplayCurrentMood activity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

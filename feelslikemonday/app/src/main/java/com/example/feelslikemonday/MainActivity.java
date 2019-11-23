@@ -39,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         //do something on back button pressed
     }
+
+    /**
+     * This initializes MainActivity
+     * @param savedInstanceState
+     * This is a previous saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    /**
+     * This inflates the menus
+     * @param menu
+     * This is a menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -71,13 +82,24 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This navigates up within the application's activity hierarchy from the action bar.
+     * @return
+     *      return true if Up navigation completed successfully and this Activity was finished, false otherwise.
+     */
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
+    /**
+     * This returns false to have the normal processing happen
+     * @param item
+     * This is the menu item that is selected.
+     * @return
+     *      return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
