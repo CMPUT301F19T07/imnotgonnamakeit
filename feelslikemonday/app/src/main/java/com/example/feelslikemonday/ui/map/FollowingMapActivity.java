@@ -96,7 +96,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                         Log.v("succc", "succ");
                     }
                 });
-            } placeMarkers();}
+            } }placeMarkers();
 
 
     }
