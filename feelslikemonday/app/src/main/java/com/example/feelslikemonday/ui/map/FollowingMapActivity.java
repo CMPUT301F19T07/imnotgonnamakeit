@@ -50,7 +50,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-    
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -59,14 +59,12 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
         UserDAO userDAO = new UserDAO();
-        userDAO.get(myUserID, new UserCallback() {
+        userDAO.get("xiaole", new UserCallback() {
             @Override
             public void onCallback(User user) {
                 currentUser = user;
                 followingEmotionList.clear();
-                for (int i = 0; i < myCurrentMoodList.size(); i++) {
-                    followingEmotionList.add(myCurrentMoodList.get(i));
-                }
+                followingEmotionList.add(myCurrentMoodList.get(0));
                 placeMarkers();
             }
         }, new VoidCallback() {
@@ -79,7 +77,6 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     private void placeMarkers() {
         for (int i = 0; i < followingEmotionList.size(); i++) {
-
             String markerLocation = followingEmotionList.get(i).getLocation();
             switch (followingEmotionList.get(i).getMoodType().getName()) {
                 case "Anger":
