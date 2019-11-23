@@ -30,7 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class FollowingMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,7 +37,6 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private SharedPreferences pref;
     private String myUserID;
     private User currentUser;
-    private List<MoodEvent> followingEmotionList = new ArrayList<>();
     private List<MoodEvent> FolloweeCurrentMoodList = new ArrayList<>() ;
     private LatLng currentLocation;
     private String markerLocation;
@@ -46,6 +44,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private FollowPermission currentFolloPermission;
     private List<String> followeeList = new ArrayList<>();
     private int i;
+    private String followeeName;
     private MoodEvent recentMoodEvent;
 
 
@@ -72,14 +71,15 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
             public void onCallback(FollowPermission followPermission) {
                 currentFolloPermission = followPermission;
                 followeeList = currentFolloPermission.getFolloweeUsernames();
-                if(followeeList!=null){
+                if(followeeList.size()>0){
                     UserDAO userDAO = new UserDAO();
-                    for(i =0;i<followeeList.size()-1;i++){
+                    for(i=0;i<followeeList.size()-1;i++){
                         userDAO.get(followeeList.get(i), new UserCallback() {
                             @Override
                             public void onCallback(User user) {
                                 currentUser = user;
                                 FolloweeCurrentMoodList =currentUser.getMoodHistory();
+                                followeeName = currentUser.getUsername();
                                 if(FolloweeCurrentMoodList.size()>0){
                                     recentMoodEvent= FolloweeCurrentMoodList.get(0);
                                     markerLocation = recentMoodEvent.getLocation();
@@ -101,7 +101,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                 Log.v("succc", "succ");
             }
         });
-        
+
     }
     private void placeMarkers() {
         markerLocation = recentMoodEvent.getLocation();
@@ -128,6 +128,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
             String[] latLongSplit = markerLocation.split(" ");
             currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
             mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType).title(followeeList.get(i)).snippet(recentMoodEvent.getMoodType().getName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
     }
 
 }
