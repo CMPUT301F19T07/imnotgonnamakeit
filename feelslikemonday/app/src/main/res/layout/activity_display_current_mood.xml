@@ -11,18 +11,20 @@
     <ScrollView
         android:id="@+id/scrollViewMyMood"
         android:layout_width="327dp"
-        android:layout_height="492dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginBottom="116dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
         android:fillViewport="true"
+        app:layout_constraintVertical_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/textViewMoodType"
+        app:layout_constraintBottom_toTopOf="@id/button_back">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayoutMyMood"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
             <ImageView
@@ -156,6 +158,8 @@
                 android:fontFamily="sans-serif-condensed-light"
                 android:gravity="center"
                 android:text="socialSituation"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.552"
@@ -166,11 +170,14 @@
                 android:id="@+id/followeeUsername"
                 android:layout_width="178dp"
                 android:layout_height="47dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="0dp"
                 android:fontFamily="sans-serif-condensed-light"
                 android:gravity="center"
                 android:text="followeeUsername"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textSize="20sp"
+                android:hint="Your Mood"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -183,15 +190,18 @@
 
     <TextView
         android:id="@+id/textViewMoodType"
-        android:layout_width="90dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:text="MoodEmoji"
         android:textAlignment="center"
         android:textSize="48sp"
+        app:layout_constraintVertical_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scrollViewMyMood"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -203,6 +213,7 @@
         android:background="@drawable/button_rounded"
         android:text="Back"
         android:textColor="@color/White"
+        app:layout_constraintVertical_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
