@@ -44,8 +44,8 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private LatLng currentLocation;
     private BitmapDescriptor markerType;
     private FollowPermission currentFolloPermission;
-    private List<String> followeeList;
-
+    private List<String> followeeList = new ArrayList<>();
+    private ArrayList<String> followeeList2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,40 +64,42 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
+
         FollowPermissionDAO followPermissionDAO = new FollowPermissionDAO();
         followPermissionDAO.get(myUserID,new FollowPermissionCallback() {
             @Override
             public void onCallback(FollowPermission followPermission) {
                 currentFolloPermission = followPermission;
                 followeeList = currentFolloPermission.getFolloweeUsernames();
-                if(followeeList!=null){
-                    UserDAO userDAO = new UserDAO();
-                    for(int i =0;i<followeeList.size();i++){
-                        userDAO.get(followeeList.get(i), new UserCallback() {
-                            @Override
-                            public void onCallback(User user) {
-                                currentUser = user;
-                                FolloweeCurrentMoodList =currentUser.getMoodHistory();
-                                followingEmotionList.add(FolloweeCurrentMoodList.get(0));
-                                FolloweeCurrentMoodList.clear();
-                            }
-                        }, new VoidCallback() {
-                            @Override
-                            public void onCallback() {
-                                Log.v("succc", "succ");
-                            }
-                        });
-                    } placeMarkers();}
+                currentLocation = new LatLng(0,0);
+                mMap.addMarker(new MarkerOptions().position(currentLocation).title(followeeList.get(0)));
             }},new VoidCallback() {
-                @Override
-                public void onCallback(){
-                    Log.v("succc", "succ");
-                }
-            });
+            @Override
+            public void onCallback(){
+                Log.v("succc", "succ");
+            }
+        });
+
+        if(followeeList!=null){
+            UserDAO userDAO = new UserDAO();
+            for(int i =0;i<followeeList.size();i++){
+                userDAO.get(followeeList.get(i), new UserCallback() {
+                    @Override
+                    public void onCallback(User user) {
+                        currentUser = user;
+                        FolloweeCurrentMoodList =currentUser.getMoodHistory();
+                        followingEmotionList.add(FolloweeCurrentMoodList.get(0));
+                    }
+                }, new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        Log.v("succc", "succ");
+                    }
+                });
+            } placeMarkers();}
 
 
-
-        }
+    }
 
     private void placeMarkers() {
         for (int i = 0; i < followingEmotionList.size(); i++) {
@@ -128,7 +130,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
             }
             String[] latLongSplit = markerLocation.split(" ");
             currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
-            mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType));
+            mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType).title( followingEmotionList.get(i).getMoodType().getName()));
         }
         if (currentLocation != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
