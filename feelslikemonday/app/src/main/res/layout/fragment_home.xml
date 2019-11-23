@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="600dp"
             android:orientation="vertical">
-            android:fontFamily="casual">
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/listView"
