@@ -10,6 +10,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +63,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private static final int maxSpacesForReason = 2;
     private LocationManager locationManager;
     private String currentLocation;
+    private TextView count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
         locationSwitch = findViewById(R.id.location_switch);
+        count=findViewById(R.id.count);
 
         locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -82,6 +87,32 @@ public class AddNewMoodActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         setupDAO();
+
+        String s = reason.getText().toString();
+        int num =s.length();
+        count.setText(""+num);
+
+        /**
+         *This function of commentEditText is to tracking and updating the number of characters
+         * in the commentEditText box. A small number will update at the right bottom of the box.
+         */
+        //https://www.youtube.com/watch?v=sk3GWcbgijI
+        reason.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String s = reason.getText().toString();
+                int num =s.length();
+                count.setText(""+num);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void addExistingForEdit() {
