@@ -30,7 +30,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
+ *This class is responsible to show the user's followees' recent mood map
+ */
 public class FollowingMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -47,8 +49,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private String followeeName;
     private MoodEvent recentMoodEvent;
 
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                 followeeList = currentFolloPermission.getFolloweeUsernames();
                 if(followeeList.size()>0){
                     UserDAO userDAO = new UserDAO();
-                    for(i=0;i<followeeList.size()-1;i++){
+                    for(i=0;i<followeeList.size();i++){
                         userDAO.get(followeeList.get(i), new UserCallback() {
                             @Override
                             public void onCallback(User user) {
@@ -103,32 +104,33 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         });
 
     }
+
     private void placeMarkers() {
         markerLocation = recentMoodEvent.getLocation();
-            switch (recentMoodEvent.getMoodType().getName()) {
-                case "Anger":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
-                    break;
-                case "Disgust":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-                    break;
-                case "Fear":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
-                    break;
-                case "Happiness":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
-                    break;
-                case "Sadness":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
-                    break;
-                case "Surprise":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
-                    break;
-            }
-            String[] latLongSplit = markerLocation.split(" ");
-            currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
-            mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType).title(followeeList.get(i)).snippet(recentMoodEvent.getMoodType().getName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        switch (recentMoodEvent.getMoodType().getName()) {
+            case "Anger":
+                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                break;
+            case "Disgust":
+                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                break;
+            case "Fear":
+                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
+                break;
+            case "Happiness":
+                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
+                break;
+            case "Sadness":
+                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
+                break;
+            case "Surprise":
+                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+                break;
+        }
+        String[] latLongSplit = markerLocation.split(" ");
+        currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
+        mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType).title(followeeName).snippet(recentMoodEvent.getMoodType().getName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
     }
 
 }
