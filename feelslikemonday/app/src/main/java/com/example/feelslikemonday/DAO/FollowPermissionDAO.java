@@ -23,7 +23,7 @@ public class FollowPermissionDAO {
 
     private final String COLLECTION_NAME = "followPermissions";
 
-    private FollowPermissionDAO(){}
+    public FollowPermissionDAO(){}
 
     public static FollowPermissionDAO getInstance() {
         return instance;

@@ -6,10 +6,14 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.feelslikemonday.DAO.FollowPermissionCallback;
+import com.example.feelslikemonday.DAO.FollowPermissionDAO;
+import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.FolloweeMoodEvent;
 import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.User;
@@ -36,9 +40,11 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private User currentUser;
     private FolloweeMoodEvent followeeMoodEvent;
     private ArrayList<MoodEvent> followingEmotionList = new ArrayList<>();
-    private List<MoodEvent> myCurrentMoodList;
+    private List<MoodEvent> FolloweeCurrentMoodList;
     private LatLng currentLocation;
     private BitmapDescriptor markerType;
+    private FollowPermission currentFolloPermission;
+    private List<String> followeeList;
 
 
     @Override
@@ -58,22 +64,40 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
-        UserDAO userDAO = new UserDAO();
-        userDAO.get("xiaole", new UserCallback() {
+        FollowPermissionDAO followPermissionDAO = new FollowPermissionDAO();
+        followPermissionDAO.get(myUserID,new FollowPermissionCallback() {
             @Override
-            public void onCallback(User user) {
-                currentUser = user;
-                followingEmotionList.clear();
-                followingEmotionList.add(myCurrentMoodList.get(0));
-                placeMarkers();
-            }
-        }, new VoidCallback() {
-            @Override
-            public void onCallback() {
-                Log.v("succc", "succ");
-            }
-        });
-    }
+            public void onCallback(FollowPermission followPermission) {
+                currentFolloPermission = followPermission;
+                followeeList = currentFolloPermission.getFolloweeUsernames();
+                if(followeeList!=null){
+                    UserDAO userDAO = new UserDAO();
+                    for(int i =0;i<followeeList.size();i++){
+                        userDAO.get(followeeList.get(i), new UserCallback() {
+                            @Override
+                            public void onCallback(User user) {
+                                currentUser = user;
+                                FolloweeCurrentMoodList =currentUser.getMoodHistory();
+                                followingEmotionList.add(FolloweeCurrentMoodList.get(0));
+                                FolloweeCurrentMoodList.clear();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                Log.v("succc", "succ");
+                            }
+                        });
+                    } placeMarkers();}
+            }},new VoidCallback() {
+                @Override
+                public void onCallback(){
+                    Log.v("succc", "succ");
+                }
+            });
+
+
+
+        }
 
     private void placeMarkers() {
         for (int i = 0; i < followingEmotionList.size(); i++) {
