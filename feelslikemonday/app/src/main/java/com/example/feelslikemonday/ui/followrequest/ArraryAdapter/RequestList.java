@@ -26,8 +26,9 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * This class acts as an array Adapter for the requested people
+ *This class acts as a array adapter for the request list
  */
 public class RequestList extends ArrayAdapter<String> {
     private Context context;
@@ -39,9 +40,11 @@ public class RequestList extends ArrayAdapter<String> {
     private String myUserID;
 
     /**
-     * This is a constructor that creates the RequestListAdapter
+     * This initializes follower request fragment
      * @param context
+     * This is the current context. This value must never be null
      * @param users
+     * This is the objects to represent in the ListView. This value must never be null
      */
     public RequestList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
@@ -50,11 +53,15 @@ public class RequestList extends ArrayAdapter<String> {
     }
 
     /**
-     * This is a view of RequestList Adapter, it takes position, convertView, and parent
+     * This gets a View that displays the data at the specified position in the data set
      * @param position
+     * This is the position of the item within the adapter's data set of the item whose view we want
      * @param convertView
+     * This is the view. This value must never be null
      * @param parent
-     * @return view of requested people of the user
+     * This is the view group. This value must never be null
+     * @return
+     *      return a View corresponding to the data at the specified position
      */
     @NonNull
     @Override

@@ -40,7 +40,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Responsible for listing all followees' moods and related information
+ * This fragment is responsible for listing all followees' moods and related information
  */
 
 public class FollowingFragment extends Fragment {
@@ -57,6 +57,17 @@ public class FollowingFragment extends Fragment {
     private int userVisited = 0;
     private String  userCurrent;
 
+    /**
+     * This initializes FollowingFragment
+     * @param inflater
+     * This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container
+     * This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState
+     * This is a previous saved state.
+     * @return
+     *      return the View for the fragment's UI
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         followingViewModel = ViewModelProviders.of(this).get(FollowingViewModel.class);
         View root = inflater.inflate(R.layout.fragment_following, container, false);
@@ -151,6 +162,12 @@ public class FollowingFragment extends Fragment {
         return root;
     }
 
+
+    /**
+     * This views the mood event in current location
+     * @param position
+     * This is a current location
+     */
     public void viewEmotion(int position) {
         MoodEvent CurrentMoodEvent = myfolloweeList.get(position).getRecentMood();
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
@@ -164,6 +181,11 @@ public class FollowingFragment extends Fragment {
         startActivity(intent);
     }
 
+    /**
+     * This adds user's followees' recent mood to FolloweeMoodEvent
+     * @param user
+     * This is a candidate user
+     */
     public void checkFollowee(User user){
         followeeUserMoodList = user.getMoodHistory();
         if (followeeUserMoodList.size() > 0) {

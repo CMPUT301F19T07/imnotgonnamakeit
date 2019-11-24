@@ -41,7 +41,6 @@
                     android:layout_width="118dp"
                     android:layout_height="69dp"
                     android:contentDescription="@string/nav_header_desc"
-
                     android:paddingTop="@dimen/nav_header_vertical_spacing"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +108,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:orientation="horizontal">
 
                 <EditText
@@ -128,6 +128,24 @@
                     android:minHeight="80dp" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:gravity="right">
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/20"/>
+            </LinearLayout>
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -167,17 +185,9 @@
                     app:layout_constraintHorizontal_bias="0.794"
                     app:layout_constraintStart_toEndOf="@+id/textView4"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
 
-            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout9"

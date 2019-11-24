@@ -1,22 +1,30 @@
 package com.example.feelslikemonday.ui.moods;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +38,8 @@ import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.MoodType;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.google.firebase.firestore.Blob;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +47,7 @@ import java.util.List;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-/*Responsible for editing or adding a mood event*/
+/*This class is responsible for editing or adding a mood event*/
 
 public class AddNewMoodActivity extends AppCompatActivity {
 
@@ -47,6 +57,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private Switch locationSwitch;
     private boolean saveLocation = true;
     private EditText reason;
+    private ImageView imageView;
+
     public User currentUser;
     private int moodState = 0; //if this variable =0 it means you're adding a new mood, it 1 you're editing the current mood
     private int moodIndex = 0;
@@ -60,15 +72,25 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private static final int maxSpacesForReason = 2;
     private LocationManager locationManager;
     private String currentLocation;
+    private TextView count;
+    private byte[] moodBitmapByteArray;
 
+
+    /**
+     * This initializes AddNewMoodActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_mood);
+        imageView = findViewById(R.id.myphoto);
         reason = findViewById(R.id.editText8);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
         locationSwitch = findViewById(R.id.location_switch);
+        count=findViewById(R.id.count);
 
         locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -82,8 +104,37 @@ public class AddNewMoodActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         setupDAO();
+
+        String s = reason.getText().toString();
+        int num =s.length();
+        count.setText(""+num);
+
+        /**
+         *This function of commentEditText is to tracking and updating the number of characters
+         * in the commentEditText box. A small number will update at the right bottom of the box.
+         */
+        //https://www.youtube.com/watch?v=sk3GWcbgijI
+        reason.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String s = reason.getText().toString();
+                int num =s.length();
+                count.setText(""+num);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
+    /**
+     * This edits the existing mood event
+     */
     private void addExistingForEdit() {
         Intent intent = getIntent();
         moodState = 0;
@@ -91,6 +142,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodState = intent.getIntExtra("state", 0);
             moodIndex = 0; //this variable is for sorting
             if (moodState == 1) {
+                byte[] imageByteArr = intent.getByteArrayExtra("image");
+                if(imageByteArr != null){
+                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
+                    imageView.setImageBitmap(imageBitmap);
+                }
                 moodTime = intent.getStringExtra("mytime"); // get current time
                 moodDate = intent.getStringExtra("myDate"); // get current date
                 reason.setText(intent.getStringExtra("reason")); // get  reason
@@ -104,6 +160,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
     }
 
+    /**
+     * This sets up UserDAO
+     */
     private void setupDAO() {
         // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
@@ -118,15 +177,48 @@ public class AddNewMoodActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * This finishes AddNewMoodActivity when user cancel it
+     */
     public void cancelButton(View view) {
         finish();
     }
 
+
+    /**
+     * This goes to AttachPhotoActivity when user click photoButton
+     */
     public void photoButton(View view) {
         Intent intent = new Intent(AddNewMoodActivity.this, AttachPhotoActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, AttachPhotoActivity.REQUEST_CODE);
     }
 
+    /**
+     * Method currently used to get photos from the photo activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(resultCode,resultCode,data);
+        if (requestCode == AttachPhotoActivity.REQUEST_CODE && resultCode == AttachPhotoActivity.RES_OK && data != null) {
+            byte[] img = data.getByteArrayExtra(AttachPhotoActivity.BITMAP_BYTE_ARRAY_EXTRA);
+            moodBitmapByteArray = img;
+            byteArrayToBitmap(img);
+        }
+    }
+
+    public Bitmap byteArrayToBitmap(byte[] input){
+        Bitmap bmp = BitmapFactory.decodeByteArray(input, 0, input.length);
+        ImageView imageView = findViewById(R.id.myphoto);
+        imageView.setImageBitmap(bmp);
+        return bmp;
+    }
+
+    /**
+     * This saves the current mood event
+     */
     public void Save(View view) {
         moodHistory = currentUser.getMoodHistory();
         myMood = getMoodDetails();
@@ -134,6 +226,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
         updateUserWithNewMood(currentUser);
     }
 
+    /**
+     * This gets the details of the current mood event
+     * @return
+     *      return the mood event
+     */
     public MoodEvent getMoodDetails() {
 
         // check that reason is max 3 words
@@ -152,21 +249,24 @@ public class AddNewMoodActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 SimpleDateFormat stf = new SimpleDateFormat("kk:mm");
-                moodDate = sdf.format(date).toString();
-                moodTime = stf.format(date).toString();
+                moodDate = sdf.format(date);
+                moodTime = stf.format(date);
             }
 
             String emotionState = "No emotion"; //if we do not use this attribute, remove
             String social = MoodEvent.SOCIAL_SITUATIONS.get(socialSituationSpinner.getSelectedItemPosition());
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
-
+            Blob moodBlob = null;
+            if(moodBitmapByteArray != null){
+                moodBlob = Blob.fromBytes(moodBitmapByteArray);
+            }
             if (saveLocation) {
                 currentLocation = getLocation();
             } else {
                 currentLocation = NULL;
             }
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation);
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation, Blob.fromBytes(moodBitmapByteArray));
 
             finish();
         }  // end of else
@@ -174,6 +274,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This adds mood event to the moodHistory
+     * @param myMood
+     * This is the current mood event
+     */
     public void addMoodToList(MoodEvent myMood) {
         if (moodState == 0) {
             // add new mood at the top, location 0, this way the mood list is always in reverse chronological order
@@ -183,7 +288,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodHistory.set(moodIndex, myMood);
         }
     }
-
+    /**
+     * This adds mood event to the moodHistory
+     * @param currentUser
+     * This is the current user
+     */
     public void updateUserWithNewMood(User currentUser) {
         // update the user object
         UserDAO userAdo = new UserDAO();
@@ -194,7 +303,10 @@ public class AddNewMoodActivity extends AppCompatActivity {
         });
     }
 
-    // List<MoodType> MOOD_TYPES, List<String>  SOCIAL_SITUATIONS
+
+    /**
+     * This lists mood types and social situations
+     */
     private void fillSpinners() {
 
         List<String> moodSpinner = new ArrayList<>();
@@ -223,7 +335,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);
         socialSpinnerSpinner.setAdapter(adapter1);
     }
-
+    /**
+     * This receives notifications from the LocationManager when the location has changed
+     */
     private LocationListener mListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -244,12 +358,17 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * This gets the location of the current mood event
+     * @return
+     *      return the string consisting of longitude and latitude
+     */
     private String getLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location;
 
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 10, mListener);
-           location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 10, mListener);
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
         String Long = location.getLongitude() + "";
@@ -258,6 +377,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This checks if the user permits location
+     * @return
+     *      return boolean result
+     */
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -297,6 +421,15 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This callbacks for the result from requesting permissions.
+     * @param requestCode
+     * This is the request code passed in.
+     * @param permissions
+     * This is the requested permissions
+     * @param grantResults
+     * This is the grant results for the corresponding permissions
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

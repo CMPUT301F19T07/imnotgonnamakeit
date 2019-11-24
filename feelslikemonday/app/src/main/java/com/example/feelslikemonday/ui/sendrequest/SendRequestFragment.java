@@ -24,7 +24,7 @@ import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.List;
-/*Resposible for  sending request to the user that you want to follow*/
+/*This fragment is responsible for  sending request to the user that you want to follow*/
 public class SendRequestFragment extends Fragment {
 
     private Button resetButton;
@@ -39,6 +39,17 @@ public class SendRequestFragment extends Fragment {
     private SendRequestViewModel sendRequestViewModel;
     private static FollowRequestDAO DAO; // = FollowRequestDAO.getInstance();
 
+    /**
+     * This initializes SendRequestFragment
+     * @param inflater
+     * This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container
+     * This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState
+     * This is a previous saved state.
+     * @return
+     *      return the View for the fragment's UI or null
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sendRequestViewModel = ViewModelProviders.of(this).get(SendRequestViewModel.class);

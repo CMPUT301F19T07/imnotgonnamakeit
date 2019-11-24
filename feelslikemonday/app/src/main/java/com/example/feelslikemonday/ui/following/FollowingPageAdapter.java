@@ -16,8 +16,9 @@ import com.example.feelslikemonday.model.FolloweeMoodEvent;
 
 import java.util.ArrayList;
 
+
 /**
- *This class acts as a array adapter for the followee's on the following page
+ *This class acts as a array adapter for the followees
 */
 
 public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
@@ -26,10 +27,13 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
     private int mResource;
 
     /**
-     * This is a constructor that creates the Following Page Adapter
+     * This initializes follower request fragment
      * @param context
+     * This is the current context. This value must never be null
      * @param resource
+     * This is the resource ID for a layout file containing a TextView to use when instantiating views
      * @param objects
+     * This is the objects to represent in the ListView. This value must never be null
      */
     public FollowingPageAdapter(Context context, int resource, ArrayList<FolloweeMoodEvent> objects) {
         super(context, resource, objects);
@@ -38,11 +42,15 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
     }
 
     /**
-     * This is view of FollowingPage Adapter, it takes position, convertView and parent
+     * This  displays the data at the specified position in the data set
      * @param position
+     * This is a position of the item within the adapter's data set of the item whose view we want
      * @param convertView
+     * This is the view. This value must never be null
      * @param parent
-     * @return the view of Following page Adapter
+     * This is the view group. This value must never be null
+     * @return
+     *      return the view of FollowingPage
      */
     @NonNull
     @Override

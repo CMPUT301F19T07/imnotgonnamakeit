@@ -1,4 +1,4 @@
-package com.example.feelslikemonday.ui;
+package com.example.feelslikemonday.UI;
 
 import android.app.Activity;
 import android.widget.EditText;
