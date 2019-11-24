@@ -6,31 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <ScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="casual">
+
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
                 android:layout_height="600dp" />
-
         </LinearLayout>
-    </ScrollView>
+
 
     <ScrollView
         android:id="@+id/filterPopup"
@@ -38,10 +36,10 @@
         android:layout_height="wrap_content"
         android:background="#00BCD4"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/scroll"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scroll">
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
