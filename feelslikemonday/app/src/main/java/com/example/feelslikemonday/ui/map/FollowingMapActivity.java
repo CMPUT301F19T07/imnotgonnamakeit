@@ -1,8 +1,11 @@
 package com.example.feelslikemonday.ui.map;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+
 import androidx.fragment.app.FragmentActivity;
 import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
@@ -25,6 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.opencensus.resource.Resource;
+
 /*
  *This class is responsible to show the user's followees' recent mood map
  */
@@ -43,6 +48,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private int i;
     private String followeeName;
     private MoodEvent recentMoodEvent;
+    private String moodIcon;
 
 
     @Override
@@ -100,32 +106,34 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     }
 
+
     private void placeMarkers() {
         markerLocation = recentMoodEvent.getLocation();
         switch (recentMoodEvent.getMoodType().getName()) {
             case "Anger":
-                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                moodIcon = "anger.bmp";
                 break;
             case "Disgust":
-                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                moodIcon = "disgust.bmp";
                 break;
             case "Fear":
-                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
+                moodIcon = "fear.bmp";
                 break;
             case "Happiness":
-                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
+                moodIcon = "happiness.bmp";
                 break;
             case "Sadness":
-                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
+                moodIcon = "sadness.bmp";
                 break;
             case "Surprise":
-                markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+                moodIcon = "surprise.bmp";
                 break;
         }
         String[] latLongSplit = markerLocation.split(" ");
         currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
-        mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType).title(followeeName).snippet(recentMoodEvent.getMoodType().getName()));
+        mMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.fromAsset(moodIcon)).title(followeeName).snippet(recentMoodEvent.getMoodType().getName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+
     }
 
 }
