@@ -25,4 +25,8 @@
     <string name="Username">Username</string>
     <string name="send">Send</string>
     <string name="title_activity_maps">Map</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up1">Sign up</string>
+    <string name="login">LOGIN</string>
 </resources>

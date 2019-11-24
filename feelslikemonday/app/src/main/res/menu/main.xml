@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.BaseActivity">
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_menu_mood"
         android:orderInCategory="100"
         android:title="@string/new_entry"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_filter"
+        android:icon="@drawable/ic_menu_filter"
         android:orderInCategory="100"
         android:title="@string/filter_entry"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_show_map"
+        android:icon="@drawable/ic_menu_map"
         android:orderInCategory="100"
         android:title="@string/show_map_entry"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_show_following_map"
@@ -23,10 +28,12 @@
         android:title="Show Following Map"
         app:showAsAction="never" />
 
+
     <item
         android:id="@+id/action_logout"
+        android:icon="@drawable/ic_menu_logout"
         android:orderInCategory="100"
         android:title="Logout"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
 </menu>
