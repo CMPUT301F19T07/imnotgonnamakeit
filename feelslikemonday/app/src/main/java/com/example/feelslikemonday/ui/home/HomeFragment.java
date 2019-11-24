@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
     private boolean showSadness = true;
     private boolean showSurprise = true;
     public ScrollView filterPopup;
+    public ScrollView helpPopup;
     public Button okButton;
 
     /**
@@ -79,6 +80,7 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         filterPopup = root.findViewById(R.id.filterPopup);
+        helpPopup = root.findViewById(R.id.helpPopup);
         if (getArguments() != null) {
             if (getArguments().getBoolean("filter")) {
                 filterPopup.setVisibility(View.VISIBLE);
@@ -155,6 +157,9 @@ public class HomeFragment extends Fragment {
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
+
+
+
                 for (int i = 0; i < myCurrentMoodList.size(); i++) {
 
                     if (myCurrentMoodList.get(i).getMoodType().getName().equals("Anger") && !showAnger) {
@@ -178,6 +183,9 @@ public class HomeFragment extends Fragment {
 
                     myEmotionList.add(myCurrentMoodList.get(i));
                 }
+
+                    showHelp();
+
                 SwipeMenuListView = getView().findViewById(R.id.listView);
                 adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
                 SwipeMenuListView.setAdapter(adapter);
@@ -271,6 +279,7 @@ public class HomeFragment extends Fragment {
                         menu.addMenuItem(deleteItem);
                     }
                 };
+                showHelp();
                 SwipeMenuListView.setMenuCreator(creator);
                 SwipeMenuListView.setOnMenuItemClickListener(new com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener() {
                     @Override
@@ -320,9 +329,10 @@ public class HomeFragment extends Fragment {
             public void onCallback() {
             }
         });
-
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
         SwipeMenuListView.setAdapter(adapter);
+            showHelp();
+
         // Send the new UserObjecct to the DB
     }
 
@@ -423,5 +433,13 @@ public class HomeFragment extends Fragment {
             }
         }
         return returnValue;
+    }
+
+    public void showHelp(){
+        if (myCurrentMoodList.isEmpty() ){
+            helpPopup.setVisibility(View.VISIBLE);
+        } else {
+            helpPopup.setVisibility(View.INVISIBLE);
+        }
     }
 }
