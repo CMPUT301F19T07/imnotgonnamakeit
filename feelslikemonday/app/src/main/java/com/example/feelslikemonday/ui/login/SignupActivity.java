@@ -24,6 +24,7 @@ import com.example.feelslikemonday.model.User;
 https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
 */
 
+/*This class is responsible for signing up new user*/
 public class SignupActivity extends AppCompatActivity {
 
     private EditText signupUsername;
@@ -36,10 +37,20 @@ public class SignupActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "user_preferences";
     public static final String USERNAME_KEY = "username_key";
 
+    /**
+     * This finishes SignupActivity when user cancel Sign up
+     * @param view
+     * This is a view returned by onCreate()
+     */
     public void cancelSignup(View view) {
         finish();
     }
 
+    /**
+     * This creates new user and checks if the new username is unique
+     * @param view
+     * This is a view returned by onCreate()
+     */
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen
         username = signupUsername.getText().toString();
@@ -96,6 +107,11 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This initializes SignupActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

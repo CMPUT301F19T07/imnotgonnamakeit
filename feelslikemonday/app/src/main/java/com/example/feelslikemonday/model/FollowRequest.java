@@ -14,22 +14,27 @@ public class FollowRequest {
     //Empty Constructor for Firestore deserialization
     public FollowRequest(){}
 
+    /**
+     * This is a class that keeps track of a follow request
+     * @param recipientUsername
+     * This is a recipient username
+     */
     public FollowRequest(String recipientUsername){
         this.requesterUsernames = new ArrayList<>();
         this.recipientUsername = recipientUsername;
     }
 
     /**
-     * this return a list of requester username given the recipient username
+     * this returns a list of requester usernames
      * @return
-     *    a list of requester username
+     *    return a list of requester usernames
      */
     public List<String> getRequesterUsernames() {
         return requesterUsernames;
     }
 
     /**
-     * this return the recipient username, the user itself
+     * this returns the recipient username, the user itself
      * @return
      *    return the recipient username
      */

@@ -27,6 +27,7 @@ import java.util.List;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
+/*This class is responsible for creating user's moods map*/
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -38,7 +39,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng currentLocation;
     private BitmapDescriptor markerType;
 
-
+    /**
+     * This initializes MapActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
 
+    /**
+     * This places users' mood event markers on googleMap
+     * @param googleMap
+     * This is a google map
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -85,7 +95,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-
+    /**
+     * This places different colors according to the mood event
+     */
     private void placeMarkers() {
         for (int i = 0; i < myEmotionList.size(); i++) {
 

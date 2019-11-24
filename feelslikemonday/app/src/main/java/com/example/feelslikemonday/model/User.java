@@ -20,6 +20,13 @@ public class User {
     private List<MoodEvent> moodHistory;
     public User(){}
 
+    /**
+     * This is a class that keeps track of a user
+     * @param username
+     * This is a candidate username
+     * @param password
+     * This is a user's password
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -27,45 +34,48 @@ public class User {
     }
 
     /**
-     * This return a username of user
+     * This returns a username of user
      * @return
-     *    String username
+     *      return a String username
      */
     public String getUsername() { return username; }
 
     /**
-     * this return the password of user
+     * this returns the password of user
      * @return
-     *   String password
+     *     return a String password
      */
     public String getPassword() {return password; }
 
     /**
-     * this return the information/detail of user's mood history
+     * this returns the list of mood events of user
      * @return
      *    return the mood event list
      */
     public List<MoodEvent> getMoodHistory(){return moodHistory;}
 
     /**
-     * this set up the username for the user
+     * this sets up the username for the user
      * @param username
+     * This is a candidate username
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     * this set up the password for the user
+     * this sets up the password for the user
      * @param password
+     * This is a user's password
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * this set up the mood event list to the user
+     * this sets up the mood event list to the user
      * @param moodHistory
+     * This is a mood event list of the user
      */
     public void setMoodHistory(List<MoodEvent> moodHistory) {
         this.moodHistory = moodHistory;

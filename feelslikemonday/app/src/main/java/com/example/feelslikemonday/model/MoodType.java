@@ -9,25 +9,31 @@ public class MoodType {
     private String emoji;
 
     public MoodType(){}
-
+    /**
+     * This is a class that keeps track of a mood type
+     * @param name
+     * This is a candidate mood type
+     * @param emoji
+     * This is the candidate emoji
+     */
     public MoodType(String name, String emoji) {
         this.name = name;
         this.emoji = emoji;
     }
 
     /**
-     * this return the name of the mood type that user choose
+     * this returns the name of the mood type that user choose
      * @return
-     *   return the string of mood type
+     *      return the string of mood type
      */
     public String getName() {
         return name;
     }
 
     /**
-     * this retun the corresponding emoji name for the mood type user choose
+     * this returns the corresponding emoji name for the mood type user choose
      * @return
-     *     return the string of emoji name
+     *      return the string of emoji name
      */
     public String getEmoji() {
         return emoji;

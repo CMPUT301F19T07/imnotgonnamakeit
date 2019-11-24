@@ -63,6 +63,7 @@
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+                app:srcCompat="@drawable/ic_no_photo" />
 
             </TextView>
 
@@ -70,6 +71,7 @@
                 android:id="@+id/textViewDate"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="5dp"
                 android:background="@drawable/edittext_bg"
                 android:fontFamily="sans-serif-condensed-light"
@@ -77,6 +79,10 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="156dp"
+                android:text="Value1"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -109,6 +115,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
                 app:layout_constraintVertical_bias="0.014" />
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="156dp"
+                android:text="Value2"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/textViewDate"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewEmotionalState"
@@ -176,13 +188,20 @@
                 android:text="followeeUsername"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginBottom="17dp"
+                android:text="TextView"
                 android:textSize="20sp"
                 android:hint="Your Mood"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
