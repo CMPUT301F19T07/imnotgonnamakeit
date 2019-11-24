@@ -12,49 +12,70 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="323dp"
-            android:layout_height="188dp"
+            android:layout_width="353dp"
+            android:layout_height="257dp"
             android:src="@drawable/moodday_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:text="Sign Up"
+            android:textColor="@color/DarkSalmon"
+            android:textSize="35sp"
+            app:layout_constraintBottom_toTopOf="@+id/signupUsernameEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.196" />
 
         <TextView
             android:id="@+id/signupUsernameView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="casual"
-            android:text="Username"
+            android:layout_marginStart="40dp"
+            android:text="Username:"
             app:layout_constraintBaseline_toBaselineOf="@+id/signupUsernameEdit"
             app:layout_constraintEnd_toStartOf="@+id/signupUsernameEdit"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/signupUsernameEdit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_width="220dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="41dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="20dp"
             android:ems="10"
             android:fontFamily="casual"
             android:inputType="textPersonName"
+
             app:layout_constraintBottom_toTopOf="@+id/signupPasswordEdit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/signupUsernameView" />
+            app:layout_constraintStart_toEndOf="@+id/signupUsernameView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.96" />
 
         <TextView
             android:id="@+id/signupPasswordView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="casual"
-            android:text="Password"
+            android:layout_marginStart="40dp"
+            android:text="Password:"
             app:layout_constraintBaseline_toBaselineOf="@+id/signupPasswordEdit"
             app:layout_constraintEnd_toStartOf="@+id/signupPasswordEdit"
             app:layout_constraintStart_toStartOf="parent" />
@@ -62,9 +83,11 @@
 
         <EditText
             android:id="@+id/signupPasswordEdit"
-            android:layout_width="0dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="256dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="260dp"
             android:ems="10"
             android:fontFamily="casual"
             android:inputType="textPassword"
@@ -74,11 +97,10 @@
 
         <Button
             android:id="@+id/signupCancelButton"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="0dp"
             android:layout_marginBottom="92dp"
             android:background="@drawable/button_rounded"
-            android:fontFamily="casual"
             android:onClick="cancelSignup"
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -87,30 +109,16 @@
 
         <Button
             android:id="@+id/signupConfirmButton"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="0dp"
             android:layout_marginBottom="92dp"
             android:background="@drawable/button_rounded"
-            android:fontFamily="casual"
             android:onClick="confirmSignup"
             android:text="Confirm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.79"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Sign Up"
-            app:layout_constraintBottom_toTopOf="@+id/signupUsernameEdit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="0.65" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

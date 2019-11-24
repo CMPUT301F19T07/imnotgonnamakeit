@@ -12,18 +12,32 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="353dp"
+            android:layout_height="257dp"
+            android:src="@drawable/moodday_label"
+            app:layout_constraintBottom_toTopOf="@+id/loginTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/loginTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
-            android:text="LOGIN"
+            android:layout_marginTop="200dp"
+            android:fontFamily="@string/accept"
+            android:text="@string/login"
             android:textAlignment="center"
-
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="35sp"
+            android:textColor="@color/DarkSalmon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,22 +87,43 @@
             android:text="LOGIN"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.913" />
+            app:layout_constraintVertical_bias="0.773" />
 
-        <TextView
-            android:id="@+id/signupLink"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:onClick="goToSignupProcess"
-            android:text="(New User? Make an account here)"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/loginTitle"
-            app:layout_constraintStart_toStartOf="@+id/loginConfirmButton"
-            app:layout_constraintTop_toBottomOf="@+id/loginConfirmButton" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginConfirmButton"
+            app:layout_constraintVertical_bias="0.153">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:text="@string/don_t_have_an_account"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/signupLink" />
+
+            <TextView
+                android:id="@+id/signupLink"
+                android:layout_width="78dp"
+                android:layout_height="wrap_content"
+                android:onClick="goToSignupProcess"
+                android:text="@string/sign_up1"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

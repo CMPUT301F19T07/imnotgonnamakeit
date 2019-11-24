@@ -14,6 +14,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,7 +72,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
     private static final int maxSpacesForReason = 2;
     private LocationManager locationManager;
     private String currentLocation;
+    private TextView count;
     private byte[] moodBitmapByteArray;
+
 
     /**
      * This initializes AddNewMoodActivity
@@ -85,6 +90,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
         locationSwitch = findViewById(R.id.location_switch);
+        count=findViewById(R.id.count);
 
         locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -98,6 +104,32 @@ public class AddNewMoodActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         setupDAO();
+
+        String s = reason.getText().toString();
+        int num =s.length();
+        count.setText(""+num);
+
+        /**
+         *This function of commentEditText is to tracking and updating the number of characters
+         * in the commentEditText box. A small number will update at the right bottom of the box.
+         */
+        //https://www.youtube.com/watch?v=sk3GWcbgijI
+        reason.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String s = reason.getText().toString();
+                int num =s.length();
+                count.setText(""+num);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     /**
@@ -234,7 +266,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
             } else {
                 currentLocation = NULL;
             }
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation, Blob.fromBytes(moodBitmapByteArray));
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation, moodBlob);
 
             finish();
         }  // end of else
@@ -280,7 +312,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         List<String> moodSpinner = new ArrayList<>();
 
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
-            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji() + " ( " + MoodEvent.MOOD_TYPES.get(i).getName() + " )");
+            moodSpinner.add(MoodEvent.MOOD_TYPES.get(i).getEmoji() + " " + MoodEvent.MOOD_TYPES.get(i).getName());
         }
 
         List<String> socialSpinner = new ArrayList<>();
@@ -290,14 +322,14 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, moodSpinner);
+                this, R.layout.my_spinner, moodSpinner);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner moodSpinnerSpinner = findViewById(R.id.mood_spinner);
         moodSpinnerSpinner.setAdapter(adapter);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, socialSpinner);
+                this, R.layout.my_spinner, socialSpinner);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);

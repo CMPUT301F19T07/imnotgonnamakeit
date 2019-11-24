@@ -96,7 +96,6 @@ public class HomeFragment extends Fragment {
             public void onChanged(@Nullable String s) {
             }
         });
-        root.setBackgroundColor(Color.GREEN);
 
         anger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -181,7 +180,6 @@ public class HomeFragment extends Fragment {
                 }
                 SwipeMenuListView = getView().findViewById(R.id.listView);
                 adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
-                SwipeMenuListView.setBackgroundColor(Color.YELLOW);
                 SwipeMenuListView.setAdapter(adapter);
 
             }
