@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment {
     public ScrollView filterPopup;
     public ScrollView helpPopup;
     public Button okButton;
+    public Button filterButton;
 
     /**
      * This initializes HomeFragment
@@ -87,6 +88,7 @@ public class HomeFragment extends Fragment {
             }
         }
         okButton = root.findViewById(R.id.ok_button);
+        filterButton = root.findViewById(R.id.filter_button);
         anger = root.findViewById(R.id.switch1);
         disgust = root.findViewById(R.id.switch2);
         fear = root.findViewById(R.id.switch3);
@@ -129,6 +131,15 @@ public class HomeFragment extends Fragment {
                 showSurprise = isChecked;
             }
         });
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterPopup.setVisibility(View.VISIBLE);
+                onResume();
+            }
+        });
+
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,8 +168,6 @@ public class HomeFragment extends Fragment {
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-
-
 
                 for (int i = 0; i < myCurrentMoodList.size(); i++) {
 
@@ -434,6 +443,7 @@ public class HomeFragment extends Fragment {
         }
         return returnValue;
     }
+
 
     public void showHelp(){
         if (myCurrentMoodList.isEmpty() ){
