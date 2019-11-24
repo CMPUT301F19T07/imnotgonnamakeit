@@ -50,7 +50,11 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private MoodEvent recentMoodEvent;
     private String moodIcon;
 
-
+    /**
+     * This initializes FollowingMapActivity
+     * @param savedInstanceState
+     * This is a saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,11 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         mapFragment.getMapAsync(this);
     }
 
+    /**
+     * This calls when map is ready to be used
+     * @param googleMap
+     * This is a non-null instance of a GoogleMap associated with the MapFragment or MapView that defines the callback.
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -106,7 +115,9 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     }
 
-
+    /**
+     * This places the markers on google map according to the mood event
+     */
     private void placeMarkers() {
         markerLocation = recentMoodEvent.getLocation();
         switch (recentMoodEvent.getMoodType().getName()) {
