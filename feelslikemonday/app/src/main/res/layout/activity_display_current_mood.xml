@@ -34,14 +34,14 @@
                 android:layout_marginStart="110dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                app:srcCompat="@drawable/ic_no_photo" />
 
 
             <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="156dp"
                 android:text="Value1"
                 android:textSize="24sp"
@@ -52,11 +52,11 @@
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="188dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="156dp"
                 android:text="Value2"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewDate"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -119,14 +119,15 @@
                 android:id="@+id/followeeUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="41dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginBottom="17dp"
                 android:text="TextView"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/textViewDate"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

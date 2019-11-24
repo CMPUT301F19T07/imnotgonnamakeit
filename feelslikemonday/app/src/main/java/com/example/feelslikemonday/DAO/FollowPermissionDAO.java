@@ -23,12 +23,14 @@ public class FollowPermissionDAO {
 
     private final String COLLECTION_NAME = "followPermissions";
 
-    private FollowPermissionDAO(){}
+
+    public FollowPermissionDAO(){}
     /**
      * This returns a instance of follow permission dao
      * @return
      *      return  a instance of follow permission dao
      */
+
     public static FollowPermissionDAO getInstance() {
         return instance;
     }
@@ -134,4 +136,6 @@ public class FollowPermissionDAO {
                     }
                 });
     }
+
+
 }

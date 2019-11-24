@@ -2,6 +2,8 @@ package com.example.feelslikemonday.model;
 
 //import java.io.Serializable;
 
+import com.google.firebase.firestore.Blob;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,12 +39,12 @@ public class MoodEvent{
     private String socialSituation;
     private String location;
     private MoodType moodType;
-    private byte[] image;
+    private Blob image;
 
     //Used to deserialize
     public MoodEvent(){}
 
-    /**
+      /**
      * This is a class that keeps track of a mood event
      * @param date
      * This is the date of the mood event
@@ -58,8 +60,10 @@ public class MoodEvent{
      * This is the social situation of the user when posting the mood event
      * @param location
      * This is the location of the user when posting the mood event
+     * @param image
+     * Blob that stores an image relating to moods
      */
-    public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation, String location) {
+    public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String socialSituation, String location, Blob image) {
         if(reason.length()>MAX_REASON_LEN){
             throw new IllegalArgumentException("The reason is longer than "+MAX_REASON_LEN+" characters!");
         }
@@ -70,13 +74,14 @@ public class MoodEvent{
         this.moodType = moodType;
         this.socialSituation = socialSituation;
         this.location = location;
+        this.image = image;
     }
 
     public MoodEvent(String date, String time, String emotionalState, String reason, MoodType moodType, String location) {
-        this(date,time,emotionalState,reason,moodType,"", location);
+        this(date,time,emotionalState,reason,moodType,"",location,null);
     }
     public MoodEvent(String date, String time, String emotionalState, MoodType moodType,String socialSituation, String location) {
-        this(date,time,emotionalState,"",moodType,socialSituation, location);
+        this(date,time,emotionalState,"",moodType,socialSituation,location,null);
     }
 
     /**
@@ -174,7 +179,7 @@ public class MoodEvent{
      * @return
      *    return the image of the mood event
      */
-    public byte[] getImage() {
+    public Blob getImage() {
         return image;
     }
 
@@ -183,7 +188,7 @@ public class MoodEvent{
      * @param image
      * This is the image of the mood event
      */
-    public void setImage(byte[] image) {
+    public void setImage(Blob image) {
         this.image = image;
     }
 

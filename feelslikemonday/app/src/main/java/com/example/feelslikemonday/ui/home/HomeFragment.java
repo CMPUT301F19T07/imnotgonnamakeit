@@ -31,6 +31,7 @@ import com.example.feelslikemonday.model.MoodEvent;
 import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
+import com.google.firebase.firestore.Blob;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -315,8 +316,8 @@ public class HomeFragment extends Fragment {
         SwipeMenuListView = view.findViewById(R.id.listView);
         myEmotionList.remove(index);
         moodHistoryTempTemp.remove(index);
-        UserDAO userAdo = new UserDAO();
-        userAdo.createOrUpdate(currentUser, new VoidCallback() {
+        UserDAO userDAO = new UserDAO();
+        userDAO.createOrUpdate(currentUser, new VoidCallback() {
             @Override
             public void onCallback() {
             }
@@ -336,15 +337,24 @@ public class HomeFragment extends Fragment {
      */
     public void viewEmotion(@NonNull View view, int index) {
 
-        MoodEvent CurrentMoodEvent = myEmotionList.get(index);
+        MoodEvent currentMoodEvent = myEmotionList.get(index);
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
 
-        intent.putExtra("myDate", CurrentMoodEvent.getDate());
-        intent.putExtra("mytime", CurrentMoodEvent.getTime());
-        intent.putExtra("emotionalState", CurrentMoodEvent.getEmotionalState());
-        intent.putExtra("reason", CurrentMoodEvent.getReason());
-        intent.putExtra("socialSituation", CurrentMoodEvent.getSocialSituation());
-        intent.putExtra("moodType", CurrentMoodEvent.getMoodType().getEmoji());
+        //If an image is set, pass the image in the form of a byte array
+        Blob imageBlob = currentMoodEvent.getImage();
+        byte[] imageByteArr = null;
+        if(imageBlob != null){
+            imageByteArr = imageBlob.toBytes();
+        }
+
+        intent.putExtra("image", imageByteArr);
+        intent.putExtra("myDate", currentMoodEvent.getDate());
+        intent.putExtra("mytime", currentMoodEvent.getTime());
+        intent.putExtra("emotionalState", currentMoodEvent.getEmotionalState());
+        intent.putExtra("reason", currentMoodEvent.getReason());
+        intent.putExtra("socialSituation", currentMoodEvent.getSocialSituation());
+        intent.putExtra("moodType", currentMoodEvent.getMoodType().getEmoji());
+
         startActivity(intent);
     }
 
@@ -357,18 +367,26 @@ public class HomeFragment extends Fragment {
      */
     public void editEmotion(@NonNull View view, int index) {
 
-        MoodEvent CurrentModeEvent = myEmotionList.get(index);
+        MoodEvent currentMoodEvent = myEmotionList.get(index);
 
         Intent intent = new Intent(getContext(), AddNewMoodActivity.class);
 
-        int indexSoical = getCurrentSocialIndex(CurrentModeEvent.getSocialSituation());
-        int indexMood = getCurrentMoodIndex(CurrentModeEvent.getMoodType().getName());
+        int indexSocial = getCurrentSocialIndex(currentMoodEvent.getSocialSituation());
+        int indexMood = getCurrentMoodIndex(currentMoodEvent.getMoodType().getName());
 
-        intent.putExtra("myDate", CurrentModeEvent.getDate());
-        intent.putExtra("mytime", CurrentModeEvent.getTime());
-        intent.putExtra("emotionalState", CurrentModeEvent.getEmotionalState());
-        intent.putExtra("reason", CurrentModeEvent.getReason());
-        intent.putExtra("socialSituation", indexSoical);
+        //If an image is set, pass the image in the form of a byte array
+        Blob imageBlob = currentMoodEvent.getImage();
+        byte[] imageByteArr = null;
+        if(imageBlob != null){
+            imageByteArr = imageBlob.toBytes();
+        }
+
+        intent.putExtra("image", imageByteArr);
+        intent.putExtra("myDate", currentMoodEvent.getDate());
+        intent.putExtra("mytime", currentMoodEvent.getTime());
+        intent.putExtra("emotionalState", currentMoodEvent.getEmotionalState());
+        intent.putExtra("reason", currentMoodEvent.getReason());
+        intent.putExtra("socialSituation", indexSocial);
         intent.putExtra("moodTypeName", indexMood);
         intent.putExtra("state", 1);
         intent.putExtra("stateIndex", index);
