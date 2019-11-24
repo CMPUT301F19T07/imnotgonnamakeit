@@ -266,7 +266,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
             } else {
                 currentLocation = NULL;
             }
-            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation, Blob.fromBytes(moodBitmapByteArray));
+            myMood = new MoodEvent(moodDate, moodTime, emotionState, reasonChoice, myMoodType, social, currentLocation, moodBlob);
 
             finish();
         }  // end of else
