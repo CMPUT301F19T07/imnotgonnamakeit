@@ -26,7 +26,8 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+
+/**
  *This class acts as a array adapter for the request list
  */
 public class RequestList extends ArrayAdapter<String> {

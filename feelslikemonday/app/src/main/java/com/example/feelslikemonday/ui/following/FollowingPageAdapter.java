@@ -1,6 +1,7 @@
 package com.example.feelslikemonday.ui.following;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,8 @@ import com.example.feelslikemonday.model.FolloweeMoodEvent;
 
 import java.util.ArrayList;
 
-/*
+
+/**
  *This class acts as a array adapter for the followees
 */
 
@@ -39,7 +41,6 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
         mResource = resource;
     }
 
-
     /**
      * This  displays the data at the specified position in the data set
      * @param position
@@ -59,6 +60,7 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
         String datePosted = getItem(position).getRecentMood().getDate().toString();
         String timePosted = getItem(position).getRecentMood().getTime().toString();
         String mood = getItem(position).getRecentMood().getMoodType().getEmoji().toString();
+        String moodName = getItem(position).getRecentMood().getMoodType().getName().toString();
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(mResource,parent,false);
@@ -72,6 +74,25 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
         tvDate.setText(datePosted);
         tvTime.setText(timePosted);
         tvEmotion.setText(mood);
+
+        if (moodName.equals("Anger")){
+            convertView.setBackgroundColor(Color.rgb(255, 140, 105));  //DarkSalmon
+        }
+        else if (moodName.equals("Disgust")){
+            convertView.setBackgroundColor(Color.rgb(102, 221, 170)); //MediumAquamarine
+        }
+        else if (moodName.equals("Fear")){
+            convertView.setBackgroundColor(Color.rgb(150, 122, 233));
+        }
+        else if (moodName.equals("Happiness")){
+            convertView.setBackgroundColor(Color.rgb(233, 122, 205));  //pink
+        }
+        else if (moodName.equals("Sadness")){
+            convertView.setBackgroundColor(Color.rgb(135,206,250)); //LightSkyBlue
+        }
+        else if (moodName.equals("Surprise")){
+            convertView.setBackgroundColor(Color.rgb(255, 221, 84)); //yellow-orange
+        }
 
         return convertView;
     }
