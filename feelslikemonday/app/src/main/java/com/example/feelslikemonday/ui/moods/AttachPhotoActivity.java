@@ -34,6 +34,10 @@ public class AttachPhotoActivity extends AppCompatActivity {
     //Extra codes
     public static final String BITMAP_BYTE_ARRAY_EXTRA = "BITMAP_STRING_EXTRA";
 
+    //Maximum dimensions of the downscaled bitmap
+    private final double MAX_DIM_SIZE = 350.0;
+
+
     private ImageView imageView;
     private Button cancelButton;
     private Context PostImage;
@@ -106,19 +110,29 @@ public class AttachPhotoActivity extends AppCompatActivity {
     }
 
     /**
-     * This converts bitmap to string. Code obtained from https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+     * Down scale the bitmap so that it can fit into firestore
+     * @param srcBitmap
+     * @return
+     */
+    private Bitmap downscaleBitmap(Bitmap srcBitmap){
+        double maxSrcDim = Math.max(srcBitmap.getHeight(),srcBitmap.getWidth());
+        double scale = MAX_DIM_SIZE/maxSrcDim;
+        return Bitmap.createScaledBitmap(srcBitmap,(int)(srcBitmap.getWidth()/scale),(int)(srcBitmap.getHeight()/scale),false);
+    }
+
+    /**
+     * This converts bitmap to a byte array, which is used to store into firestore. Code obtained from https://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
      * @param bitmap
      * This is a bitmap
      * @return
      *      return byte array string
      */
-    public byte[] bitmapToByteArray(Bitmap bitmap){
+    private byte[] bitmapToByteArray(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
-
 
     /**
      * This gives the requestCode you started it with, the resultCode it returned, and any additional data from it
@@ -148,6 +162,8 @@ public class AttachPhotoActivity extends AppCompatActivity {
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 //Copy bitmap to prevent recycling errors
                 returnBitmap = selectedImage.copy(selectedImage.getConfig(),selectedImage.isMutable());
+                //Downscale the image so that it fits in Firestore
+                returnBitmap = downscaleBitmap(returnBitmap);
                 imageView.setImageBitmap(returnBitmap);
 
             } catch (FileNotFoundException e) {

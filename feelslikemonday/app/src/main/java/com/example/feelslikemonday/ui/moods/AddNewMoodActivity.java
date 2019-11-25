@@ -144,6 +144,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
             if (moodState == 1) {
                 byte[] imageByteArr = intent.getByteArrayExtra("image");
                 if(imageByteArr != null){
+                    moodBitmapByteArray = imageByteArr;
                     Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
                     imageView.setImageBitmap(imageBitmap);
                 }
@@ -203,6 +204,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(resultCode,resultCode,data);
         if (requestCode == AttachPhotoActivity.REQUEST_CODE && resultCode == AttachPhotoActivity.RES_OK && data != null) {
+            //get binary from activity result and set the image view to it.
             byte[] img = data.getByteArrayExtra(AttachPhotoActivity.BITMAP_BYTE_ARRAY_EXTRA);
             moodBitmapByteArray = img;
             byteArrayToBitmap(img);
