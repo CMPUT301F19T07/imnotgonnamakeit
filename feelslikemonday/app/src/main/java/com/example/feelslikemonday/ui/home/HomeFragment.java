@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
     private boolean showAnger = true;
     private boolean showDisgust = true;
     private boolean showFear = true;
-    private boolean showHappiness= true;
+    private boolean showHappiness = true;
     private boolean showSadness = true;
     private boolean showSurprise = true;
     public ScrollView filterPopup;
@@ -66,14 +66,11 @@ public class HomeFragment extends Fragment {
 
     /**
      * This initializes HomeFragment
-     * @param inflater
-     * This is a layoutInflater object that can be used to inflate any views in the fragment
-     * @param container
-     * This is a parent view that the fragment's UI should be attached to
-     * @param savedInstanceState
-     * This is a previous saved state
-     * @return
-     *      return the View for the fragment's UI, or null
+     *
+     * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container          This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState This is a previous saved state
+     * @return return the View for the fragment's UI, or null
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -150,6 +147,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
     /**
      * This shows user's mood list when the HomeFragment is at onResume stage
      */
@@ -193,7 +191,7 @@ public class HomeFragment extends Fragment {
                     myEmotionList.add(myCurrentMoodList.get(i));
                 }
 
-                    showHelp();
+                showHelp();
 
                 SwipeMenuListView = getView().findViewById(R.id.listView);
                 adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
@@ -209,10 +207,9 @@ public class HomeFragment extends Fragment {
 
     /**
      * This gives subclasses a chance to initialize themselves once they know their view hierarchy has been completely created
-     * @param view
-     * This is the View returned by onCreateView()
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param view               This is the View returned by onCreateView()
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -322,10 +319,9 @@ public class HomeFragment extends Fragment {
 
     /**
      * This removes the moodevent from user's mood history
-     * @param view
-     * This is the View returned by onCreateView()
-     * @param index
-     * This is a index of the moodevent that user want to delete
+     *
+     * @param view  This is the View returned by onCreateView()
+     * @param index This is a index of the moodevent that user want to delete
      */
     public void removeEmotion(@NonNull View view, int index) {
         List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
@@ -340,17 +336,16 @@ public class HomeFragment extends Fragment {
         });
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
         SwipeMenuListView.setAdapter(adapter);
-            showHelp();
+        showHelp();
 
         // Send the new UserObjecct to the DB
     }
 
     /**
      * This shows the moodevent from user's mood history
-     * @param view
-     * This is the View returned by onViewCreated()
-     * @param index
-     * This is a index of the moodevent that user want to view
+     *
+     * @param view  This is the View returned by onViewCreated()
+     * @param index This is a index of the moodevent that user want to view
      */
     public void viewEmotion(@NonNull View view, int index) {
 
@@ -360,7 +355,7 @@ public class HomeFragment extends Fragment {
         //If an image is set, pass the image in the form of a byte array
         Blob imageBlob = currentMoodEvent.getImage();
         byte[] imageByteArr = null;
-        if(imageBlob != null){
+        if (imageBlob != null) {
             imageByteArr = imageBlob.toBytes();
         }
 
@@ -377,10 +372,9 @@ public class HomeFragment extends Fragment {
 
     /**
      * This edits the moodevent from user's mood history
-     * @param view
-     * This is the View returned by onCreateView()
-     * @param index
-     * This is a index of the moodevent that user want to edit
+     *
+     * @param view  This is the View returned by onCreateView()
+     * @param index This is a index of the moodevent that user want to edit
      */
     public void editEmotion(@NonNull View view, int index) {
 
@@ -394,7 +388,7 @@ public class HomeFragment extends Fragment {
         //If an image is set, pass the image in the form of a byte array
         Blob imageBlob = currentMoodEvent.getImage();
         byte[] imageByteArr = null;
-        if(imageBlob != null){
+        if (imageBlob != null) {
             imageByteArr = imageBlob.toBytes();
         }
 
@@ -410,12 +404,12 @@ public class HomeFragment extends Fragment {
 
         startActivity(intent);
     }
+
     /**
      * This returns the index of the current social situation
-     * @param social
-     * This is the current social situation
-     * @return
-     *      return the index of the current social situation
+     *
+     * @param social This is the current social situation
+     * @return return the index of the current social situation
      */
     public int getCurrentSocialIndex(String social) {
         int returnValue = 0;
@@ -429,10 +423,9 @@ public class HomeFragment extends Fragment {
 
     /**
      * This returns the index of the current mood
-     * @param mood
-     * This is the current mood
-     * @return
-     *      return the index of the current mood
+     *
+     * @param mood This is the current mood
+     * @return return the index of the current mood
      */
     public int getCurrentMoodIndex(String mood) {
         int returnValue = 0;
@@ -443,10 +436,9 @@ public class HomeFragment extends Fragment {
         }
         return returnValue;
     }
-
-
-    public void showHelp(){
-        if (myCurrentMoodList.isEmpty() ){
+    
+    private void showHelp() {
+        if (myCurrentMoodList.isEmpty()) {
             helpPopup.setVisibility(View.VISIBLE);
         } else {
             helpPopup.setVisibility(View.INVISIBLE);
