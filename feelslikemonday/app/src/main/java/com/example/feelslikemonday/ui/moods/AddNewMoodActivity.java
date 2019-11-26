@@ -197,8 +197,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
     /**
      * Method currently used to get photos from the photo activity
      * @param requestCode
+     * This is the integer request code originally supplied to startActivityForResult()
      * @param resultCode
+     * This is the integer result code returned by the child activity through its setResult()
      * @param data
+     * This is the result data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
