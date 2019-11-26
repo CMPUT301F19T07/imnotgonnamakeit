@@ -43,7 +43,6 @@ public class MoodEvent{
 
     //Used to deserialize
     public MoodEvent(){}
-
       /**
      * This is a class that keeps track of a mood event
      * @param date
