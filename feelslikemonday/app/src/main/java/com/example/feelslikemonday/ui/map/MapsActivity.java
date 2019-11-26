@@ -37,7 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>();
     private List<MoodEvent> myCurrentMoodList;
     private LatLng currentLocation;
-    private BitmapDescriptor markerType;
+    private String moodIcon;
 
     /**
      * This initializes MapActivity
@@ -100,26 +100,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void placeMarkers() {
         for (int i = 0; i < myEmotionList.size(); i++) {
-
             String markerLocation = myEmotionList.get(i).getLocation();
+            if (markerLocation != null){
             switch (myEmotionList.get(i).getMoodType().getName()) {
                 case "Anger":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                    moodIcon = "anger.bmp";
                     break;
                 case "Disgust":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                    moodIcon = "disgust.bmp";
                     break;
                 case "Fear":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
+                    moodIcon = "fear.bmp";
                     break;
                 case "Happiness":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
+                    moodIcon = "happiness.bmp";
                     break;
                 case "Sadness":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
+                    moodIcon = "sadness.bmp";
                     break;
                 case "Surprise":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+                    moodIcon = "surprise.bmp";
                     break;
             }
             if (markerLocation.equals(NULL)) {
@@ -128,7 +128,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             String[] latLongSplit = markerLocation.split(" ");
             currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
-            mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType));
+                mMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.
+                        fromAsset(moodIcon)).title(myEmotionList.get(i).getMoodType().getName()).snippet(myEmotionList.get(i).getDate()));
+            }
         }
         if (currentLocation != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
