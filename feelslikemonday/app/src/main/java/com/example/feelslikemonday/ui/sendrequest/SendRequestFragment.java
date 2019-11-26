@@ -39,7 +39,9 @@ public class SendRequestFragment extends Fragment {
     private FollowRequest followRequest_ok;
     private SharedPreferences pref;
     private String myUserID;
-    private Boolean check;
+    private Integer check;
+    private Integer check1;
+    private Integer check2;
 
     private SendRequestViewModel sendRequestViewModel;
     private static FollowRequestDAO DAO; // = FollowRequestDAO.getInstance();
@@ -107,42 +109,47 @@ public class SendRequestFragment extends Fragment {
                     toast.show();
                 }
                 else{
-                    check = true;
+                    check = 0;
+                    check1 = 0;
+                    check2 = 0;
                     DAO = FollowRequestDAO.getInstance();
                     followPermissionDAO = FollowPermissionDAO.getInstance();
 
-                    //check you don't request the person you followed.
-                    followPermissionDAO.get(recipientUsername, new FollowPermissionCallback(){
-                        @Override
-                        public void onCallback(FollowPermission followPermission) {
-                            if(followPermission.getFolloweeUsernames().contains(myUserID)){
-                                Toast toast = Toast.makeText(getActivity(), "You have already followed this user", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
-                                usernameEditText.setText("");
-                                check = false;
+                    if (check == 0){
+                        //check you don't request the person you followed.
+                        followPermissionDAO.get(recipientUsername, new FollowPermissionCallback(){
+                            @Override
+                            public void onCallback(FollowPermission followPermission) {
+                                if(followPermission.getFolloweeUsernames().contains(myUserID)){
+                                    Toast toast = Toast.makeText(getActivity(), "You have already followed this user", Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                    usernameEditText.setText("");
+                                    check1 = 1;
+                                }
+
                             }
+                        }, null);
+                    }
+                    if( check1 == 1 ){
+                        //check do not send twice to the same person
+                        DAO.get(recipientUsername, new FollowRequestCallback(){
+                            @Override
+                            public void onCallback(FollowRequest followRequest) {
+                                if(followRequest.getRequesterUsernames().contains(myUserID)){
+                                    requesterUsernames = followRequest.getRequesterUsernames();
+                                    Toast toast = Toast.makeText(getActivity(), "You have already sent request!", Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                    usernameEditText.setText("");
+                                    check2 = 1;
+                                }
 
-                        }
-                    }, null);
-
-                    //check do not send twice to the same person
-                    DAO.get(recipientUsername, new FollowRequestCallback(){
-                        @Override
-                        public void onCallback(FollowRequest followRequest) {
-                            if(followRequest.getRequesterUsernames().contains(myUserID)){
-                                requesterUsernames = followRequest.getRequesterUsernames();
-                                Toast toast = Toast.makeText(getActivity(), "You have already sent request!", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
-                                usernameEditText.setText("");
-                                check = false;
                             }
+                        },null);
+                    }
 
-                        }
-                    },null);
-
-                    if (check ){
+                    if (check2 == 1 ){
                         //Check Input User exists in the database
                         DAO.get(recipientUsername, new FollowRequestCallback(){
                             @Override
