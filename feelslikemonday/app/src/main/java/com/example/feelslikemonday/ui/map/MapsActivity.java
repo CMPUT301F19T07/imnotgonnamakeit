@@ -40,8 +40,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This initializes MapActivity
-     *
-     * @param savedInstanceState This is a previous saved state
+     * @param savedInstanceState
+     * This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
     }
 
 
@@ -65,8 +67,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This places users' mood event markers on googleMap
-     *
-     * @param googleMap This is a google map
+     * @param googleMap
+     * This is a google map
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {

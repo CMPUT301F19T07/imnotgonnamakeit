@@ -55,8 +55,11 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
     }
 
     /**
@@ -72,24 +75,24 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
         FollowPermissionDAO followPermissionDAO = new FollowPermissionDAO();
-        followPermissionDAO.get(myUserID,new FollowPermissionCallback() {
+        followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
             @Override
             public void onCallback(FollowPermission followPermission) {
                 currentFolloPermission = followPermission;
                 followeeList = currentFolloPermission.getFolloweeUsernames();
-                if(followeeList.size()>0){
+                if (followeeList.size() > 0) {
                     UserDAO userDAO = new UserDAO();
-                    for(i=0;i<followeeList.size();i++)
+                    for (i = 0; i < followeeList.size(); i++)
                         userDAO.get(followeeList.get(i), new UserCallback() {
                             @Override
                             public void onCallback(User user) {
                                 currentUser = user;
-                                FolloweeCurrentMoodList =currentUser.getMoodHistory();
+                                FolloweeCurrentMoodList = currentUser.getMoodHistory();
                                 followeeName = currentUser.getUsername();
-                                if(FolloweeCurrentMoodList.size()>0){
-                                    recentMoodEvent= FolloweeCurrentMoodList.get(0);
+                                if (FolloweeCurrentMoodList.size() > 0) {
+                                    recentMoodEvent = FolloweeCurrentMoodList.get(0);
                                     markerLocation = recentMoodEvent.getLocation();
-                                    if(markerLocation !=null){
+                                    if (markerLocation != null) {
                                         placeMarkers();
                                     }
                                 }
@@ -100,12 +103,12 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                                 Log.v("succc", "succ");
                             }
                         });
-                    }
                 }
+            }
 
         }, new VoidCallback() {
             @Override
-            public void onCallback(){
+            public void onCallback() {
                 Log.v("succc", "succ");
             }
         });
