@@ -30,7 +30,7 @@ import java.util.List;
 
 import io.opencensus.resource.Resource;
 
-/*
+/**
  *This class is responsible to show the user's followees' recent mood map
  */
 public class FollowingMapActivity extends FragmentActivity implements OnMapReadyCallback {

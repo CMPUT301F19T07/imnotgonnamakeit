@@ -36,7 +36,9 @@ import com.google.firebase.firestore.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
-/*This class is responsible for listing all user's moods and related information */
+/**
+ * This class is responsible for listing all user's moods and related information
+ */
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;

@@ -26,8 +26,8 @@ import com.example.feelslikemonday.ui.map.FollowingMapActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.google.android.material.navigation.NavigationView;
-/*
-This class is responsible for displaying all of the signed in user's moods in sorted order
+/**
+ * This class is responsible for displaying all of the signed in user's moods in sorted order
 */
 public class MainActivity extends AppCompatActivity {
 

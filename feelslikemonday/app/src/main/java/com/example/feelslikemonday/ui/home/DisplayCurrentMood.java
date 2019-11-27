@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feelslikemonday.R;
 
-/*This class is responsible for showing user's current mood */
+/**
+ * This class is responsible for showing user's current mood
+ */
 public class DisplayCurrentMood extends AppCompatActivity {
     /**
      * This initializes DisplayCurrentMood activity

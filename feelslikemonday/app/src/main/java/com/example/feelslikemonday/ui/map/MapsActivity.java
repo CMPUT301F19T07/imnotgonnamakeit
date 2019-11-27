@@ -27,12 +27,12 @@ import java.util.List;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-/*This class is responsible for creating user's moods map*/
+/**
+ * This class is responsible for creating user's moods map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private SharedPreferences pref;
-    private String myUserID;
     private User currentUser;
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>();
     private List<MoodEvent> myCurrentMoodList;
@@ -41,8 +41,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This initializes MapActivity
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
+    /*
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera.
@@ -66,13 +66,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This places users' mood event markers on googleMap
-     * @param googleMap
-     * This is a google map
+     *
+     * @param googleMap This is a google map
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        SharedPreferences pref;
+        String myUserID;
         mMap = googleMap;
-
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
@@ -95,39 +96,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+
     /**
      * This places different colors according to the mood event
      */
     private void placeMarkers() {
         for (int i = 0; i < myEmotionList.size(); i++) {
             String markerLocation = myEmotionList.get(i).getLocation();
-            if (markerLocation != null){
-            switch (myEmotionList.get(i).getMoodType().getName()) {
-                case "Anger":
-                    moodIcon = "anger.bmp";
-                    break;
-                case "Disgust":
-                    moodIcon = "disgust.bmp";
-                    break;
-                case "Fear":
-                    moodIcon = "fear.bmp";
-                    break;
-                case "Happiness":
-                    moodIcon = "happiness.bmp";
-                    break;
-                case "Sadness":
-                    moodIcon = "sadness.bmp";
-                    break;
-                case "Surprise":
-                    moodIcon = "surprise.bmp";
-                    break;
-            }
-            if (markerLocation.equals(NULL)) {
-                currentLocation = null;
-                continue;
-            }
-            String[] latLongSplit = markerLocation.split(" ");
-            currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
+            if (markerLocation != null) {
+                switch (myEmotionList.get(i).getMoodType().getName()) {
+                    case "Anger":
+                        moodIcon = "anger.bmp";
+                        break;
+                    case "Disgust":
+                        moodIcon = "disgust.bmp";
+                        break;
+                    case "Fear":
+                        moodIcon = "fear.bmp";
+                        break;
+                    case "Happiness":
+                        moodIcon = "happiness.bmp";
+                        break;
+                    case "Sadness":
+                        moodIcon = "sadness.bmp";
+                        break;
+                    case "Surprise":
+                        moodIcon = "surprise.bmp";
+                        break;
+                }
+                if (markerLocation.equals(NULL)) {
+                    currentLocation = null;
+                    continue;
+                }
+                String[] latLongSplit = markerLocation.split(" ");
+                currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
                 mMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.
                         fromAsset(moodIcon)).title(myEmotionList.get(i).getMoodType().getName()).snippet(myEmotionList.get(i).getDate()));
             }
