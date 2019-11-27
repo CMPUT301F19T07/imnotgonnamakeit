@@ -83,9 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-                for (int i = 0; i < myCurrentMoodList.size(); i++) {
-                    myEmotionList.add(myCurrentMoodList.get(i));
-                }
+                myEmotionList.addAll(myCurrentMoodList);
                 placeMarkers();
             }
         }, new VoidCallback() {

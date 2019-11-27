@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This class is responsible to show the user's followees' recent mood map
  */
@@ -45,23 +46,23 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     /**
      * This initializes FollowingMapActivity
-     *
-     * @param savedInstanceState This is a saved instance state
+     * @param savedInstanceState
+     * This is a saved instance state
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
     /**
      * This calls when map is ready to be used
-     *
-     * @param googleMap This is a non-null instance of a GoogleMap associated with the MapFragment or MapView that defines the callback.
+     * @param googleMap
+     * This is a non-null instance of a GoogleMap associated with the MapFragment or MapView that defines the callback.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
