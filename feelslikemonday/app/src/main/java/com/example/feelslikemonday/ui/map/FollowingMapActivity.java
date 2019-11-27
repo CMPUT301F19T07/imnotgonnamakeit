@@ -35,7 +35,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     private GoogleMap mMap;
     private User currentUser;
-    private List<MoodEvent> FolloweeCurrentMoodList = new ArrayList<>();
+    private List<MoodEvent> followeeCurrentMoodList = new ArrayList<>();
     private String markerLocation;
     private FollowPermission currentFolloPermission;
     private List<String> followeeList = new ArrayList<>();
@@ -87,10 +87,10 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                             @Override
                             public void onCallback(User user) {
                                 currentUser = user;
-                                FolloweeCurrentMoodList = currentUser.getMoodHistory();
+                                followeeCurrentMoodList = currentUser.getMoodHistory();
                                 followeeName = currentUser.getUsername();
-                                if (FolloweeCurrentMoodList.size() > 0) {
-                                    recentMoodEvent = FolloweeCurrentMoodList.get(0);
+                                if (followeeCurrentMoodList.size() > 0) {
+                                    recentMoodEvent = followeeCurrentMoodList.get(0);
                                     markerLocation = recentMoodEvent.getLocation();
                                     if (markerLocation != null) {
                                         placeMarkers();
