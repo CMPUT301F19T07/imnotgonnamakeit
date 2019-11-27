@@ -28,7 +28,9 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-/*This class is resposible for receiving feedback on the follower requests*/
+/**
+ * This class is resposible for receiving feedback on the follower requests
+ */
 public class FollowerRequestFragment extends Fragment {
     private ListView userList;
     private ArrayAdapter<String> userAdapter;

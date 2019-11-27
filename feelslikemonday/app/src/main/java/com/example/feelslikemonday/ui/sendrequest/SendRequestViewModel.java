@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-/*This class is responsible for preparing and managing the data for SendRequestFragment*/
+/**
+ * This class is responsible for preparing and managing the data for SendRequestFragment
+ */
 public class SendRequestViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;

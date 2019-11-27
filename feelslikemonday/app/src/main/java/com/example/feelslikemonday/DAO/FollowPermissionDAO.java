@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-/*
+/**
 *This is a class that acts as an intermediary for the app and Firestore. Used to query FollowPermissions
 */
 public class FollowPermissionDAO {

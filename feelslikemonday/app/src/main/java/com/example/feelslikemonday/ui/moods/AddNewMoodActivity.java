@@ -47,7 +47,9 @@ import java.util.List;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-/*This class is responsible for editing or adding a mood event*/
+/**
+ * This class is responsible for editing or adding a mood event
+ */
 
 public class AddNewMoodActivity extends AppCompatActivity {
 

@@ -7,7 +7,7 @@ import com.google.firebase.firestore.Blob;
 import java.util.Arrays;
 import java.util.List;
 
-/*
+/**
 *This class is responsible for storing information about a mood event
 */
 
