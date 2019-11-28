@@ -19,106 +19,104 @@
         app:layout_constraintVertical_bias="1.0">
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="353dp"
-            android:layout_height="257dp"
-            android:src="@drawable/moodday_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:text="Sign Up"
-            android:textColor="@color/DarkSalmon"
-            android:textSize="35sp"
-            app:layout_constraintBottom_toTopOf="@+id/signupUsernameEdit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.196" />
-
-        <TextView
-            android:id="@+id/signupUsernameView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="Username:"
-            app:layout_constraintBaseline_toBaselineOf="@+id/signupUsernameEdit"
-            app:layout_constraintEnd_toStartOf="@+id/signupUsernameEdit"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/signupUsernameEdit"
-            android:layout_width="220dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:fontFamily="casual"
-            android:inputType="textPersonName"
-
-            app:layout_constraintBottom_toTopOf="@+id/signupPasswordEdit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/signupUsernameView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="0.96" />
-
-        <TextView
-            android:id="@+id/signupPasswordView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="Password:"
-            app:layout_constraintBaseline_toBaselineOf="@+id/signupPasswordEdit"
-            app:layout_constraintEnd_toStartOf="@+id/signupPasswordEdit"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <EditText
-            android:id="@+id/signupPasswordEdit"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="260dp"
-            android:ems="10"
-            android:fontFamily="casual"
-            android:inputType="textPassword"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/signupPasswordView" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="353dp"
+                android:layout_height="257dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/moodday_label" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="28dp"
+                android:text="Sign Up"
+                android:textColor="@color/DarkSalmon"
+                android:textSize="35sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/signupUsernameView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username:" />
+
+                <EditText
+                    android:id="@+id/signupUsernameEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPersonName"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/signupPasswordView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password:" />
+
+                <EditText
+                    android:id="@+id/signupPasswordEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:fontFamily="casual"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/signupCancelButton"
             android:layout_width="110dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/button_rounded"
             android:onClick="cancelSignup"
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/signupConfirmButton"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/signupConfirmButton"
             android:layout_width="110dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/button_rounded"
             android:onClick="confirmSignup"
             android:text="Confirm"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.79"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
