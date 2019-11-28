@@ -3,7 +3,7 @@ package com.example.feelslikemonday.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
 *This class acts as a "table" to retrieve permissions that folowees have granted the user
 */
 

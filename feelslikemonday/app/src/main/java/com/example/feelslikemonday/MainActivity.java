@@ -26,8 +26,8 @@ import com.example.feelslikemonday.ui.map.FollowingMapActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.google.android.material.navigation.NavigationView;
-/*
-This class is responsible for displaying all of the signed in user's moods in sorted order
+/**
+ * This class is responsible for displaying all of the signed in user's moods in sorted order
 */
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //do something on back button pressed
+        //do nothing on back button pressed
     }
 
     /**
@@ -106,15 +106,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 Intent add = new Intent(this, AddNewMoodActivity.class);
                 this.startActivity(add);
-                break;
-            case R.id.action_filter:
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("filter", true);
-                HomeFragment filter = new HomeFragment();
-                filter.setArguments(bundle);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment, filter).commit();
                 break;
             case R.id.action_show_map:
                 Intent maps = new Intent(this, MapsActivity.class);

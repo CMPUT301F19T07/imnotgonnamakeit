@@ -24,7 +24,9 @@ import com.example.feelslikemonday.model.User;
 https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
 */
 
-/*This class is responsible for signing up new user*/
+/**
+ * This class is responsible for signing up new user
+ */
 public class SignupActivity extends AppCompatActivity {
 
     private EditText signupUsername;

@@ -24,7 +24,9 @@ import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.List;
-/*This fragment is responsible for  sending request to the user that you want to follow*/
+/**
+ * This fragment is responsible for  sending request to the user that you want to follow
+ */
 public class SendRequestFragment extends Fragment {
 
     private Button resetButton;

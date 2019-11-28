@@ -21,7 +21,9 @@ import com.example.feelslikemonday.R;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-/*This class is responsible for adding a photo*/
+/**
+ * This class is responsible for adding a photo
+ */
 public class AttachPhotoActivity extends AppCompatActivity {
     //Request codes
     public static final int REQUEST_CODE = 100;

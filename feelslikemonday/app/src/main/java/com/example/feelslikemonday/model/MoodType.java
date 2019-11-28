@@ -1,6 +1,6 @@
 package com.example.feelslikemonday.model;
 
-/*
+/**
 *This class represents the type of moods that are present in the app.
 */
 

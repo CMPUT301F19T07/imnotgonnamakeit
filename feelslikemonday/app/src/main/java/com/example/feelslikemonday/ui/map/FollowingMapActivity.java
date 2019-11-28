@@ -1,12 +1,11 @@
 package com.example.feelslikemonday.ui.map;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.fragment.app.FragmentActivity;
+
 import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
 import com.example.feelslikemonday.DAO.UserCallback;
@@ -21,28 +20,23 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import io.opencensus.resource.Resource;
 
-/*
- *This class is responsible to show the user's followees' recent mood map
+/**
+ * This class is responsible to show the user's followees' recent mood map
  */
 public class FollowingMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private SharedPreferences pref;
-    private String myUserID;
     private User currentUser;
-    private List<MoodEvent> FolloweeCurrentMoodList = new ArrayList<>() ;
-    private LatLng currentLocation;
+    private List<MoodEvent> followeeCurrentMoodList = new ArrayList<>();
     private String markerLocation;
-    private BitmapDescriptor markerType;
     private FollowPermission currentFolloPermission;
     private List<String> followeeList = new ArrayList<>();
     private int i;
@@ -55,14 +49,17 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
      * @param savedInstanceState
      * This is a saved instance state
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
     }
 
     /**
@@ -72,29 +69,30 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        SharedPreferences pref;
+        String myUserID;
         mMap = googleMap;
-
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
         FollowPermissionDAO followPermissionDAO = new FollowPermissionDAO();
-        followPermissionDAO.get(myUserID,new FollowPermissionCallback() {
+        followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
             @Override
             public void onCallback(FollowPermission followPermission) {
                 currentFolloPermission = followPermission;
                 followeeList = currentFolloPermission.getFolloweeUsernames();
-                if(followeeList.size()>0){
+                if (followeeList.size() > 0) {
                     UserDAO userDAO = new UserDAO();
-                    for(i=0;i<followeeList.size();i++){
+                    for (i = 0; i < followeeList.size(); i++)
                         userDAO.get(followeeList.get(i), new UserCallback() {
                             @Override
                             public void onCallback(User user) {
                                 currentUser = user;
-                                FolloweeCurrentMoodList =currentUser.getMoodHistory();
+                                followeeCurrentMoodList = currentUser.getMoodHistory();
                                 followeeName = currentUser.getUsername();
-                                if(FolloweeCurrentMoodList.size()>0){
-                                    recentMoodEvent= FolloweeCurrentMoodList.get(0);
+                                if (followeeCurrentMoodList.size() > 0) {
+                                    recentMoodEvent = followeeCurrentMoodList.get(0);
                                     markerLocation = recentMoodEvent.getLocation();
-                                    if(markerLocation !=null){
+                                    if (markerLocation != null) {
                                         placeMarkers();
                                     }
                                 }
@@ -105,10 +103,12 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                                 Log.v("succc", "succ");
                             }
                         });
-                    } }
-            }},new VoidCallback() {
+                }
+            }
+
+        }, new VoidCallback() {
             @Override
-            public void onCallback(){
+            public void onCallback() {
                 Log.v("succc", "succ");
             }
         });
@@ -119,6 +119,7 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
      * This places the markers on google map according to the mood event
      */
     private void placeMarkers() {
+        LatLng currentLocation;
         markerLocation = recentMoodEvent.getLocation();
         switch (recentMoodEvent.getMoodType().getName()) {
             case "Anger":
@@ -144,7 +145,6 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
         mMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.fromAsset(moodIcon)).title(followeeName).snippet(recentMoodEvent.getMoodType().getName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-
     }
 
 }

@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-/*This class is responsible for preparing and managing the data for FollowerRequest*/
+/**
+ * This class is responsible for preparing and managing the data for FollowerRequest
+ */
 public class FollowerRequestViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;

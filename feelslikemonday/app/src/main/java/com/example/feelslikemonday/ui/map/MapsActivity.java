@@ -17,7 +17,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -27,17 +26,17 @@ import java.util.List;
 
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-/*This class is responsible for creating user's moods map*/
+/**
+ * This class is responsible for creating user's moods map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private SharedPreferences pref;
-    private String myUserID;
     private User currentUser;
     private ArrayList<MoodEvent> myEmotionList = new ArrayList<>();
     private List<MoodEvent> myCurrentMoodList;
     private LatLng currentLocation;
-    private BitmapDescriptor markerType;
+    private String moodIcon;
 
     /**
      * This initializes MapActivity
@@ -51,11 +50,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
     }
 
 
-    /**
+    /*
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera.
@@ -71,8 +72,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        SharedPreferences pref;
+        String myUserID;
         mMap = googleMap;
-
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
@@ -83,9 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
-                for (int i = 0; i < myCurrentMoodList.size(); i++) {
-                    myEmotionList.add(myCurrentMoodList.get(i));
-                }
+                myEmotionList.addAll(myCurrentMoodList);
                 placeMarkers();
             }
         }, new VoidCallback() {
@@ -95,40 +95,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+
     /**
      * This places different colors according to the mood event
      */
     private void placeMarkers() {
         for (int i = 0; i < myEmotionList.size(); i++) {
-
             String markerLocation = myEmotionList.get(i).getLocation();
-            switch (myEmotionList.get(i).getMoodType().getName()) {
-                case "Anger":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
-                    break;
-                case "Disgust":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-                    break;
-                case "Fear":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET);
-                    break;
-                case "Happiness":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
-                    break;
-                case "Sadness":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
-                    break;
-                case "Surprise":
-                    markerType = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
-                    break;
+            if (markerLocation != null) {
+                switch (myEmotionList.get(i).getMoodType().getName()) {
+                    case "Anger":
+                        moodIcon = "anger.bmp";
+                        break;
+                    case "Disgust":
+                        moodIcon = "disgust.bmp";
+                        break;
+                    case "Fear":
+                        moodIcon = "fear.bmp";
+                        break;
+                    case "Happiness":
+                        moodIcon = "happiness.bmp";
+                        break;
+                    case "Sadness":
+                        moodIcon = "sadness.bmp";
+                        break;
+                    case "Surprise":
+                        moodIcon = "surprise.bmp";
+                        break;
+                }
+                if (markerLocation.equals(NULL)) {
+                    currentLocation = null;
+                    continue;
+                }
+                String[] latLongSplit = markerLocation.split(" ");
+                currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
+                mMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.
+                        fromAsset(moodIcon)).title(myEmotionList.get(i).getMoodType().getName()).snippet(myEmotionList.get(i).getDate()));
             }
-            if (markerLocation.equals(NULL)) {
-                currentLocation = null;
-                continue;
-            }
-            String[] latLongSplit = markerLocation.split(" ");
-            currentLocation = new LatLng(Double.valueOf(latLongSplit[1]), Double.valueOf(latLongSplit[0]));
-            mMap.addMarker(new MarkerOptions().position(currentLocation).icon(markerType));
         }
         if (currentLocation != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
