@@ -17,9 +17,9 @@ import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.User;
 
 /**
- * This class is responsible for verifying username and passward
+ * This class allows the user to enter an existing username and its corresponding
+ * password to login
  */
-
 public class LoginMainActivity extends AppCompatActivity {
 
     private EditText loginUsername;
@@ -52,7 +52,7 @@ public class LoginMainActivity extends AppCompatActivity {
     }
 
     /**
-     * This clears Username and Password fields at OnResume stage
+     * This clears username and password fields at OnResume stage
      */
     @Override
     protected void onResume(){
@@ -63,7 +63,8 @@ public class LoginMainActivity extends AppCompatActivity {
     }
 
     /**
-     * This checks username and password when user attempts to log in
+     * This attempts to login by checking if the username entered
+     * exists in Firestore and whether the entered password matches
      * @param view
      * This is a view returned by onCreate()
      */
@@ -71,7 +72,7 @@ public class LoginMainActivity extends AppCompatActivity {
         username = loginUsername.getText().toString().trim().toLowerCase();
         password = loginPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
-            Toast.makeText(LoginMainActivity.this, "Error: Missing input", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginMainActivity.this, "Missing username or password", Toast.LENGTH_LONG).show();
         } else {
             userDAO.get(username, new UserCallback() {
                 @Override
@@ -90,14 +91,14 @@ public class LoginMainActivity extends AppCompatActivity {
             }, new VoidCallback() {
                 @Override
                 public void onCallback() {
-                    Toast.makeText(LoginMainActivity.this, "Error: User does not exist", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginMainActivity.this, "User does not exist", Toast.LENGTH_LONG).show();
                 }
             });
         }
     }
 
     /**
-     * This goes to SignupActivity when user want to sign up
+     * This goes to SignupActivity when the user wants to sign up
      * @param view
      * This is a view returned by onCreate()
      */
