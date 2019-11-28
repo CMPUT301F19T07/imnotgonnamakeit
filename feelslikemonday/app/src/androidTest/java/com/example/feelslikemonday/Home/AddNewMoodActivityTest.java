@@ -1,6 +1,7 @@
 package com.example.feelslikemonday.Home;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -18,6 +19,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static junit.framework.TestCase.fail;
 
 /**
  * Test class for AddNewMoodActivity. All the UI tests are written here.
@@ -107,6 +110,29 @@ public class AddNewMoodActivityTest {
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
     }
+
+    @Test
+    protected void swipeLeftOnText(String text) {
+        int fromX, toX, fromY, toY;
+        int[] location = new int[2];
+
+        View row = solo.getText(text);
+        row.getLocationInWindow(location);
+
+        // fail if the view with text cannot be located in the window
+        if (location.length == 0) {
+            fail("Could not find text: " + text);
+        }
+
+        fromX = location[0] + 100;
+        fromY = location[1];
+
+        toX = location[0];
+        toY = fromY;
+
+        solo.drag(fromX, toX, fromY, toY, 10);
+    }
+
 /*
     //PLEASE DO NOT REMOVE, I AM STILL WORKING ON FIGURING OUT HOW TO SWIPE IN A TEST
 
