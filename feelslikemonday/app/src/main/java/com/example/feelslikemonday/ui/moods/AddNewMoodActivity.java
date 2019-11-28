@@ -107,7 +107,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
         fillSpinners();
         addExistingForEdit();
-        checkLocationPermission();
+
+        // checkLocationPermission();
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -195,7 +196,6 @@ public class AddNewMoodActivity extends AppCompatActivity {
         finish();
     }
 
-
     /**
      * This goes to AttachPhotoActivity when user click photoButton
      */
@@ -233,15 +233,24 @@ public class AddNewMoodActivity extends AppCompatActivity {
      * This saves the current mood event
      */
     public void Save(View view) {
-        if (!checkLocationPermission()) {
-        } else {
+        if (saveLocation) {
 
+            if (!checkLocationPermission()) {
+            } else {
+                moodHistory = currentUser.getMoodHistory();
+                myMood = getMoodDetails();
+                addMoodToList(myMood);
+                updateUserWithNewMood(currentUser);
+
+            }
+        } else {
             moodHistory = currentUser.getMoodHistory();
             myMood = getMoodDetails();
             addMoodToList(myMood);
             updateUserWithNewMood(currentUser);
         }
     }
+
 
     /**
      * This gets the details of the current mood event
@@ -382,6 +391,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
      *
      * @return return the string consisting of longitude and latitude
      */
+    @SuppressWarnings({"MissingPermission"})
     private String getLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location;
@@ -440,13 +450,12 @@ public class AddNewMoodActivity extends AppCompatActivity {
                 return true;
             } else {
                 new AlertDialog.Builder(this)
-                        .setTitle("Location Services needed")
-                        .setMessage("This app requires Location Services to be on to save your current location.")
+                        .setTitle("Location Services are currently disabled")
+                        .setMessage("This app requires Location Services to be enabled to save your current location.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                finish();
                             }
                         })
                         .create()
@@ -479,8 +488,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
                     }
                 } else {
                     //permissions not given
-                    Toast.makeText(AddNewMoodActivity.this, "This app requires location permissions to work", Toast.LENGTH_LONG).show();
-                    finish();
+                    Toast.makeText(AddNewMoodActivity.this, "Location permissions required to save mood location", Toast.LENGTH_LONG).show();
                 }
             }
             return;
