@@ -107,20 +107,6 @@ public class FollowerRequestFragment extends Fragment {
         return root;
     }
 
-//    private void storeFollowerPermission(String friendName){
-//        //TODO: pass filename variable from MainActivity
-//        SharedPreferences mySharedPreferences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
-//        myEditor.putString("followerPermission", friendName);
-//        myEditor.apply();
-//    }
-//
-//    private String getFollowerPermission(){
-//        SharedPreferences mySharedPrefrences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
-//        //String FollowerPermission = mySharedPrefrences.getString("recipientUsername", this.getActivity().);
-//        String PermittedName = "Xiaole2";
-//        return PermittedName ;
-//    }
 }
 
 

@@ -2,15 +2,11 @@ package com.example.feelslikemonday.ui.friends;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,19 +16,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
-import com.example.feelslikemonday.DAO.FollowRequestCallback;
-import com.example.feelslikemonday.DAO.FollowRequestDAO;
-import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
-import com.example.feelslikemonday.model.FollowRequest;
-import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
-import com.example.feelslikemonday.ui.followrequest.FollowerRequestViewModel;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsive for showing the following friends and you can unfollow the followed friends
+ */
 public class MyFriendsFragment extends Fragment {
     private MyFriendsViewModel friendsViewModel;
     private ListView userList;
@@ -43,6 +36,17 @@ public class MyFriendsFragment extends Fragment {
     private String myUserID;
 
 
+    /**
+     * This initiates the following friends fragments
+     * @param inflater
+     * This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container
+     * This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState
+     * This is a previous saved state.
+     * @return
+     *    return the View for the fragment's UI, or null
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

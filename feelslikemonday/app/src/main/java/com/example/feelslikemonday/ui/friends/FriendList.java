@@ -14,18 +14,17 @@ import androidx.annotation.Nullable;
 
 import com.example.feelslikemonday.DAO.FollowPermissionCallback;
 import com.example.feelslikemonday.DAO.FollowPermissionDAO;
-import com.example.feelslikemonday.DAO.FollowRequestCallback;
-import com.example.feelslikemonday.DAO.FollowRequestDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
-import com.example.feelslikemonday.model.FollowRequest;
-import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *This class acts as a array adapter for the following friends list
+ */
 public class FriendList extends ArrayAdapter<String> {
 
     private Context context;
@@ -34,12 +33,30 @@ public class FriendList extends ArrayAdapter<String> {
     private SharedPreferences pref;
     private String myUserID;
 
+    /**
+     * This constructor initializes following friends fragment
+     * @param context
+     * This is the current context. This value must never be null
+     * @param users
+     * This is the objects to represent in the ListView. This value must never be null
+     */
     public FriendList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
         this.friendsUsernames = users;
         this.context = context;
     }
 
+    /**
+     * This gets a View that displays the data at the specified position in the data set
+     * @param position
+     * This is the position of the item within the adapter's data set of the item whose view we want
+     * @param convertView
+     * This is the view. This value must never be null
+     * @param parent
+     * This is the view group. This value must never be null
+     * @return
+     *  return a View of following friends corresponding to the data at the specified position
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
