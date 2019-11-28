@@ -15,18 +15,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 /**
-
  * To get the DAO, simply call UserDao.getInstance()
-
  * Uses the username as the primary key
-
  * Uses documentation snippets from https://firebase.google.com/docs/firestore/manage-data/delete-data
-
+ * This class acts as an intermediary for the app and firestore. Used to query Users
  */
 
-/*
-*This class acts as an intermediary for the app and firestore. Used to query Users
-*/
 public class UserDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final UserDAO instance = new UserDAO();

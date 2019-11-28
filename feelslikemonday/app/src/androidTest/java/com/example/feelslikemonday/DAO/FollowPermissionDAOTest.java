@@ -51,7 +51,7 @@ public class FollowPermissionDAOTest {
                 signal.countDown();
             }
         });
-        signal.await();
 
+        signal.await();
     }
 }
