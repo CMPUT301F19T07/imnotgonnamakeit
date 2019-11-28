@@ -24,6 +24,10 @@ import static org.junit.Assert.fail;
 public class UserDAOTest {
     private static UserDAO userDAO = UserDAO.getInstance();
 
+    /**
+     * Create a User object
+     * @throws InterruptedException
+     */
     @Test
     public void createUserObject() throws InterruptedException{
         /* Signal uses a lock to prevent the test from finishing until the test is done.
@@ -41,7 +45,10 @@ public class UserDAOTest {
         signal.await();
     }
 
-
+    /**
+     * Retrive an existing User object
+     * @throws InterruptedException
+     */
     @Test
     public void getUserObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -63,7 +70,10 @@ public class UserDAOTest {
         signal.await();
     }
 
-    //Create a new user, update the user's password, and check if it has been changed
+    /**
+     * Create a new user, change it's password, and check the db if the password has been updated.
+     * @throws InterruptedException
+     */
     @Test
     public void updateUserObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -93,6 +103,10 @@ public class UserDAOTest {
         signal.await();
     }
 
+    /**
+     * Create a new user, delete the user, and check if the user exists. Test will pass if not user is found
+     * @throws InterruptedException
+     */
     @Test
     public void deleteUserObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -122,7 +136,10 @@ public class UserDAOTest {
         signal.await();
     }
 
-    //Create a user, check if it exists, delete the user, check if it exists again
+    /**
+     * Create a user, check if it exists, delete the user, check if it exists again
+     * @throws InterruptedException
+     */
     @Test
     public void checkIfUserExists() throws InterruptedException{
         final CountDownLatch signal = new CountDownLatch(1);

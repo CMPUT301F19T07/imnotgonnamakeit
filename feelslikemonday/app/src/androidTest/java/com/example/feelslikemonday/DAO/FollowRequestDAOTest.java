@@ -17,6 +17,10 @@ import static org.junit.Assert.fail;
 public class FollowRequestDAOTest {
     private static FollowRequestDAO DAO = FollowRequestDAO.getInstance();
 
+    /**
+     * Create an instance of a FollowRequest object in the DB.
+     * @throws InterruptedException
+     */
     @Test
     public void createObject() throws InterruptedException{
         /* Signal uses a lock to prevent the test from finishing until the test is done.
@@ -34,6 +38,10 @@ public class FollowRequestDAOTest {
         signal.await();
     }
 
+    /**
+     * Get an instance of a FollowRequest object from the DB. Passes if a user was retrieved
+     * @throws InterruptedException
+     */
     @Test
     public void getObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -55,6 +63,11 @@ public class FollowRequestDAOTest {
         signal.await();
     }
 
+    /**
+     * Create a new object, update it's requester usernames, and check if those changes are
+     * reflected in the DB.
+     * @throws InterruptedException
+     */
     @Test
     public void updateObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -90,6 +103,10 @@ public class FollowRequestDAOTest {
         signal.await();
     }
 
+    /**
+     * Delete an object, and check if it exists in the DB. passes if no object was found.
+     * @throws InterruptedException
+     */
     @Test
     public void deleteObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
