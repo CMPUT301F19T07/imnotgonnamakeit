@@ -113,7 +113,9 @@ public class AttachPhotoActivity extends AppCompatActivity {
     /**
      * Down scale the bitmap so that it can fit into firestore
      * @param srcBitmap
+     * The bitmap that we want to downscale
      * @return
+     * returns the downscaled bitmap
      */
     private Bitmap downscaleBitmap(Bitmap srcBitmap){
         double maxSrcDim = Math.max(srcBitmap.getHeight(),srcBitmap.getWidth());

@@ -15,8 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
-*This is a class  responsible for making requests to firestore, and returning User Requests to the activities/fragments.
-*/
+ * This is a class  responsible for making requests to firestore, and returning User Requests to the activities/fragments.
+ */
 public class FollowRequestDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final FollowRequestDAO instance = new FollowRequestDAO();

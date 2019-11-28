@@ -17,6 +17,10 @@ import static org.junit.Assert.fail;
 public class FollowPermissionDAOTest {
     private static FollowPermissionDAO DAO = FollowPermissionDAO.getInstance();
 
+    /**
+     * Create an instance of a FollowPermission object in the DB
+     * @throws InterruptedException
+     */
     @Test
     public void createObject() throws InterruptedException{
         /* Signal uses a lock to prevent the test from finishing until the test is done.
@@ -34,6 +38,10 @@ public class FollowPermissionDAOTest {
         signal.await();
     }
 
+    /**
+     * Get a pre-existing FollowPermission object from the DB
+     * @throws InterruptedException
+     */
     @Test
     public void getObject() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -51,7 +59,79 @@ public class FollowPermissionDAOTest {
                 signal.countDown();
             }
         });
-        signal.await();
 
+        signal.await();
+    }
+
+    /**
+     * Create a new object, update it, and check if the updates are reflected in the DB.
+     * @throws InterruptedException
+     */
+    @Test
+    public void updateObject() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        final FollowPermission followPermission = new FollowPermission("uTEST-bill");
+
+        DAO.createOrUpdate("uTEST-bill",followPermission,new VoidCallback(){
+            @Override
+            public void onCallback() {
+                //add a new follower
+                followPermission.getFolloweeUsernames().add("uTEST-bill-0");
+                DAO.createOrUpdate("uTEST-bill",followPermission, new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        DAO.get("uTEST-bill", new FollowPermissionCallback() {
+                            @Override
+                            public void onCallback(FollowPermission followPermission) {
+                                assertEquals(followPermission.getFollowerUsername(),"uTEST-bill");
+                                assertEquals(followPermission.getFolloweeUsernames().size(),1);
+                                assertEquals(followPermission.getFolloweeUsernames().get(0),"uTEST-bill-0");
+                                signal.countDown();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                fail();
+                                signal.countDown();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        signal.await();
+    }
+
+    /**
+     * Create a new object, delete it, and check if it exists. Passes if no such object exists
+     * @throws InterruptedException
+     */
+    @Test
+    public void deleteObject() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        DAO.createOrUpdate("uTEST-will", new FollowPermission("uTEST-will"), new VoidCallback() {
+            @Override
+            public void onCallback() {
+                DAO.delete("uTEST-will", new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        DAO.get("uTEST-will", new FollowPermissionCallback(){
+                            @Override
+                            public void onCallback(FollowPermission user) {
+                                fail();
+                                signal.countDown();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                //No user was found
+                                signal.countDown();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        signal.await();
     }
 }
