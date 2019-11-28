@@ -16,11 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.feelslikemonday.DAO.FollowPermissionCallback;
+import com.example.feelslikemonday.DAO.FollowPermissionDAO;
 import com.example.feelslikemonday.DAO.FollowRequestCallback;
 import com.example.feelslikemonday.DAO.FollowRequestDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.FollowRequest;
+import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.List;
@@ -39,7 +43,8 @@ public class SendRequestFragment extends Fragment {
     private String myUserID;
 
     private SendRequestViewModel sendRequestViewModel;
-    private static FollowRequestDAO DAO; // = FollowRequestDAO.getInstance();
+    private static FollowRequestDAO followRequestDAO; // = FollowRequestDAO.getInstance();
+    private static FollowPermissionDAO followPermissionDAO;
 
     /**
      * This initializes SendRequestFragment
@@ -96,72 +101,97 @@ public class SendRequestFragment extends Fragment {
                     Toast toast = Toast.makeText(getActivity(), "Please input a username", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                }else{
-                    DAO = FollowRequestDAO.getInstance();
+                }
+                else if(recipientUsername.matches(myUserID) ){
+                    Toast toast = Toast.makeText(getActivity(), "Error: You cannot send a request to yourself", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                    usernameEditText.setText("");
+                }
+                else{
+                    followRequestDAO = FollowRequestDAO.getInstance();
+                    followPermissionDAO = FollowPermissionDAO.getInstance();
 
-                    //Check Input User exists in the database
-                    DAO.get(recipientUsername, new FollowRequestCallback(){
+                    followRequestDAO.get(recipientUsername, new FollowRequestCallback() {
                         @Override
                         public void onCallback(FollowRequest followRequest) {
-                            if(followRequest.getRecipientUsername().equals(recipientUsername)){
-                                requesterUsernames = followRequest.getRequesterUsernames();
-                                requesterUsernames.add(myUserID);   //TODO: check you have not request twice.
-                                Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
-                                followRequest_ok = followRequest;
+                            if (followRequest.getRecipientUsername().equals(recipientUsername)) {
+                                //showValidUserToast();
+                                followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
+                                            @Override
+                                            public void onCallback(FollowPermission followPermission) {
+                                                if (followPermission.getFolloweeUsernames().contains(recipientUsername)) {
+                                                    showAlreadyFollowedUserToast();
+                                                }else{
+                                                    followRequestDAO.get(recipientUsername, new FollowRequestCallback() {
+                                                        @Override
+                                                        public void onCallback(FollowRequest followRequest) {
+                                                            if (followRequest.getRequesterUsernames().contains(myUserID)) {
+                                                                showAlreadySentRequestToast();
+                                                            }else{
+                                                                followRequest_ok = followRequest;
+                                                                requesterUsernames = followRequest.getRequesterUsernames();
+                                                                requesterUsernames.add(myUserID);
+                                                                followRequestDAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
+                                                                    @Override
+                                                                    public void onCallback() {
+                                                                    }
+                                                                });
+                                                                showSuccessfulSendToast();
+                                                            }
 
-                                DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
-                                    @Override
-                                    public void onCallback() {
-                                    }
-                                });
-                                usernameEditText.setText("");
-
-                                Toast toast1 = Toast.makeText(getActivity(), "Send Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
-                                toast1.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast1.show();
+                                                        }
+                                                    },null);
+                                                }
+                                            }
+                                        },null);
                             }
 
                         }
                     }, new VoidCallback() {
                         @Override
                         public void onCallback() {
-                            Toast toast = Toast.makeText(getActivity(), "User Not Exist, Invite your friend", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast.show();
-                            usernameEditText.setText("");
+                            showIndvalidUserToast();
                         }
                     });
+
                 }
             }
         });
         return root;
     }
 
+    public void showAlreadyFollowedUserToast(){
+        Toast toast = Toast.makeText(getActivity(), "You have already followed " +  recipientUsername, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+        usernameEditText.setText("");
+    }
 
-    /**
-     * Since Login/Register Activity haven't complete, so I use <filename> that I create manually. (which is Xiaole)
-     * Once sharedPreference create in the Login/Register Activity, I need to get the variable <file name>
-     * from mainActivity and pass the file name in SendRequestFragment --> TODO
-     *
-     * Login/Register should pass the filename variable to the MainActivity(Home Page).
-     */
+    public void showAlreadySentRequestToast(){
+        Toast toast = Toast.makeText(getActivity(), "Request already sent to " +  recipientUsername, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+        usernameEditText.setText("");
+    }
 
+    public void showValidUserToast(){
+        Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }
 
-//    private void storeRecipientUsername(String friendName){
-//        //TODO: pass filename variable from MainActivity
-//        SharedPreferences mySharedPreferences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
-//        myEditor.putString("recipientUsername", friendName);
-//        myEditor.apply();
-//    }
-//
-//    private String getRecipientUsername(){
-//        SharedPreferences mySharedPrefrences = this.getActivity().getSharedPreferences("Xiaole", Context.MODE_PRIVATE);
-//        //String RecipientUsername = mySharedPrefrences.getString("recipientUsername", this.getActivity().);
-//        String RecipientUsername = "Xiaole2";
-//        return RecipientUsername;
-//    }
+    public void showIndvalidUserToast(){
+        Toast toast = Toast.makeText(getActivity(), "This user does not exist, invite your friends", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+        usernameEditText.setText("");
+    }
 
+    public void  showSuccessfulSendToast(){
+        Toast toast1 = Toast.makeText(getActivity(), "Sent Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
+        toast1.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast1.show();
+        usernameEditText.setText("");
+    }
 }

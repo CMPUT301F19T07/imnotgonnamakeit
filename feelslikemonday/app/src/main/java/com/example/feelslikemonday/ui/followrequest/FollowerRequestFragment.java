@@ -63,7 +63,7 @@ public class FollowerRequestFragment extends Fragment {
         myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
 
         DAO = FollowRequestDAO.getInstance();
-        //TODO: PASS mySharedPreference filename
+
         DAO.get(myUserID, new FollowRequestCallback(){
             @Override
             public void onCallback(FollowRequest followRequest) {

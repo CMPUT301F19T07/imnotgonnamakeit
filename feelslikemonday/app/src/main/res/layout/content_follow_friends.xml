@@ -8,7 +8,7 @@
     android:descendantFocusability="blocksDescendants">
 
     <TextView
-        android:id="@+id/username_text"
+        android:id="@+id/following_friend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -26,34 +26,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <Button
-        android:id="@+id/request_accept_button"
-        android:layout_width="75dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="10dp"
-        android:freezesText="true"
-        android:text="Accept"
-        android:fontFamily="casual"
-        android:background="@drawable/button_rounded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/request_reject_button"
-        app:layout_constraintStart_toEndOf="@+id/username_text"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/request_reject_button"
-        android:layout_width="75dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="12dp"
+        android:id="@+id/unfollow_button"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/button_rounded_green"
         android:clickable="true"
-        android:freezesText="true"
         android:fontFamily="casual"
-        android:text="Reject"
-        app:layout_constraintBottom_toBottomOf="@+id/request_accept_button"
+        android:freezesText="true"
+        android:text="Unfollow"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/request_accept_button"
-        app:layout_constraintTop_toTopOf="@+id/request_accept_button" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

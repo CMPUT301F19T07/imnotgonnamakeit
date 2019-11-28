@@ -16,6 +16,8 @@
         android:layout_height="match_parent"
         android:layout_weight="25"
         android:fontFamily="casual"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
