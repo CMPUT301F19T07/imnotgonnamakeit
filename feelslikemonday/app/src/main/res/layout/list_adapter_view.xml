@@ -9,7 +9,7 @@ android:weightSum="100">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="23"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-condensed-light"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
@@ -18,7 +18,7 @@ android:weightSum="100">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="33"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-condensed-light"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
@@ -27,7 +27,7 @@ android:weightSum="100">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="43"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-condensed-light"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 

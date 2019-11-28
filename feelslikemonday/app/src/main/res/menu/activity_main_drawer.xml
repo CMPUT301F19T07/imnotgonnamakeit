@@ -7,31 +7,31 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif-condensed-light"
             android:title="@string/menu_home" />
 
         <item
             android:id="@+id/nav_myfriend"
             android:icon="@drawable/ic_menu_following"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif-condensed-light"
             android:title="My Friends" />
 
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_mood"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif-condensed-light"
             android:title="@string/menu_following" />
 
         <item
             android:id="@+id/nav_followerrequest"
             android:icon="@drawable/ic_menu_request"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif-condensed-light"
             android:title="Follower Request" />
 
         <item
             android:id="@+id/nav_sendrequest"
             android:icon="@drawable/ic_request_name"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif-condensed-light"
             android:title="Send Request" />
     </group>
 </menu>
