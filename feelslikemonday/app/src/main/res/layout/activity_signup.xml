@@ -56,13 +56,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/signupUsernameView"
+                    android:id="@+id/signup_username_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username:" />
 
                 <EditText
-                    android:id="@+id/signupUsernameEdit"
+                    android:id="@+id/signup_username_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -78,13 +78,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/signupPasswordView"
+                    android:id="@+id/signup_password_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Password:" />
 
                 <EditText
-                    android:id="@+id/signupPasswordEdit"
+                    android:id="@+id/signup_password_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -96,7 +96,7 @@
 
 
         <Button
-            android:id="@+id/signupCancelButton"
+            android:id="@+id/signup_cancel_button"
             android:layout_width="110dp"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
@@ -109,7 +109,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/signupConfirmButton"
+            android:id="@+id/signup_confirm_button"
             android:layout_width="110dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"

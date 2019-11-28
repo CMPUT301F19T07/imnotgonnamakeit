@@ -41,8 +41,8 @@ public class LoginMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
-        loginUsername = findViewById(R.id.loginUsernameEdit);
-        loginPassword = findViewById(R.id.loginPasswordEdit);
+        loginUsername = findViewById(R.id.login_username_edit);
+        loginPassword = findViewById(R.id.login_password_edit);
         String loggedInUsername = getApplicationContext().getSharedPreferences(PREFS_NAME, 0).getString(USERNAME_KEY,null);
         //if user is already logged in
         if (loggedInUsername != null){
@@ -52,7 +52,7 @@ public class LoginMainActivity extends AppCompatActivity {
     }
 
     /**
-     * This clears Username and Passward fields at OnResume stage
+     * This clears Username and Password fields at OnResume stage
      */
     @Override
     protected void onResume(){
