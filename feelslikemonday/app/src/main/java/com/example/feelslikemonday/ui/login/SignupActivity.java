@@ -40,6 +40,30 @@ public class SignupActivity extends AppCompatActivity {
     public static final String USERNAME_KEY = "username_key";
 
     /**
+     * This initializes SignupActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
+        signupUsername = findViewById(R.id.signup_username_edit);
+        signupPassword = findViewById(R.id.signup_password_edit);
+    }
+
+    /**
+     * This clears Username and Password fields at OnResume stage
+     */
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //Clear fields
+        signupUsername.setText("");
+        signupPassword.setText("");
+    }
+
+    /**
      * This finishes SignupActivity when user cancel Sign up
      * @param view
      * This is a view returned by onCreate()
@@ -55,7 +79,7 @@ public class SignupActivity extends AppCompatActivity {
      */
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen
-        username = signupUsername.getText().toString();
+        username = signupUsername.getText().toString().trim().toLowerCase();
         password = signupPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
             Toast.makeText(SignupActivity.this, "Error: Empty Field", Toast.LENGTH_LONG).show();
@@ -107,18 +131,5 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    /**
-     * This initializes SignupActivity
-     * @param savedInstanceState
-     * This is a previous saved state
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        signupUsername = findViewById(R.id.signup_username_edit);
-        signupPassword = findViewById(R.id.signup_password_edit);
     }
 }

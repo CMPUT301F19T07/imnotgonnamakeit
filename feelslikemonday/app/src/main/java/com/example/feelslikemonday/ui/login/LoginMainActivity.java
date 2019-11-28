@@ -68,7 +68,7 @@ public class LoginMainActivity extends AppCompatActivity {
      * This is a view returned by onCreate()
      */
     public void attemptLogin(View view){
-        username = loginUsername.getText().toString();
+        username = loginUsername.getText().toString().trim().toLowerCase();
         password = loginPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
             Toast.makeText(LoginMainActivity.this, "Error: Missing input", Toast.LENGTH_LONG).show();
