@@ -123,22 +123,22 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         markerLocation = recentMoodEvent.getLocation();
         switch (recentMoodEvent.getMoodType().getName()) {
             case "Anger":
-                moodIcon = "anger.bmp";
+                moodIcon = "anger.png";
                 break;
             case "Disgust":
-                moodIcon = "disgust.bmp";
+                moodIcon = "disgust.png";
                 break;
             case "Fear":
-                moodIcon = "fear.bmp";
+                moodIcon = "fear.png";
                 break;
             case "Happiness":
-                moodIcon = "happiness.bmp";
+                moodIcon = "happiness.png";
                 break;
             case "Sadness":
-                moodIcon = "sadness.bmp";
+                moodIcon = "sadness.png";
                 break;
             case "Surprise":
-                moodIcon = "surprise.bmp";
+                moodIcon = "surprise.png";
                 break;
         }
         String[] latLongSplit = markerLocation.split(" ");

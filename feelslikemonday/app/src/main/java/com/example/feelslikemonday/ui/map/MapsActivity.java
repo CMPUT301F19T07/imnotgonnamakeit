@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * This places different colors according to the mood event
+     * This places different emoji icons according to the mood event
      */
     private void placeMarkers() {
         for (int i = 0; i < myEmotionList.size(); i++) {
@@ -105,22 +105,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (markerLocation != null) {
                 switch (myEmotionList.get(i).getMoodType().getName()) {
                     case "Anger":
-                        moodIcon = "anger.bmp";
+                        moodIcon = "anger.png";
                         break;
                     case "Disgust":
-                        moodIcon = "disgust.bmp";
+                        moodIcon = "disgust.png";
                         break;
                     case "Fear":
-                        moodIcon = "fear.bmp";
+                        moodIcon = "fear.png";
                         break;
                     case "Happiness":
-                        moodIcon = "happiness.bmp";
+                        moodIcon = "happiness.png";
                         break;
                     case "Sadness":
-                        moodIcon = "sadness.bmp";
+                        moodIcon = "sadness.png";
                         break;
                     case "Surprise":
-                        moodIcon = "surprise.bmp";
+                        moodIcon = "surprise.png";
                         break;
                 }
                 if (markerLocation.equals(NULL)) {
