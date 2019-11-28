@@ -100,7 +100,6 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
                         }, new VoidCallback() {
                             @Override
                             public void onCallback() {
-                                Log.v("succc", "succ");
                             }
                         });
                 }
@@ -109,7 +108,6 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
         }, new VoidCallback() {
             @Override
             public void onCallback() {
-                Log.v("succc", "succ");
             }
         });
 

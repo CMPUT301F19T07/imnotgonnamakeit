@@ -91,7 +91,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }, new VoidCallback() {
             @Override
             public void onCallback() {
-                Log.v("succc", "succ");
             }
         });
     }
