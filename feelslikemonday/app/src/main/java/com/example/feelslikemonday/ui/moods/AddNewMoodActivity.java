@@ -13,8 +13,11 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -26,10 +29,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.example.feelslikemonday.DAO.UserCallback;
 import com.example.feelslikemonday.DAO.UserDAO;
 import com.example.feelslikemonday.DAO.VoidCallback;
@@ -80,8 +85,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This initializes AddNewMoodActivity
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +97,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
         locationSwitch = findViewById(R.id.location_switch);
-        count=findViewById(R.id.count);
+        count = findViewById(R.id.count);
 
         locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -103,13 +108,14 @@ public class AddNewMoodActivity extends AppCompatActivity {
         fillSpinners();
         addExistingForEdit();
         checkLocationPermission();
+
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         setupDAO();
 
         String s = reason.getText().toString();
-        int num =s.length();
-        count.setText(""+num);
+        int num = s.length();
+        count.setText("" + num);
 
         /**
          *This function of commentEditText is to tracking and updating the number of characters
@@ -124,9 +130,10 @@ public class AddNewMoodActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String s = reason.getText().toString();
-                int num =s.length();
-                count.setText(""+num);
+                int num = s.length();
+                count.setText("" + num);
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -145,7 +152,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodIndex = 0; //this variable is for sorting
             if (moodState == 1) {
                 byte[] imageByteArr = intent.getByteArrayExtra("image");
-                if(imageByteArr != null){
+                if (imageByteArr != null) {
                     moodBitmapByteArray = imageByteArr;
                     Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
                     imageView.setImageBitmap(imageBitmap);
@@ -180,6 +187,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * This finishes AddNewMoodActivity when user cancel it
      */
@@ -198,16 +206,14 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * Method currently used to get photos from the photo activity
-     * @param requestCode
-     * This is the integer request code originally supplied to startActivityForResult()
-     * @param resultCode
-     * This is the integer result code returned by the child activity through its setResult()
-     * @param data
-     * This is the result data
+     *
+     * @param requestCode This is the integer request code originally supplied to startActivityForResult()
+     * @param resultCode  This is the integer result code returned by the child activity through its setResult()
+     * @param data        This is the result data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(resultCode,resultCode,data);
+        super.onActivityResult(resultCode, resultCode, data);
         if (requestCode == AttachPhotoActivity.REQUEST_CODE && resultCode == AttachPhotoActivity.RES_OK && data != null) {
             //get binary from activity result and set the image view to it.
             byte[] img = data.getByteArrayExtra(AttachPhotoActivity.BITMAP_BYTE_ARRAY_EXTRA);
@@ -216,7 +222,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     }
 
-    public Bitmap byteArrayToBitmap(byte[] input){
+    public Bitmap byteArrayToBitmap(byte[] input) {
         Bitmap bmp = BitmapFactory.decodeByteArray(input, 0, input.length);
         ImageView imageView = findViewById(R.id.myphoto);
         imageView.setImageBitmap(bmp);
@@ -227,16 +233,20 @@ public class AddNewMoodActivity extends AppCompatActivity {
      * This saves the current mood event
      */
     public void Save(View view) {
-        moodHistory = currentUser.getMoodHistory();
-        myMood = getMoodDetails();
-        addMoodToList(myMood);
-        updateUserWithNewMood(currentUser);
+        if (!checkLocationPermission()) {
+        } else {
+
+            moodHistory = currentUser.getMoodHistory();
+            myMood = getMoodDetails();
+            addMoodToList(myMood);
+            updateUserWithNewMood(currentUser);
+        }
     }
 
     /**
      * This gets the details of the current mood event
-     * @return
-     *      return the mood event
+     *
+     * @return return the mood event
      */
     public MoodEvent getMoodDetails() {
 
@@ -265,7 +275,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
             myMoodType = new MoodType(MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getName(), MoodEvent.MOOD_TYPES.get(moodSpiner.getSelectedItemPosition()).getEmoji());
             Blob moodBlob = null;
-            if(moodBitmapByteArray != null){
+            if (moodBitmapByteArray != null) {
                 moodBlob = Blob.fromBytes(moodBitmapByteArray);
             }
             if (saveLocation) {
@@ -283,8 +293,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This adds mood event to the moodHistory
-     * @param myMood
-     * This is the current mood event
+     *
+     * @param myMood This is the current mood event
      */
     public void addMoodToList(MoodEvent myMood) {
         if (moodState == 0) {
@@ -295,10 +305,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
             moodHistory.set(moodIndex, myMood);
         }
     }
+
     /**
      * This adds mood event to the moodHistory
-     * @param currentUser
-     * This is the current user
+     *
+     * @param currentUser This is the current user
      */
     public void updateUserWithNewMood(User currentUser) {
         // update the user object
@@ -342,6 +353,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         Spinner socialSpinnerSpinner = findViewById(R.id.social_spinner);
         socialSpinnerSpinner.setAdapter(adapter1);
     }
+
     /**
      * This receives notifications from the LocationManager when the location has changed
      */
@@ -367,8 +379,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This gets the location of the current mood event
-     * @return
-     *      return the string consisting of longitude and latitude
+     *
+     * @return return the string consisting of longitude and latitude
      */
     private String getLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -386,8 +398,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This checks if the user permits location
-     * @return
-     *      return boolean result
+     *
+     * @return return boolean result
      */
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
@@ -402,8 +414,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
-                        .setTitle("need lcoation")
-                        .setMessage("gib location pls")
+                        .setTitle("Location permissions needed")
+                        .setMessage("This app requires location permissions to save your current location.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -424,18 +436,32 @@ public class AddNewMoodActivity extends AppCompatActivity {
             }
             return false;
         } else {
-            return true;
+            if (isLocationEnabled(this)) {
+                return true;
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Services needed")
+                        .setMessage("This app requires Location Services to be on to save your current location.")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                finish();
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+            return false;
         }
     }
 
     /**
      * This callbacks for the result from requesting permissions.
-     * @param requestCode
-     * This is the request code passed in.
-     * @param permissions
-     * This is the requested permissions
-     * @param grantResults
-     * This is the grant results for the corresponding permissions
+     *
+     * @param requestCode  This is the request code passed in.
+     * @param permissions  This is the requested permissions
+     * @param grantResults This is the grant results for the corresponding permissions
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -459,6 +485,29 @@ public class AddNewMoodActivity extends AppCompatActivity {
             }
             return;
         }
+    }
+
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        } else {
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
+
+
     }
 }
 
