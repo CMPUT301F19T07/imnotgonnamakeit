@@ -60,7 +60,107 @@ public class UserDAOTest {
                 signal.countDown();
             }
         });
+        signal.await();
+    }
 
+    //Create a new user, update the user's password, and check if it has been changed
+    @Test
+    public void updateUserObject() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        userDAO.createOrUpdate(new User("uTEST-bill","password"),new VoidCallback(){
+            @Override
+            public void onCallback() {
+                userDAO.createOrUpdate(new User("uTEST-bill", "newPassword"), new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        userDAO.get("uTEST-bill", new UserCallback() {
+                            @Override
+                            public void onCallback(User user) {
+                                assertEquals(user.getPassword(),"newPassword");
+                                signal.countDown();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                fail();
+                                signal.countDown();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        signal.await();
+    }
+
+    @Test
+    public void deleteUserObject() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        userDAO.createOrUpdate(new User("uTEST-will", "password"), new VoidCallback() {
+            @Override
+            public void onCallback() {
+                userDAO.delete(new User("uTEST-will","password"), new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        userDAO.get("uTEST-will", new UserCallback() {
+                            @Override
+                            public void onCallback(User user) {
+                                fail();
+                                signal.countDown();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                //No user was found
+                                signal.countDown();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        signal.await();
+    }
+
+    //Create a user, check if it exists, delete the user, check if it exists again
+    @Test
+    public void checkIfUserExists() throws InterruptedException{
+        final CountDownLatch signal = new CountDownLatch(1);
+        userDAO.createOrUpdate(new User("uTEST-nill", "password"), new VoidCallback() {
+            @Override
+            public void onCallback() {
+                userDAO.checkIfExists("uTEST-nill", new BooleanCallback() {
+                    @Override
+                    public void onCallback(Boolean bool) {
+                        assertEquals(bool, Boolean.TRUE);
+                        userDAO.delete(new User("uTEST-nill", "password"), new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                userDAO.checkIfExists("uTEST-nill", new BooleanCallback() {
+                                    @Override
+                                    public void onCallback(Boolean bool) {
+                                        assertEquals(bool, Boolean.FALSE);
+                                        signal.countDown();
+                                    }
+                                }, new VoidCallback() {
+                                    @Override
+                                    public void onCallback() {
+                                        fail();
+                                        signal.countDown();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }, new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        fail();
+                        signal.countDown();
+                    }
+                });
+            }
+        });
         signal.await();
     }
 }

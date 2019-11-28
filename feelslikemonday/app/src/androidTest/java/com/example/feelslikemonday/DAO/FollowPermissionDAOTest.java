@@ -54,4 +54,68 @@ public class FollowPermissionDAOTest {
 
         signal.await();
     }
+
+    @Test
+    public void updateObject() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        final FollowPermission followPermission = new FollowPermission("uTEST-bill");
+
+        DAO.createOrUpdate("uTEST-bill",followPermission,new VoidCallback(){
+            @Override
+            public void onCallback() {
+                //add a new follower
+                followPermission.getFolloweeUsernames().add("uTEST-bill-0");
+                DAO.createOrUpdate("uTEST-bill",followPermission, new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        DAO.get("uTEST-bill", new FollowPermissionCallback() {
+                            @Override
+                            public void onCallback(FollowPermission followPermission) {
+                                assertEquals(followPermission.getFollowerUsername(),"uTEST-bill");
+                                assertEquals(followPermission.getFolloweeUsernames().size(),1);
+                                assertEquals(followPermission.getFolloweeUsernames().get(0),"uTEST-bill-0");
+                                signal.countDown();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                fail();
+                                signal.countDown();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        signal.await();
+    }
+
+    @Test
+    public void deleteObject() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        DAO.createOrUpdate("uTEST-will", new FollowPermission("uTEST-will"), new VoidCallback() {
+            @Override
+            public void onCallback() {
+                DAO.delete("uTEST-will", new VoidCallback() {
+                    @Override
+                    public void onCallback() {
+                        DAO.get("uTEST-will", new FollowPermissionCallback(){
+                            @Override
+                            public void onCallback(FollowPermission user) {
+                                fail();
+                                signal.countDown();
+                            }
+                        }, new VoidCallback() {
+                            @Override
+                            public void onCallback() {
+                                //No user was found
+                                signal.countDown();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        signal.await();
+    }
 }
