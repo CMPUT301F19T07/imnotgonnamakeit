@@ -494,6 +494,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This checks if Location Services are enabled
+     *
+     * @return return boolean result
+     */
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
         String locationProviders;

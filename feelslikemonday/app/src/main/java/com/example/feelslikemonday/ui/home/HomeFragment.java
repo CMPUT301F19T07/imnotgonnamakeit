@@ -438,7 +438,10 @@ public class HomeFragment extends Fragment {
         }
         return returnValue;
     }
-    
+
+    /**
+     * This checks if the mood list is empty. If so, display instructions for creating a new mood.
+     */
     private void showHelp() {
         if (myCurrentMoodList.isEmpty()) {
             helpPopup.setVisibility(View.VISIBLE);
