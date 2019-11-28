@@ -51,7 +51,7 @@ public class DisplayCurrentMood extends AppCompatActivity {
         socialSituationTextView.setText(intent.getStringExtra ("socialSituation"));
         moodTypeTextView.setText(intent.getStringExtra ("moodType"));
 
-        Button button = (Button) findViewById(R.id.button_back);
+        Button button = (Button) findViewById(R.id.buttonBack);
 
         button.setOnClickListener(new View.OnClickListener(){
             @Override

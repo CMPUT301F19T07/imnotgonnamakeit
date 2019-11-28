@@ -226,11 +226,11 @@
                     android:onClick="cancelButton"
                     android:text="cancel"
                     android:fontFamily="sans-serif-condensed-light"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/button11"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/saveMoodButton"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
-                    android:id="@+id/button11"
+                    android:id="@+id/saveMoodButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/MediumAquamarine"

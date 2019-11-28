@@ -74,8 +74,11 @@ public class SignupActivityTests {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         TextView tv = (TextView)solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
+
         solo.waitForActivity(SignupActivity.class);
-        solo.clickOnButton("Cancel");
+
+        solo.sleep(2000);
+        solo.clickOnView(solo.getView(R.id.signupCancelButton));
         solo.waitForActivity(LoginMainActivity.class);
     }
 

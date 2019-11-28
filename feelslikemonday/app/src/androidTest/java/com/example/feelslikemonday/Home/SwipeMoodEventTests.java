@@ -9,6 +9,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
+import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.robotium.solo.Solo;
 
@@ -18,8 +19,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 public class SwipeMoodEventTests {
-
-
 
     private Solo solo;
 
@@ -45,21 +44,52 @@ public class SwipeMoodEventTests {
         Activity activity = rule.getActivity();
     }
 
+    /**
+     * This tests the ability for a user to view the details of a given mood event
+     * For this test, we test the user viewing their most recent mood event
+     */
     @Test
     public void viewMoodTest(){
-
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
 
         SwipeMenuListView listView = (SwipeMenuListView)solo.getView(R.id.listView);
         int[] location = new int[2];
         listView.getLocationInWindow(location);
         solo.drag(location[0]+500,location[0],location[1],location[1],10);
         solo.clickOnText("View");
-        solo.sleep(2000);
+        solo.assertCurrentActivity("Wrong Activity", DisplayCurrentMood.class);
+
+        solo.clickOnView(solo.getView(R.id.buttonBack));
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
     }
 
+
+    /**
+     * This tests the ability for a user to edit the details of a given mood event
+     * For this test, we test the user viewing their most recent mood event
+     * The test changed the reason attribute and then checks the view to ensure the reason has changed
+     */
+    @Test
+    public void editMoodTest(){
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
+        SwipeMenuListView listView = (SwipeMenuListView)solo.getView(R.id.listView);
+        int[] location = new int[2];
+        listView.getLocationInWindow(location);
+        solo.drag(location[0]+500,location[0],location[1],location[1],10);
+
+        solo.clickOnText("Edit");
+        solo.sleep(1000);
+        solo.clearEditText(R.id.editText8);
+        solo.enterText((EditText) solo.getView(R.id.editText8), "changed reason");
+
+        solo.clickOnView(solo.getView(R.id.saveMoodButton));
+        solo.assertCurrentActivity("Wrong Activity", DisplayCurrentMood.class);
+
+    }
 
 /*
     //PLEASE DO NOT REMOVE, I AM STILL WORKING ON FIGURING OUT HOW TO SWIPE IN A TEST
