@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.test.espresso.action.Swipe;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
@@ -59,10 +61,40 @@ public class AddNewMoodActivityTest {
     @Test
     public  void homePageSwitchTest(){
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
+        solo.waitForActivity(MainActivity.class);
+        solo.sleep(1000);
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+    }
+
+    /**
+     * This test ensures user was able to switch from home page to the add new mood page/activity
+     */
+    @Test
+    public  void addMoodPageSwitchTest(){
+        //solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+
+        //solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
+        solo.waitForActivity(MainActivity.class);
+
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        /*
+        solo.clickOnView(solo.getView(R.id.action_settings));
+        solo.waitForActivity(AddNewMoodActivity.class);
+//        solo.sleep(1000);
+        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
+        solo.clickOnView(solo.getView(R.id.mood_cancel));
+        solo.waitForActivity(MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+         */
+
     }
 
     /**
@@ -70,22 +102,27 @@ public class AddNewMoodActivityTest {
      */
     @Test
     public  void addMoodTest() {
-        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "rehab");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "rehab");
-        solo.clickOnButton("LOGIN");
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("New");
-        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
+        //solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
+        solo.clickOnView(solo.getView(R.id.action_settings));
+        //solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
         solo.clickOnView(solo.getView(R.id.mood_spinner));
         solo.pressSpinnerItem(0, 0);
         solo.enterText((EditText) solo.getView(R.id.editText8), "didn't drink coffee"); // reason
         solo.clickOnView(solo.getView(R.id.social_spinner));
         solo.pressSpinnerItem(0, 0);
         solo.clickOnButton("save");
+
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        /*
         solo.sleep(500);
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
+        solo.clickOnView(solo.getView(R.id.action_logout));
+
+         */
     }
 
     /**
@@ -94,9 +131,9 @@ public class AddNewMoodActivityTest {
     @Test
     public  void cancelAddMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("New");
         solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
@@ -110,81 +147,6 @@ public class AddNewMoodActivityTest {
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
     }
-
-    @Test
-    protected void swipeLeftOnText(String text) {
-        int fromX, toX, fromY, toY;
-        int[] location = new int[2];
-
-        View row = solo.getText(text);
-        row.getLocationInWindow(location);
-
-        // fail if the view with text cannot be located in the window
-        if (location.length == 0) {
-            fail("Could not find text: " + text);
-        }
-
-        fromX = location[0] + 100;
-        fromY = location[1];
-
-        toX = location[0];
-        toY = fromY;
-
-        solo.drag(fromX, toX, fromY, toY, 10);
-    }
-
-/*
-    //PLEASE DO NOT REMOVE, I AM STILL WORKING ON FIGURING OUT HOW TO SWIPE IN A TEST
-
-    @Test
-    public  void editMoodTest(){
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.sleep(2000);
-        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
-        // click on edit, index =0
-        //still figuring out how to use robotium to test the swiping feature
-        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.editText8), "edited");
-        solo.clickOnButton("save");
-        solo.sleep(500);
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
-    }
-
-    @Test
-    public  void viewMoodTest(){
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.sleep(2000);
-        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
-        // click on view, index =1
-        //still figuring out how to use robotium to test the swiping feature
-        solo.assertCurrentActivity("Wrong Activity", DisplayCurrentMood.class);
-        solo.clickOnButton("BACK");
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.sleep(500);
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
-    }
-
-    @Test
-    public  void deleteMoodTest(){
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser3");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.sleep(2000);
-        solo.swipe(new PointF(1000, 200), new PointF(1000, 200),new PointF(10, 200), new PointF(10, 200));
-        // click on delete, index =2
-        //still figuring out how to use robotium to test the swiping feature
-        //check that mood is no longer in user's moodhistory
-        solo.sleep(500);
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
-    }
- */
 
     /**
      * Closes the activity after each test

@@ -2,16 +2,13 @@ package com.example.feelslikemonday.UI;
 
 import android.app.Activity;
 import android.widget.EditText;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.robotium.solo.Solo;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -55,9 +52,9 @@ public class LoginActivityTest {
     @Test
     public  void loginTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
         solo.waitForActivity(MainActivity.class);
     }
 
@@ -68,7 +65,7 @@ public class LoginActivityTest {
     public  void noPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
         solo.waitForText("Error: Missing input");
     }
 
@@ -79,7 +76,7 @@ public class LoginActivityTest {
     public  void noUsernameTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
         solo.waitForText("Error: Missing input");
     }
 
@@ -90,7 +87,7 @@ public class LoginActivityTest {
     public  void incorrectPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "1234056");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
         solo.waitForText("Incorrect Password");
     }
 
@@ -102,10 +99,13 @@ public class LoginActivityTest {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockBanana");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123405");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.loginConfirmButton));
         solo.waitForText("Error: User does not exist");
     }
 
+    /**
+     * Tears down the activity
+     */
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
