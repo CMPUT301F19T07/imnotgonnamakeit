@@ -40,7 +40,7 @@ public class RequestList extends ArrayAdapter<String> {
     private String myUserID;
 
     /**
-     * This initializes follower request fragment
+     * This constructor initializes follower request fragment
      * @param context
      * This is the current context. This value must never be null
      * @param users
@@ -61,7 +61,7 @@ public class RequestList extends ArrayAdapter<String> {
      * @param parent
      * This is the view group. This value must never be null
      * @return
-     *      return a View corresponding to the data at the specified position
+     *      return a View of requester corresponding to the data at the specified position
      */
     @NonNull
     @Override

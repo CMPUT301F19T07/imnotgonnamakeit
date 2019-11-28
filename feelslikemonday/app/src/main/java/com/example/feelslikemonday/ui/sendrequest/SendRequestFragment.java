@@ -24,7 +24,6 @@ import com.example.feelslikemonday.DAO.VoidCallback;
 import com.example.feelslikemonday.R;
 import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.FollowRequest;
-import com.example.feelslikemonday.ui.followrequest.ArraryAdapter.RequestList;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.List;
@@ -161,6 +160,9 @@ public class SendRequestFragment extends Fragment {
         return root;
     }
 
+    /**
+     * This is a method that shows the message when the recipient is followed
+     */
     public void showAlreadyFollowedUserToast(){
         Toast toast = Toast.makeText(getActivity(), "You have already followed " +  recipientUsername, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -168,6 +170,9 @@ public class SendRequestFragment extends Fragment {
         usernameEditText.setText("");
     }
 
+    /**
+     * This is a method that shows the message when the recipient is sent request
+     */
     public void showAlreadySentRequestToast(){
         Toast toast = Toast.makeText(getActivity(), "Request already sent to " +  recipientUsername, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -175,12 +180,18 @@ public class SendRequestFragment extends Fragment {
         usernameEditText.setText("");
     }
 
+    /**
+     * This is a method that shows the message when the recipient is a valid user
+     */
     public void showValidUserToast(){
         Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }
 
+    /**
+     * This is a method that shows the message when the recipient is not a valid user
+     */
     public void showIndvalidUserToast(){
         Toast toast = Toast.makeText(getActivity(), "This user does not exist, invite your friends", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -188,6 +199,9 @@ public class SendRequestFragment extends Fragment {
         usernameEditText.setText("");
     }
 
+    /**
+     * This is a method that shows the message when user send request successfully to the recipient
+     */
     public void  showSuccessfulSendToast(){
         Toast toast1 = Toast.makeText(getActivity(), "Sent Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
         toast1.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
