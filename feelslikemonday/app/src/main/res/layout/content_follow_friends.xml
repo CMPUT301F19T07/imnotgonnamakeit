@@ -20,6 +20,8 @@
         android:textSize="30sp"
         android:scrollbars="horizontal"
         android:fontFamily="casual"
+        android:ellipsize="end"
+        android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/request_accept_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>

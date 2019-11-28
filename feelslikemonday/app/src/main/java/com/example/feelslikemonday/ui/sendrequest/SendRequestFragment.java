@@ -41,7 +41,7 @@ public class SendRequestFragment extends Fragment {
     private String myUserID;
 
     private SendRequestViewModel sendRequestViewModel;
-    private static FollowRequestDAO DAO; // = FollowRequestDAO.getInstance();
+    private static FollowRequestDAO followRequestDAO; // = FollowRequestDAO.getInstance();
     private static FollowPermissionDAO followPermissionDAO;
 
     /**
@@ -101,43 +101,41 @@ public class SendRequestFragment extends Fragment {
                     toast.show();
                 }
                 else if(recipientUsername.matches(myUserID) ){
-                    Toast toast = Toast.makeText(getActivity(), "This is your username, please input another one", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(), "Error: You cannot send a request to yourself", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                     usernameEditText.setText("");
                 }
                 else{
-                    DAO = FollowRequestDAO.getInstance();
+                    followRequestDAO = FollowRequestDAO.getInstance();
                     followPermissionDAO = FollowPermissionDAO.getInstance();
 
-                    DAO.get(recipientUsername, new FollowRequestCallback() {
+                    followRequestDAO.get(recipientUsername, new FollowRequestCallback() {
                         @Override
                         public void onCallback(FollowRequest followRequest) {
                             if (followRequest.getRecipientUsername().equals(recipientUsername)) {
-
-                                ValidUser();
-
-                                followPermissionDAO.get(recipientUsername, new FollowPermissionCallback() {
+                                //showValidUserToast();
+                                followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
                                             @Override
                                             public void onCallback(FollowPermission followPermission) {
-                                                if (followPermission.getFolloweeUsernames().contains(myUserID)) {
-                                                    AlreadyFollowedUser();
+                                                if (followPermission.getFolloweeUsernames().contains(recipientUsername)) {
+                                                    showAlreadyFollowedUserToast();
                                                 }else{
-                                                    DAO.get(recipientUsername, new FollowRequestCallback() {
+                                                    followRequestDAO.get(recipientUsername, new FollowRequestCallback() {
                                                         @Override
                                                         public void onCallback(FollowRequest followRequest) {
                                                             if (followRequest.getRequesterUsernames().contains(myUserID)) {
-                                                                AlreadySentRequest();
+                                                                showAlreadySentRequestToast();
                                                             }else{
                                                                 followRequest_ok = followRequest;
                                                                 requesterUsernames = followRequest.getRequesterUsernames();
                                                                 requesterUsernames.add(myUserID);
-                                                                DAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
+                                                                followRequestDAO.createOrUpdate(recipientUsername, followRequest_ok, new VoidCallback() {
                                                                     @Override
                                                                     public void onCallback() {
                                                                     }
                                                                 });
-                                                                SuccessfulSend();
+                                                                showSuccessfulSendToast();
                                                             }
 
                                                         }
@@ -151,7 +149,7 @@ public class SendRequestFragment extends Fragment {
                     }, new VoidCallback() {
                         @Override
                         public void onCallback() {
-                            IndvalidUser();
+                            showIndvalidUserToast();
                         }
                     });
 
@@ -161,35 +159,35 @@ public class SendRequestFragment extends Fragment {
         return root;
     }
 
-    public void AlreadyFollowedUser(){
-        Toast toast = Toast.makeText(getActivity(), "You have already followed this user", Toast.LENGTH_LONG);
+    public void showAlreadyFollowedUserToast(){
+        Toast toast = Toast.makeText(getActivity(), "You have already followed " +  recipientUsername, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
         usernameEditText.setText("");
     }
 
-    public void AlreadySentRequest(){
-        Toast toast = Toast.makeText(getActivity(), "You have already sent request!", Toast.LENGTH_LONG);
+    public void showAlreadySentRequestToast(){
+        Toast toast = Toast.makeText(getActivity(), "Request already sent to " +  recipientUsername, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
         usernameEditText.setText("");
     }
 
-    public void ValidUser(){
+    public void showValidUserToast(){
         Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }
 
-    public void IndvalidUser(){
-        Toast toast = Toast.makeText(getActivity(), "User Not Exist, Invite your friend", Toast.LENGTH_LONG);
+    public void showIndvalidUserToast(){
+        Toast toast = Toast.makeText(getActivity(), "This user does not exist, invite your friends", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
         usernameEditText.setText("");
     }
 
-    public void  SuccessfulSend(){
-        Toast toast1 = Toast.makeText(getActivity(), "Send Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
+    public void  showSuccessfulSendToast(){
+        Toast toast1 = Toast.makeText(getActivity(), "Sent Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
         toast1.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast1.show();
         usernameEditText.setText("");
