@@ -58,12 +58,12 @@ public class FollowRequestTest {
      */
 
     @Test
-    public void followRequestAppearing() {
+    public void showFollowRequest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockyuningtest");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123456");
-        solo.clickOnButton("LOGIN");
-        solo.clickOnImageButton(0);
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
+        //solo.clickOnImageButton(0);
         solo.clickOnText("Follower Request");
 
         assertTrue(solo.waitForText("ag01", 1, 2000));

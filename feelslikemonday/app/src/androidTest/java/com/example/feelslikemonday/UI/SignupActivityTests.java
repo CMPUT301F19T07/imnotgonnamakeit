@@ -63,7 +63,7 @@ public class SignupActivityTests {
     @Test
     public void signUpActivityTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView) solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signup_link);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
     }
@@ -74,7 +74,7 @@ public class SignupActivityTests {
     @Test
     public void signUpCancelTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView) solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signup_link);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         solo.clickOnButton("Cancel");
@@ -87,13 +87,13 @@ public class SignupActivityTests {
     @Test
     public void signUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView) solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signup_link);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         String username = "mockNewUser2";
         String password = "12345";
-        solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), username); // this test will only work once
-        solo.enterText((EditText) solo.getView(R.id.signupPasswordEdit), password);
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), username); // this test will only work once
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), password);
         solo.clickOnButton("Confirm");
         solo.waitForActivity(MainActivity.class);
 
@@ -112,11 +112,11 @@ public class SignupActivityTests {
     @Test
     public void existingUserSignUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView) solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signup_link);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), "user");
-        solo.enterText((EditText) solo.getView(R.id.signupPasswordEdit), "12345");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "user");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnButton("Confirm");
         solo.waitForText("Error: This user already exists");
     }
@@ -127,10 +127,10 @@ public class SignupActivityTests {
     @Test
     public void emptyUsernameSignUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView) solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signup_link);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signupPasswordEdit), "12345");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnButton("Confirm");
         solo.waitForText("Error: Empty Field");
     }
@@ -141,10 +141,10 @@ public class SignupActivityTests {
     @Test
     public void emptyPasswordSignUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView) solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signup_link);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), "user");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "user");
         solo.clickOnButton("Confirm");
         solo.waitForText("Error: Empty Field");
     }

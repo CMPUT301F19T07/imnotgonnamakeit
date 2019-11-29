@@ -57,8 +57,8 @@ public class LoginActivityTest {
     @Test
     public void loginTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnButton("LOGIN");
         solo.waitForActivity(MainActivity.class);
     }
@@ -69,7 +69,7 @@ public class LoginActivityTest {
     @Test
     public void noPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
         solo.clickOnButton("LOGIN");
         solo.waitForText("Error: Missing input");
     }
@@ -80,7 +80,7 @@ public class LoginActivityTest {
     @Test
     public void noUsernameTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnButton("LOGIN");
         solo.waitForText("Error: Missing input");
     }
@@ -91,7 +91,7 @@ public class LoginActivityTest {
     @Test
     public void incorrectPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "1234056");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "1234056");
         solo.clickOnButton("LOGIN");
         solo.waitForText("Incorrect Password");
     }
@@ -102,8 +102,8 @@ public class LoginActivityTest {
     @Test
     public void UserNotExistTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockBanana");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123405");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockBanana");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123405");
         solo.clickOnButton("LOGIN");
         solo.waitForText("Error: User does not exist");
     }

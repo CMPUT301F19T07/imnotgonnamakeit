@@ -58,8 +58,8 @@ public class AddNewMoodActivityTest {
     @Test
     public void homePageSwitchTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
     }
@@ -70,8 +70,8 @@ public class AddNewMoodActivityTest {
     @Test
     public void addMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "rehab");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "rehab");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "rehab");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "rehab");
         solo.clickOnButton("LOGIN");
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("New");
@@ -93,8 +93,8 @@ public class AddNewMoodActivityTest {
     @Test
     public void cancelAddMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnButton("LOGIN");
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("New");
