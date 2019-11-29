@@ -28,7 +28,8 @@ import java.util.List;
 
 
 /**
- * This class acts as a array adapter for the request list
+ * This class acts as a array adapter for the request list. Sets up the formatting of the incoming
+ * follow requests list. Here, the user can choose to accept or reject incoming requests.
  */
 public class RequestList extends ArrayAdapter<String> {
     private Context context;
@@ -40,7 +41,7 @@ public class RequestList extends ArrayAdapter<String> {
     private String myUserID;
 
     /**
-     * This constructor initializes follower request fragment
+     * This constructor sets up follower request fragment
      *
      * @param context This is the current context. This value must never be null
      * @param users   This is the objects to represent in the ListView. This value must never be null
@@ -52,7 +53,8 @@ public class RequestList extends ArrayAdapter<String> {
     }
 
     /**
-     * This gets a View that displays the data at the specified position in the data set
+     * This gets a View that displays the data at the specified position in the data set. Formatting is done here
+     * creating the accept and reject buttons, as well as displaying the username of the incoming request.
      *
      * @param position    This is the position of the item within the adapter's data set of the item whose view we want
      * @param convertView This is the view. This value must never be null
