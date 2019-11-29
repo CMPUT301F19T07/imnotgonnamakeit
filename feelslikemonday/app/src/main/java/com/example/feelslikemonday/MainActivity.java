@@ -26,7 +26,9 @@ import com.google.android.material.navigation.NavigationView;
 import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
 
 /**
- * This class is responsible for displaying all of the signed in user's moods in sorted order
+ * This class is the 'shell' of sorts, where all the fragments are displayed within. Includes the toolbar and hamburger menu, which
+ * are always called from here, regardless of which activity fragment is currently open. This activity will never actually open by itself
+ * (supposedly) and will always be seen in conjunction with one of the activity fragments. Opens initially when the user successfully logs in.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This initializes MainActivity
+     * This sets up MainActivity, populating the menus and toolbar.
+     * Sets up the username, titles ,profile pictures, and anything else that
+     * is available in all activity fragments.
      *
      * @param savedInstanceState This is a previous saved state.
      */
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This inflates the menus
      *
-     * @param menu This is a menu
+     * @param menu Menu to be inflated
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This returns false to have the normal processing happen
+     * This returns false to have the normal processing happen. Conducts the logic for the
+     * action settings bar on the right side. Takes you to the add new mood, map, following map activities, as well as logout option.
      *
      * @param item This is the menu item that is selected.
      * @return return false to allow normal menu processing to proceed, true to consume it here.
