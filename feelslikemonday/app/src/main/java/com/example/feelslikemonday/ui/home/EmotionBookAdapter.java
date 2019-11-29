@@ -87,7 +87,12 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
     @Override
     public int getViewTypeCount() {
 
-        return getCount();
+        //return getCount();
+        if(getCount() > 0){
+            return getCount();
+        }else{
+            return super.getViewTypeCount();
+        }
     }
 
     @Override
