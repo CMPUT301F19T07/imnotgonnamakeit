@@ -34,6 +34,7 @@ import com.example.feelslikemonday.model.User;
 import com.example.feelslikemonday.service.SortObjectDateTime;
 import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.SignupActivity;
+import com.google.firebase.firestore.Blob;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -166,15 +167,24 @@ public class FollowingFragment extends Fragment {
      * @param position This is a current location
      */
     public void viewEmotion(int position) {
-        MoodEvent CurrentMoodEvent = myfolloweeList.get(position).getRecentMood();
+        MoodEvent currentMoodEvent = myfolloweeList.get(position).getRecentMood();
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
+
+        //If an image is set, pass the image in the form of a byte array
+        Blob imageBlob = currentMoodEvent.getImage();
+        byte[] imageByteArr = null;
+        if (imageBlob != null) {
+            imageByteArr = imageBlob.toBytes();
+        }
+
+        intent.putExtra("image", imageByteArr);
         intent.putExtra("followeeUsername", myfolloweeList.get(position).getUsername());
-        intent.putExtra("myDate", CurrentMoodEvent.getDate());
-        intent.putExtra("mytime", CurrentMoodEvent.getTime());
-        intent.putExtra("emotionalState", CurrentMoodEvent.getEmotionalState());
-        intent.putExtra("reason", CurrentMoodEvent.getReason());
-        intent.putExtra("socialSituation", CurrentMoodEvent.getSocialSituation());
-        intent.putExtra("moodType", CurrentMoodEvent.getMoodType().getEmoji());
+        intent.putExtra("myDate", currentMoodEvent.getDate());
+        intent.putExtra("mytime", currentMoodEvent.getTime());
+        intent.putExtra("emotionalState", currentMoodEvent.getEmotionalState());
+        intent.putExtra("reason", currentMoodEvent.getReason());
+        intent.putExtra("socialSituation", currentMoodEvent.getSocialSituation());
+        intent.putExtra("moodType", currentMoodEvent.getMoodType().getEmoji());
         startActivity(intent);
     }
 
