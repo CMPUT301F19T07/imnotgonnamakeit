@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class is responsible for storing information about a mood event
+ * This model class is responsible for storing information about a mood event
  */
 
 /*The date and time are made as strings since it should be easier to perform operations to get them.
@@ -46,7 +46,7 @@ public class MoodEvent {
     }
 
     /**
-     * This is a class that keeps track of a mood event
+     * This is a constructor that keeps track of a mood event
      *
      * @param date            This is the date of the mood event
      * @param time            This is the time of the mood event
@@ -81,7 +81,6 @@ public class MoodEvent {
 
     /**
      * this returns the date of the mood event
-     *
      * @return return the string(date) of the mood event
      */
     public String getDate() {
@@ -90,7 +89,6 @@ public class MoodEvent {
 
     /**
      * this returns the time of the mood event
-     *
      * @return return the string(time) of the mood event
      */
     public String getTime() {
@@ -99,7 +97,6 @@ public class MoodEvent {
 
     /**
      * this returns the emotional state of the mood event
-     *
      * @return return the string(emotional state) of the mood event
      */
     public String getEmotionalState() {
@@ -108,7 +105,6 @@ public class MoodEvent {
 
     /**
      * this sets up the emotinal state for the mood event
-     *
      * @param emotionalState This is the emotional state of user when posting the mood event
      */
     public void setEmotionalState(String emotionalState) {
@@ -117,7 +113,6 @@ public class MoodEvent {
 
     /**
      * this returns the reason of my mood event
-     *
      * @return return the reason of this mood event
      */
     public String getReason() {
@@ -126,7 +121,6 @@ public class MoodEvent {
 
     /**
      * this sets up the reason of this mood event
-     *
      * @param reason This is the reason why user posts the mood event
      */
     public void setReason(String reason) {
@@ -135,7 +129,6 @@ public class MoodEvent {
 
     /**
      * this returns the social situation of the mood event
-     *
      * @return return the social situation of the mood event
      */
     public String getSocialSituation() {
@@ -144,7 +137,6 @@ public class MoodEvent {
 
     /**
      * this sets up the social situation of the current mood event
-     *
      * @param socialSituation This is the emotional state of user when posting the mood event
      */
     public void setSocialSituation(String socialSituation) {
@@ -153,7 +145,6 @@ public class MoodEvent {
 
     /**
      * this returns the type of the mood
-     *
      * @return return the type of the mood event
      */
     public MoodType getMoodType() {
@@ -171,7 +162,6 @@ public class MoodEvent {
 
     /**
      * this returns the image of the mood event
-     *
      * @return return the image of the mood event
      */
     public Blob getImage() {
@@ -180,7 +170,6 @@ public class MoodEvent {
 
     /**
      * this sets up the image from the mood event
-     *
      * @param image This is the image of the mood event
      */
     public void setImage(Blob image) {
@@ -189,7 +178,6 @@ public class MoodEvent {
 
     /**
      * this returns this geo location of the mood event
-     *
      * @return return the location of the mood event
      */
     public String getLocation() {
@@ -198,7 +186,6 @@ public class MoodEvent {
 
     /**
      * this sets up the geo location of the mood event
-     *
      * @param location This is the location of the user when posting the mood event
      */
     public void setLocation(String location) {

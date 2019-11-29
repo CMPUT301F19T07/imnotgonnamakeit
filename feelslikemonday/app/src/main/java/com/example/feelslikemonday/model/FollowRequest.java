@@ -20,7 +20,6 @@ public class FollowRequest {
 
     /**
      * This is a class that keeps track of a follow request
-     *
      * @param recipientUsername This is a recipient username
      */
     public FollowRequest(String recipientUsername) {
@@ -30,7 +29,6 @@ public class FollowRequest {
 
     /**
      * this returns a list of requester usernames
-     *
      * @return return a list of requester usernames
      */
     public List<String> getRequesterUsernames() {
@@ -38,8 +36,7 @@ public class FollowRequest {
     }
 
     /**
-     * this returns the recipient username, the user itself
-     *
+     * this returns the recipient username
      * @return return the recipient username
      */
     public String getRecipientUsername() {

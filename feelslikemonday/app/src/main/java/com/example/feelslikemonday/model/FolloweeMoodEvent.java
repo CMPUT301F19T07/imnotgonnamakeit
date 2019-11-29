@@ -1,8 +1,11 @@
 package com.example.feelslikemonday.model;
 
 /**
- * This is a model class for every user that your follow
- * It keeps track of their username and most recent Mood event
+ * This is a model class that keeps track of the most recent mood event of a user.
+ * It has a username attribute to associate the most recent mood event with a user
+ * It has a recentMood attribute which represents the most recent mood event of the user
+ * It is used in FollowingFragment by a candidate user to keep track
+ * of the most recent mood event of each user it is following
  */
 public class FolloweeMoodEvent {
 
@@ -10,10 +13,12 @@ public class FolloweeMoodEvent {
     private MoodEvent recentMood;
 
     /**
-     * This is a class that keeps track of a followee mood event
-     *
-     * @param username   This is a candidate username
-     * @param recentMood This is the recent mood event of candidate user
+     * This method creates an instance of FolloweeMood event that contains a username
+     * and the most recent mood event associated with that user
+     * @param username
+     * This is a username of a candidate user
+     * @param recentMood
+     * This is the most recent mood event of the user associated with username
      */
     public FolloweeMoodEvent(String username, MoodEvent recentMood) {
         this.username = username;
@@ -21,36 +26,36 @@ public class FolloweeMoodEvent {
     }
 
     /**
-     * this returns the user's recent mood
-     *
-     * @return return the user's recent mood event
+     * This method returns recentMood, which is the most recent mood event of the user
+     * @return
+     * Return a MoodEvent that is the most recent mood event of the user
      */
     public MoodEvent getRecentMood() {
         return recentMood;
     }
 
     /**
-     * this sets the user's recent mood event
-     *
-     * @param recentMood This is the recent mood event of candidate user
+     * This method sets recentMood, which is the user's most recent mood event
+     * @param recentMood
+     * This is a candidate MoodEvent that we want to set as the most recent MoodEvent of the user
      */
     public void setRecentMood(MoodEvent recentMood) {
         this.recentMood = recentMood;
     }
 
     /**
-     * this returns the username of candidate user
-     *
-     * @return returns the string of the username
+     * This returns the username of the user
+     * @return
+     * Return a string that is the username
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * this sets the username of candidate user
-     *
-     * @param username This is a candidate username
+     * This sets the username of the user
+     * @param username
+     * This is a candidate username that we want to set as the username of the user
      */
     public void setUsername(String username) {
         this.username = username;
