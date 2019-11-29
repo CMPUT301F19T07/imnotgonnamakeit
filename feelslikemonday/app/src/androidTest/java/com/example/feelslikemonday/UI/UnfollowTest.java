@@ -1,6 +1,8 @@
 package com.example.feelslikemonday.UI;
 
 import android.app.Activity;
+import android.os.Build;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -68,18 +70,17 @@ public class UnfollowTest {
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
         solo.clickOnImageButton(0);
         solo.clickOnText("Send Request");
         solo.enterText((EditText) solo.getView(R.id.send_request_username), "agtest2");
 
-        Button sendButton = (Button) solo.getView(R.id.send_request_send);
-        int[] location = new int[2];
-        sendButton.getLocationInWindow(location);
-        solo.clickOnScreen(location[0], location[1]);
+        solo.clickOnButton("Send");
+        solo.clickOnMenuItem("");
 
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
-
+        
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest2");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
@@ -88,7 +89,33 @@ public class UnfollowTest {
         solo.clickOnImageButton(0);
         solo.clickOnText("Follower Request");
 
+
+        solo.clickOnButton("Accept");
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
+
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest1");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
+        solo.clickOnButton("LOGIN");
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Following");
+
+        assertTrue(solo.searchText(Pattern.quote("agtest2")));
+
+        solo.clickOnImageButton(0);
+        solo.clickOnText("My Friends");
+        assertTrue(solo.searchText(Pattern.quote("agtest2")));
+        solo.clickOnText("Unfollow");
+        assertFalse(solo.searchText(Pattern.quote("agtest2")));
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.clickOnMenuItem("Logout");
+
     }
+
 
     /**
      * Closes the activity after each test

@@ -71,7 +71,6 @@ public class FilterTest {
 
         assertTrue(solo.searchText(Pattern.quote("11:31")));
 
-
         Button filterButton = (Button) solo.getView(R.id.filter_button);
         int[] location = new int[2];
         filterButton.getLocationInWindow(location);
