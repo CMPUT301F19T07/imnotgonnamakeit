@@ -68,17 +68,26 @@ public class UnfollowTest {
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Send Request");
+        solo.enterText((EditText) solo.getView(R.id.send_request_username), "agtest2");
 
-
-        Button filterButton = (Button) solo.getView(R.id.filter_button);
+        Button sendButton = (Button) solo.getView(R.id.send_request_send);
         int[] location = new int[2];
-        filterButton.getLocationInWindow(location);
+        sendButton.getLocationInWindow(location);
         solo.clickOnScreen(location[0], location[1]);
-
 
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
+
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest2");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
+        solo.clickOnButton("LOGIN");
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Follower Request");
+
     }
 
     /**
