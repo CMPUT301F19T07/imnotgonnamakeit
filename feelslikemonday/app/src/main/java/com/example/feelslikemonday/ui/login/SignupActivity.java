@@ -25,7 +25,13 @@ https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
 */
 
 /**
- * This class is responsible for signing up new user
+ * This class creates and shows the signup page to the user
+ * It allows the user to create a new user account with a unique username, password,
+ * empty list of followers, and empty list of users requesting to follow this user
+ * This page can be accessed by pressing signup from the login page
+ * When a password and unique username is entered and confirm is pressed the user is
+ * sent to the home page
+ * The user goes back to the login page by pressing cancel
  */
 public class SignupActivity extends AppCompatActivity {
 
@@ -39,9 +45,10 @@ public class SignupActivity extends AppCompatActivity {
     public static final String USERNAME_KEY = "username_key";
 
     /**
-     * This initializes SignupActivity
-     * @param savedInstanceState
-     * This is a previous saved state
+     * This method creates the signup page and shows a signup title, a textbox for
+     * entering the username and password, a "confirm" button to signup, and a "cancel" button
+     * to return to the login page
+     * @param savedInstanceState This is a default parameter for onCreate
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +56,10 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         signupUsername = findViewById(R.id.signup_username_edit);
         signupPassword = findViewById(R.id.signup_password_edit);
-
     }
 
     /**
-     * This clears username and password fields at OnResume stage
+     * This method clears username and password fields when the user returns to the signup page
      */
     @Override
     protected void onResume(){
@@ -64,19 +70,18 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     /**
-     * This finishes SignupActivity when user presses cancel
-     * @param view
-     * This is a view returned by onCreate()
+     * This method closes the signup screen when the user presses cancel and sends the user back to the login screen
+     * @param view This keeps track of which view calls attemptLogin
      */
     public void cancelSignup(View view) {
         finish();
     }
 
     /**
-     * This checks if the new username is unique and creates a user with follow requests and
-     * follow permissions if the username is unique
-     * @param view
-     * This is a view returned by onCreate()
+     * This method allows the user to create a new user account with a unique username, password,
+     * empty list of followers, and empty list of users requesting to follow this user
+     * This user account is only created when the user inputs a unique username
+     * @param view This keeps track of which view calls attemptLogin
      */
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen

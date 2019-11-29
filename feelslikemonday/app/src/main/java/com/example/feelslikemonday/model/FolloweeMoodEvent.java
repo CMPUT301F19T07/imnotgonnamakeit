@@ -2,7 +2,7 @@ package com.example.feelslikemonday.model;
 
 /**
  * This is a model class that keeps track of the most recent mood event of a user.
- * It has username attribute which represents the user account we want the most recent mood event of
+ * It has a username attribute to associate the most recent mood event with a user
  * It has a recentMood attribute which represents the most recent mood event of the user
  * It is used in FollowingFragment by a candidate user to keep track
  * of the most recent mood event of each user it is following
