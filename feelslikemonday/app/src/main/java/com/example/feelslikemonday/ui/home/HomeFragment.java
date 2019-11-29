@@ -74,11 +74,13 @@ public class HomeFragment extends Fragment {
      * @param savedInstanceState This is a previous saved state
      * @return return the View for the fragment's UI, or null
      */
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         filterPopup = root.findViewById(R.id.filterPopup);
         helpPopup = root.findViewById(R.id.helpPopup);
         if (getArguments() != null) {
@@ -94,6 +96,7 @@ public class HomeFragment extends Fragment {
         happiness = root.findViewById(R.id.switch4);
         sadness = root.findViewById(R.id.switch5);
         surprise = root.findViewById(R.id.switch6);
+
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -146,7 +149,6 @@ public class HomeFragment extends Fragment {
                 onResume();
             }
         });
-
         return root;
     }
 
