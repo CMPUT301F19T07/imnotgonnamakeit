@@ -46,11 +46,11 @@ public class FriendList extends ArrayAdapter<String> {
     }
 
     /**
-     * This gets a View that displays the data at the specified position in the data set
-     *
+     * This inflates a view from content_follow_friends and deletes friend relation between followee
+     * and the user in firebase when the user click the unfollowButton
      * @param position    This is the position of the item within the adapter's data set of the item whose view we want
-     * @param convertView This is the view. This value must never be null
-     * @param parent      This is the view group. This value must never be null
+     * @param convertView This is the view.
+     * @param parent      This is the view group.
      * @return return a View of following friends corresponding to the data at the specified position
      */
     @NonNull
