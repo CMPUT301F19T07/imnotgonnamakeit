@@ -17,7 +17,7 @@ import static org.junit.Assert.fail;
 
 
 /**
- * Tests for the User DAO.
+ * Tests for the User DAO. Tests that the CRUD operations are functioning.
  * Countdown latch idea: https://stackoverflow.com/questions/2321829/android-asynctask-testing-with-android-test-framework
  */
 @RunWith(AndroidJUnit4.class)
@@ -47,7 +47,7 @@ public class UserDAOTest {
     }
 
     /**
-     * Retrive an existing User object
+     * Retrieve an existing User object
      *
      * @throws InterruptedException
      */
