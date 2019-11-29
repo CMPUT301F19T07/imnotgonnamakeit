@@ -59,17 +59,16 @@ public class UnfollowTest {
     }
 
     /**
-     * This test ensures user was able to filter moods. It logs in the test user, checks the anger mood exists, filters it out, then checks that it's no longer visible.
+     * This test ensures user was able to follow, then un-follow a user. It logs in as agtest1, sends a request to agtest2, logs in to agtest2, accepts the request, logs into agtest1, then unfollows
      */
     @Test
-    public void filterTest() {
+    public void unfollowTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest1");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
-        
 
         Button filterButton = (Button) solo.getView(R.id.filter_button);
         int[] location = new int[2];
