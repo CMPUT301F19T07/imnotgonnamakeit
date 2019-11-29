@@ -125,6 +125,7 @@ public class UnfollowTest {
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.waitForText("Logout");
         solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
 
     }
 
