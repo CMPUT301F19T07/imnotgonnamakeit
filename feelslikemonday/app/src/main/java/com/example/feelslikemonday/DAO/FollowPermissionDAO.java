@@ -15,7 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
- * This is a class that acts as an intermediary for the app and Firestore. Used to query FollowPermissions
+ * This is a class that acts as an intermediary for the app and Firestore. Used to query FollowPermissions.
+ * Uses the singleton pattern. Uses a User's username as the primary key.
  */
 public class FollowPermissionDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -28,22 +29,22 @@ public class FollowPermissionDAO {
     }
 
     /**
-     * This returns a instance of follow permission dao
-     *
-     * @return return  a instance of follow permission dao
+     * This returns a instance of the DAO. This instance can be used to perform CRUD operations
+     * on FollowPermission objects.
+     * @return return an instance of follow permission dao
      */
-
     public static FollowPermissionDAO getInstance() {
         return instance;
     }
 
-
     /**
-     * This creates or updates a follow permission sent by a user
+     * This creates or updates a follow permission sent by a user. Uses the username as a primary key.
+     * Creates a new object if the primary key is not found. Updates the existing object otherwise
+     * Invokes a callback method for objects to use once done successfully.
      *
-     * @param username         This is a candidate username who want to send the permission
-     * @param followPermission This is a candidate permission
-     * @param onSuccess        This is the function returned when the permission is created or updated successfully
+     * @param username         This is a username of the user who's follow permission we want to update
+     * @param followPermission This is the new FollowPermission object we want to create/update
+     * @param onSuccess        This is the void function invoked when the permission is created or updated successfully
      */
     public void createOrUpdate(String username, FollowPermission followPermission, final VoidCallback onSuccess) {
         db.collection(COLLECTION_NAME).document(username)
@@ -64,7 +65,8 @@ public class FollowPermissionDAO {
     }
 
     /**
-     * This delete a follow permission sent by a user
+     * This deletes a follow permission. Uses the username as a primary key.
+     * Invokes a void callback method on success
      *
      * @param username  This is a candidate username who want to delete the permission
      * @param onSuccess This is the function returned when the permission is deleted successfully
@@ -99,11 +101,11 @@ public class FollowPermissionDAO {
     }
 
     /**
-     * This returns a follow permission
+     * This queries for a FollowPermission by the user's username. A callback method will be called on success.
      *
      * @param username  This is a candidate username
      * @param onSuccess This is the function returned when the permission is obtained successfully
-     * @param onFail    This is the function returned when the permission is obtained unsuccessfully
+     * @param onFail    This is the function returned when firebase fails to perform the operation
      */
     public void get(String username, final FollowPermissionCallback onSuccess, final VoidCallback onFail) {
         db.collection(COLLECTION_NAME)
