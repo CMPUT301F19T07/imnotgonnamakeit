@@ -44,8 +44,9 @@ public class FriendsTest {
     @Test
     public void showFriendList(){
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signup_username_edit), "uTEST-sill");
-        solo.enterText((EditText) solo.getView(R.id.signup_password_edit), "password");
+        solo.enterText((EditText) solo.getView(R.id.signup_username_edit), "mockXiaoTest");
+        solo.enterText((EditText) solo.getView(R.id.signup_password_edit), "123");
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
         solo.clickOnText("Send Request");
         solo.enterText((EditText) solo.getView(R.id.send_request_username), "mockLeTest");
         solo.clickOnButton("SEND");
@@ -70,7 +71,7 @@ public class FriendsTest {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockTest");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
         solo.clickOnText("Send Request");
         solo.enterText((EditText) solo.getView(R.id.send_request_username), "xiaole2");
         solo.clickOnButton("SEND");
