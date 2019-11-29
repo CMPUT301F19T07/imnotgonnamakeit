@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class acts as a array adapter for the following friends list
+ * This class returns a view for each object in the list of the name of the user's followees
  */
 public class FriendList extends ArrayAdapter<String> {
 
@@ -35,9 +35,8 @@ public class FriendList extends ArrayAdapter<String> {
 
     /**
      * This constructor initializes following friends fragment
-     *
-     * @param context This is the current context. This value must never be null
-     * @param users   This is the objects to represent in the ListView. This value must never be null
+     * @param context This is the current context.
+     * @param users   This is the objects to represent in the ListView.
      */
     public FriendList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
@@ -46,17 +45,16 @@ public class FriendList extends ArrayAdapter<String> {
     }
 
     /**
-     * This gets a View that displays the data at the specified position in the data set
-     *
+     * This inflates a view from content_follow_friends and deletes friend relation between followee
+     * and the user in firebase when the user click the unfollowButton
      * @param position    This is the position of the item within the adapter's data set of the item whose view we want
-     * @param convertView This is the view. This value must never be null
-     * @param parent      This is the view group. This value must never be null
+     * @param convertView This is the view.
+     * @param parent      This is the view group.
      * @return return a View of following friends corresponding to the data at the specified position
      */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
 
         followPermissionDAO = FollowPermissionDAO.getInstance();
         pref = getContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);

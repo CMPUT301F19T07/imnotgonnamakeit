@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is responsive for showing the following friends and you can unfollow the followed friends
+ * This class is responsive for showing a list of the user's following friends and the user can unfollow
+ * a user by clicking unfollowButton
  */
 public class MyFriendsFragment extends Fragment {
     private MyFriendsViewModel friendsViewModel;
@@ -37,12 +38,12 @@ public class MyFriendsFragment extends Fragment {
 
 
     /**
-     * This initiates the following friends fragments
-     *
+     * This gets the userList of names of the user's followees by using FollowPermissionDAO and displays
+     * a vertically-scrollable collection of views of FriendList by using userList
      * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
      * @param container          This is a parent view that the fragment's UI should be attached to
      * @param savedInstanceState This is a previous saved state.
-     * @return return the View for the fragment's UI, or null
+     * @return return the View for the MyFriendsFragment's UI, or null
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
