@@ -32,7 +32,6 @@ public class SignupActivity extends AppCompatActivity {
     private EditText signupUsername;
     private EditText signupPassword;
     private String username;
-    private String password;
     private User user;
     private SharedPreferences pref;
     private UserDAO userDAO = UserDAO.getInstance();
@@ -40,33 +39,59 @@ public class SignupActivity extends AppCompatActivity {
     public static final String USERNAME_KEY = "username_key";
 
     /**
-     * This finishes SignupActivity when user cancel Sign up
-     *
-     * @param view This is a view returned by onCreate()
+     * This initializes SignupActivity
+     * @param savedInstanceState
+     * This is a previous saved state
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
+        signupUsername = findViewById(R.id.signup_username_edit);
+        signupPassword = findViewById(R.id.signup_password_edit);
+    }
+
+    /**
+     * This clears username and password fields at OnResume stage
+     */
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //Clear fields
+        signupUsername.setText("");
+        signupPassword.setText("");
+    }
+
+    /**
+     * This finishes SignupActivity when user presses cancel
+     * @param view
+     * This is a view returned by onCreate()
      */
     public void cancelSignup(View view) {
         finish();
     }
 
     /**
-     * This creates new user and checks if the new username is unique
-     *
-     * @param view This is a view returned by onCreate()
+     * This checks if the new username is unique and creates a user with follow requests and
+     * follow permissions if the username is unique
+     * @param view
+     * This is a view returned by onCreate()
      */
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen
         username = signupUsername.getText().toString();
-        password = signupPassword.getText().toString();
+        String password = signupPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
-            Toast.makeText(SignupActivity.this, "Error: Empty Field", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignupActivity.this, "Missing username or password", Toast.LENGTH_LONG).show();
         } else {
             user = new User(username, password);
             userDAO.checkIfExists(username, new BooleanCallback() {
                 @Override
                 public void onCallback(Boolean doesExist) {
-                    if (doesExist) {
-                        Toast.makeText(SignupActivity.this, "Error: This user already exists", Toast.LENGTH_LONG).show();
-                    } else {
+                    if(doesExist){
+                        Toast.makeText(SignupActivity.this, "This user already exists", Toast.LENGTH_LONG).show();
+                    }
+                    else{
                         // User doesn't exist in the database, so create a new user
                         // Save user to shared preferences
                         // 0 in second argument indicates file holding username can only be accessed by calling the application
@@ -106,18 +131,5 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    /**
-     * This initializes SignupActivity
-     *
-     * @param savedInstanceState This is a previous saved state
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        signupUsername = findViewById(R.id.signupUsernameEdit);
-        signupPassword = findViewById(R.id.signupPasswordEdit);
     }
 }

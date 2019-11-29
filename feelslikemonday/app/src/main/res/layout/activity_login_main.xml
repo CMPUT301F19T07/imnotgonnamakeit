@@ -37,7 +37,7 @@
                 android:src="@drawable/moodday_label" />
 
             <TextView
-                android:id="@+id/loginTitle"
+                android:id="@+id/login_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -50,7 +50,7 @@
                 android:textSize="35sp" />
 
             <EditText
-                android:id="@+id/loginUsernameEdit"
+                android:id="@+id/login_username_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -58,10 +58,11 @@
                 android:drawableLeft="@drawable/ic_login_name"
                 android:ems="10"
                 android:hint="Username"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:maxLength="16" />
 
             <EditText
-                android:id="@+id/loginPasswordEdit"
+                android:id="@+id/login_password_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -69,10 +70,11 @@
                 android:drawableLeft="@drawable/ic_login_key"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:maxLength="16" />
 
             <Button
-                android:id="@+id/loginConfirmButton"
+                android:id="@+id/login_confirm_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -93,7 +95,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/signupLink"
+                android:id="@+id/signup_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
