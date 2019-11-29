@@ -94,13 +94,8 @@ public class SignupActivityTests {
         String password = "12345";
         solo.enterText((EditText) solo.getView(R.id.signup_username_edit), username); // this test will only work once
         solo.enterText((EditText) solo.getView(R.id.signup_password_edit), password);
-        //solo.clickOnButton("Confirm");
         solo.clickOnView(solo.getView(R.id.signup_confirm_button));
         solo.waitForActivity(MainActivity.class);
-        solo.sleep(1000);
-
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
 
         User newUser = new User(username, password);
         userDAO.delete(newUser, new VoidCallback() {
