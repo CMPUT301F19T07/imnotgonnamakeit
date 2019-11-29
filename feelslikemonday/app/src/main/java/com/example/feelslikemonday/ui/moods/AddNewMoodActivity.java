@@ -492,8 +492,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
                     //permissions not given
                     Toast.makeText(AddNewMoodActivity.this, "Location permissions required to save mood location", Toast.LENGTH_LONG).show();
                 }
-            }
-            return;
+            };
         }
     }
 
