@@ -37,7 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is responsible for listing all user's moods and related information
+ * This class is responsible for listing all user's moods and related information.
+ * Upon login, this is the first activity the user will see. For a new user, it will be empty.
+ * They will be prompted to hit a button to create a new mood entry. A button at the bottom of the screen
+ * brings up a pop-up that allows the user to filter their mood list.
  */
 public class HomeFragment extends Fragment {
 
@@ -61,10 +64,10 @@ public class HomeFragment extends Fragment {
     private boolean showHappiness = true;
     private boolean showSadness = true;
     private boolean showSurprise = true;
-    public ScrollView filterPopup;
-    public ScrollView helpPopup;
-    public Button okButton;
-    public Button filterButton;
+    private ScrollView filterPopup;
+    private ScrollView helpPopup;
+    private Button okButton;
+    private Button filterButton;
 
     /**
      * This initializes HomeFragment
@@ -153,7 +156,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * This shows user's mood list when the HomeFragment is at onResume stage
+     * This shows user's mood list. This is run when the activity is first started or resumed after moving back after leaving another activity.
      */
     @Override
     public void onResume() {
@@ -210,7 +213,8 @@ public class HomeFragment extends Fragment {
     } // end of onResume
 
     /**
-     * This gives subclasses a chance to initialize themselves once they know their view hierarchy has been completely created
+     * This gives subclasses a chance to initialize themselves once they know their view hierarchy has been completely created.
+     * This includes the logic of which moods to show in the list and how they are formatted.
      *
      * @param view               This is the View returned by onCreateView()
      * @param savedInstanceState This is a previous saved state
@@ -322,12 +326,13 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * This removes the moodevent from user's mood history
+     * This removes the moodevent from user's mood history. Swiping left on any mood entry
+     * brings up the delete option, which will clear that single mood.
      *
      * @param view  This is the View returned by onCreateView()
      * @param index This is a index of the moodevent that user want to delete
      */
-    public void removeEmotion(@NonNull View view, int index) {
+    private void removeEmotion(@NonNull View view, int index) {
         List<MoodEvent> moodHistoryTempTemp = currentUser.getMoodHistory();
         SwipeMenuListView = view.findViewById(R.id.listView);
         myEmotionList.remove(index);
@@ -341,17 +346,16 @@ public class HomeFragment extends Fragment {
         adapter = new EmotionBookAdapter(getContext(), R.layout.list_adapter_view, myEmotionList);
         SwipeMenuListView.setAdapter(adapter);
         showHelp();
-
-        // Send the new UserObjecct to the DB
     }
 
     /**
-     * This shows the moodevent from user's mood history
+     * This shows the moodevent from user's mood history. Swiping left brings up the option to view mood.
+     * This will open a new activity which shows more details and the image, if they have one.
      *
      * @param view  This is the View returned by onViewCreated()
      * @param index This is a index of the moodevent that user want to view
      */
-    public void viewEmotion(@NonNull View view, int index) {
+    private void viewEmotion(@NonNull View view, int index) {
 
         MoodEvent currentMoodEvent = myEmotionList.get(index);
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
@@ -375,12 +379,14 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * This edits the moodevent from user's mood history
+     * This edits the moodevent from user's mood history. Swiping left on any mood brings up this option,
+     * which allows the user to enter a new activity almost identical to the new mood activity, and they
+     * can edit any parameter of that mood.
      *
      * @param view  This is the View returned by onCreateView()
      * @param index This is a index of the moodevent that user want to edit
      */
-    public void editEmotion(@NonNull View view, int index) {
+    private void editEmotion(@NonNull View view, int index) {
 
         MoodEvent currentMoodEvent = myEmotionList.get(index);
 
@@ -410,12 +416,13 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * This returns the index of the current social situation
+     * This returns the index of the current social situation. This is just a helper function that
+     * is called to get an index for the social situation, helps out with the spinner.
      *
      * @param social This is the current social situation
      * @return return the index of the current social situation
      */
-    public int getCurrentSocialIndex(String social) {
+    private int getCurrentSocialIndex(String social) {
         int returnValue = 0;
         for (int i = 0; i < MoodEvent.SOCIAL_SITUATIONS.size(); i++) {
             if (social.equals(MoodEvent.SOCIAL_SITUATIONS.get(i))) {
@@ -426,12 +433,13 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * This returns the index of the current mood
+     * This returns the index of the current mood. This is just a helper function that
+     * * is called to get an index for the mood type of the mood event, helps out with the spinner.
      *
      * @param mood This is the current mood
      * @return return the index of the current mood
      */
-    public int getCurrentMoodIndex(String mood) {
+    private int getCurrentMoodIndex(String mood) {
         int returnValue = 0;
         for (int i = 0; i < MoodEvent.MOOD_TYPES.size(); i++) {
             if (mood.equals(MoodEvent.MOOD_TYPES.get(i).getName())) {
