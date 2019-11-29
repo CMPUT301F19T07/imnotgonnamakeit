@@ -68,37 +68,6 @@ public class FollowRequestTest {
 
         assertTrue(solo.waitForText("ag01", 1, 2000));
 
-//       TESTING FORMAT MAY BE USEFUL LATER, KEEP FOR NOW
-
-
-//        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-//        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "ag01");
-//        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123456");
-//        solo.clickOnButton("LOGIN");
-//        solo.clickOnImageButton(0);
-//        solo.clickOnText("Send Request");
-//
-//        solo.enterText((EditText) solo.getView(R.id.send_request_username), "mockyuningtest");
-//
-//        solo.clickOnText("SEND");
-//        solo.sleep(500);
-//        solo.clickOnActionBarItem(R.id.action_settings);
-//        solo.clickOnMenuItem("Logout");
-//
-//        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockyuningtest");
-//        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123456");
-//        solo.clickOnImageButton(0);
-//
-//        solo.clickOnText("Follower Request");
-//        assertTrue(solo.waitForText("ag01", 1, 2000));
-//        solo.sleep(500);
-//
-//        solo.clickOnText("REJECT");
-//
-//        solo.sleep(500);
-//        solo.clickOnActionBarItem(R.id.action_settings);
-//        solo.clickOnMenuItem("Logout");
-
     }
 
     /**

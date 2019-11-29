@@ -159,7 +159,7 @@ public class SendRequestFragment extends Fragment {
     /**
      * This is a method that shows the message when the recipient is followed
      */
-    public void showAlreadyFollowedUserToast() {
+    private void showAlreadyFollowedUserToast() {
         Toast toast = Toast.makeText(getActivity(), "You have already followed " + recipientUsername, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
@@ -169,7 +169,7 @@ public class SendRequestFragment extends Fragment {
     /**
      * This is a method that shows the message when the recipient is sent request
      */
-    public void showAlreadySentRequestToast() {
+    private void showAlreadySentRequestToast() {
         Toast toast = Toast.makeText(getActivity(), "Request already sent to " + recipientUsername, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
@@ -179,7 +179,7 @@ public class SendRequestFragment extends Fragment {
     /**
      * This is a method that shows the message when the recipient is a valid user
      */
-    public void showValidUserToast() {
+    private void showValidUserToast() {
         Toast toast = Toast.makeText(getActivity(), "Valid User", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
@@ -188,7 +188,7 @@ public class SendRequestFragment extends Fragment {
     /**
      * This is a method that shows the message when the recipient is not a valid user
      */
-    public void showIndvalidUserToast() {
+    private void showIndvalidUserToast() {
         Toast toast = Toast.makeText(getActivity(), "This user does not exist, invite your friends", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
@@ -198,7 +198,7 @@ public class SendRequestFragment extends Fragment {
     /**
      * This is a method that shows the message when user send request successfully to the recipient
      */
-    public void showSuccessfulSendToast() {
+    private void showSuccessfulSendToast() {
         Toast toast1 = Toast.makeText(getActivity(), "Sent Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
         toast1.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast1.show();

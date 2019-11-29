@@ -15,19 +15,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
- * This is a class  responsible for making requests to firestore, and returning User Requests to the activities/fragments.
+ * This is a class  responsible for making requests to firestore, and performing CRUD operations
+ * on FollowRequests from other objects/activities. Uses the singleton pattern. Uses the User's
+ * username as the 'primary key'
  */
 public class FollowRequestDAO {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final FollowRequestDAO instance = new FollowRequestDAO();
 
+    //Name of the data "table" (collection)
     private final String COLLECTION_NAME = "followRequests";
 
     private FollowRequestDAO() {
     }
 
     /**
-     * This returns a instance of follow request dao
+     * This returns a instance of follow request dao. This instance can be used by other objects to
+     * perform CRUD operations on the follow request.
      *
      * @return Return the a instance of follow request dao
      */
@@ -36,11 +40,12 @@ public class FollowRequestDAO {
     }
 
     /**
-     * This creates or updates a follow request to reply the user permission
+     * This creates or updates a FollowRequest based on the username (pk) passed in.
+     * Creates a new FollowRequest if the pk wasn't found, updates the FollowRequestObject otherwise.
      *
-     * @param username      This is a candidate username who reply the permission
-     * @param followRequest This is a candidate request
-     * @param onSuccess     This is function returned when the request is created or updated successfully
+     * @param username      This is a candidate username who reply the permission (primary key)
+     * @param followRequest This is the object we wish to create/update and assign to the pk
+     * @param onSuccess     This is function invoked when the request is created or updated successfully
      */
     public void createOrUpdate(String username, FollowRequest followRequest, final VoidCallback onSuccess) {
         db.collection(COLLECTION_NAME).document(username)
@@ -61,10 +66,10 @@ public class FollowRequestDAO {
     }
 
     /**
-     * This deletes a follow request to reply the user permission
+     * This deletes the document with the given username provided.
      *
-     * @param username  This is a candidate username who reply the permission
-     * @param onSuccess This is the function returned when the request is deleted successfully
+     * @param username  This is a candidate username that we use to query the document
+     * @param onSuccess This is the function invoked when the request is deleted successfully
      */
     public void delete(String username, final VoidCallback onSuccess) {
         db.collection(COLLECTION_NAME).document(username)
@@ -85,10 +90,10 @@ public class FollowRequestDAO {
     }
 
     /**
-     * This queries for a FollowPermission by the user's username. A callback method will be called on success
+     * This queries for a FollowPermission object using the User's username. A callback method will be called on success
      *
      * @param username  This is a candidate username
-     * @param onSuccess This is the function returned when the request is obtained successfully
+     * @param onSuccess This is the function invoked when the request is obtained successfully
      */
     public void get(String username, final FollowRequestCallback onSuccess) {
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
@@ -96,11 +101,12 @@ public class FollowRequestDAO {
     }
 
     /**
-     * This returns a follow request to reply the user permission
+     * This queries for a FollowPermission object using the User's username. A callback method will be called on success.
+     * This method contains an onFail callback method in the case that the firebase request fails.
      *
      * @param username  This is a candidate username
-     * @param onSuccess This is the function returned when the request is obtained successfully
-     * @param onFail    This is the function returned when the request is obtained unsuccessfully
+     * @param onSuccess This is the function invoked when the request is obtained successfully
+     * @param onFail    This is the function invoked when the request fails
      */
     public void get(String username, final FollowRequestCallback onSuccess, final VoidCallback onFail) {
         db.collection(COLLECTION_NAME)
