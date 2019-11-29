@@ -26,7 +26,8 @@ import java.util.List;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 /**
- * This class is responsible for creating user's moods map
+ * This class is responsible for creating user's moods map. It takes the list of moods for the logged in user and puts pins according to the
+ * location and mood. Open this activity from the action settings menu.
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -52,16 +53,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mapFragment.getMapAsync(this);
         }
     }
-
-
-    /*
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
 
     /**
      * This uses UserDAO to get a list of the user's mood events, then call placeMarkers()

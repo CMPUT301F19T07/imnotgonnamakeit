@@ -166,8 +166,9 @@ public class FollowingFragment extends Fragment {
      *
      * @param position This is a current location
      */
-    public void viewEmotion(int position) {
-        MoodEvent currentMoodEvent = myfolloweeList.get(position).getRecentMood();
+
+    private void viewEmotion(int position) {
+        MoodEvent CurrentMoodEvent = myfolloweeList.get(position).getRecentMood();
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
 
         //If an image is set, pass the image in the form of a byte array
@@ -193,7 +194,7 @@ public class FollowingFragment extends Fragment {
      *
      * @param user This is a candidate user
      */
-    public void checkFollowee(User user) {
+    private void checkFollowee(User user) {
         followeeUserMoodList = user.getMoodHistory();
         if (followeeUserMoodList.size() > 0) {
             MoodEvent recentMood = user.getMoodHistory().get(0);
