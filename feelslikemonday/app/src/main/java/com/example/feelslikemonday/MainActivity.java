@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.example.feelslikemonday.ui.map.FollowingMapActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
@@ -117,7 +118,10 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove(USERNAME_KEY);
                 editor.apply();
-                finishAffinity();
+                Intent exit = new Intent(this, LoginMainActivity.class);
+                exit.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                this.startActivity(exit);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
