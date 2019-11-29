@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * This class acts as a "table" to retrieve requests that have been sent to the user
+ * Follow requests keep track of the person requesting to follow another user and for the person receiving the request
+ * Sending requests can be reached from the main activity using the navigation drawer by clicking send requests
+ * Viewing and managing requests can be reached from the main activity using the navigation drawer by clicking Follower requests
  */
 
 public class FollowRequest {
