@@ -1,7 +1,7 @@
 package com.example.feelslikemonday.model;
 
 /**
- * This class represents the type of moods that are present in the app.
+ * This model class represents the type of moods that can be created by a user
  */
 
 public class MoodType {
@@ -13,7 +13,6 @@ public class MoodType {
 
     /**
      * This is a class that keeps track of a mood type
-     *
      * @param name  This is a candidate mood type
      * @param emoji This is the candidate emoji
      */
@@ -23,8 +22,7 @@ public class MoodType {
     }
 
     /**
-     * this returns the name of the mood type that user choose
-     *
+     * This returns the name of the mood type that user choose
      * @return return the string of mood type
      */
     public String getName() {
@@ -32,8 +30,7 @@ public class MoodType {
     }
 
     /**
-     * this returns the corresponding emoji name for the mood type user choose
-     *
+     * This returns the corresponding emoji name for the mood type user choose
      * @return return the string of emoji name
      */
     public String getEmoji() {
