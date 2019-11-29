@@ -36,7 +36,7 @@ public class FollowRequest {
     }
 
     /**
-     * this returns the recipient username, the user itself
+     * this returns the recipient username
      * @return return the recipient username
      */
     public String getRecipientUsername() {

@@ -1,13 +1,16 @@
 package com.example.feelslikemonday.model;
 
 /**
- * This model class represents the type of moods that can be created by a user
+ * This model class represents the moods events that can be created by a user
  */
 
 public class MoodType {
     private String name;
     private String emoji;
 
+    /**
+     * This empty constructor allows Firebase to deserialize an object
+     */
     public MoodType() {
     }
 

@@ -46,7 +46,7 @@ public class MoodEvent {
     }
 
     /**
-     * This is a class that keeps track of a mood event
+     * This is a constructor that keeps track of a mood event
      *
      * @param date            This is the date of the mood event
      * @param time            This is the time of the mood event
