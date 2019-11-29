@@ -2,7 +2,6 @@ package com.example.feelslikemonday.ui.map;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -46,8 +45,8 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     /**
      * This initializes FollowingMapActivity
-     * @param savedInstanceState
-     * This is a saved instance state
+     *
+     * @param savedInstanceState This is a saved instance state
      */
 
     @Override
@@ -64,8 +63,8 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
 
     /**
      * This calls when map is ready to be used
-     * @param googleMap
-     * This is a non-null instance of a GoogleMap associated with the MapFragment or MapView that defines the callback.
+     *
+     * @param googleMap This is a non-null instance of a GoogleMap associated with the MapFragment or MapView that defines the callback.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {

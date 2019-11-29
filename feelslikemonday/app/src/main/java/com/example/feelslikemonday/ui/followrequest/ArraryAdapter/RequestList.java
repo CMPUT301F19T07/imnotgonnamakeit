@@ -28,7 +28,7 @@ import java.util.List;
 
 
 /**
- *This class acts as a array adapter for the request list
+ * This class acts as a array adapter for the request list
  */
 public class RequestList extends ArrayAdapter<String> {
     private Context context;
@@ -41,10 +41,9 @@ public class RequestList extends ArrayAdapter<String> {
 
     /**
      * This constructor initializes follower request fragment
-     * @param context
-     * This is the current context. This value must never be null
-     * @param users
-     * This is the objects to represent in the ListView. This value must never be null
+     *
+     * @param context This is the current context. This value must never be null
+     * @param users   This is the objects to represent in the ListView. This value must never be null
      */
     public RequestList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
@@ -54,14 +53,11 @@ public class RequestList extends ArrayAdapter<String> {
 
     /**
      * This gets a View that displays the data at the specified position in the data set
-     * @param position
-     * This is the position of the item within the adapter's data set of the item whose view we want
-     * @param convertView
-     * This is the view. This value must never be null
-     * @param parent
-     * This is the view group. This value must never be null
-     * @return
-     *      return a View of requester corresponding to the data at the specified position
+     *
+     * @param position    This is the position of the item within the adapter's data set of the item whose view we want
+     * @param convertView This is the view. This value must never be null
+     * @param parent      This is the view group. This value must never be null
+     * @return return a View of requester corresponding to the data at the specified position
      */
     @NonNull
     @Override
@@ -70,11 +66,11 @@ public class RequestList extends ArrayAdapter<String> {
         followPermissionDAO = FollowPermissionDAO.getInstance();
         followRequestDAO = FollowRequestDAO.getInstance();
         pref = getContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
         View view = convertView;
 
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.content_follow_request, parent, false);
         }
         final String requesterUsername = requesterUsernames.get(position);
@@ -91,12 +87,12 @@ public class RequestList extends ArrayAdapter<String> {
                 Log.i("testListView", "clickAcceptButton");
 
                 //swap the following
-                followPermissionDAO.get(requesterUsername, new FollowPermissionCallback(){
+                followPermissionDAO.get(requesterUsername, new FollowPermissionCallback() {
                     @Override
                     public void onCallback(FollowPermission followPermission) {
-                        if(followPermission.getFollowerUsername().equals(requesterUsername)){
+                        if (followPermission.getFollowerUsername().equals(requesterUsername)) {
                             followeeUsernames = followPermission.getFolloweeUsernames();
-                            followeeUsernames.add( myUserID);
+                            followeeUsernames.add(myUserID);
 
                             followPermissionDAO.createOrUpdate(requesterUsername, followPermission, new VoidCallback() {
                                 @Override
@@ -108,10 +104,10 @@ public class RequestList extends ArrayAdapter<String> {
                     }
                 }, null);
 
-                followRequestDAO.get(myUserID, new FollowRequestCallback(){
+                followRequestDAO.get(myUserID, new FollowRequestCallback() {
                     @Override
                     public void onCallback(FollowRequest followRequest) {
-                        if(followRequest.getRecipientUsername().equals(myUserID)){
+                        if (followRequest.getRecipientUsername().equals(myUserID)) {
                             requesterUsernames = followRequest.getRequesterUsernames();
                             requesterUsernames.remove(requesterUsername);
 
@@ -124,7 +120,7 @@ public class RequestList extends ArrayAdapter<String> {
                         }
 
                     }
-                },null);
+                }, null);
             }
         });
 
@@ -133,10 +129,10 @@ public class RequestList extends ArrayAdapter<String> {
             public void onClick(View view) {
                 Log.i("testListView", "clickRejectButton");
 
-                followRequestDAO.get(myUserID, new FollowRequestCallback(){
+                followRequestDAO.get(myUserID, new FollowRequestCallback() {
                     @Override
                     public void onCallback(FollowRequest followRequest) {
-                        if(followRequest.getRecipientUsername().equals(myUserID)){
+                        if (followRequest.getRecipientUsername().equals(myUserID)) {
                             requesterUsernames = followRequest.getRequesterUsernames();
                             requesterUsernames.remove(requesterUsername);
 
@@ -148,7 +144,7 @@ public class RequestList extends ArrayAdapter<String> {
                             RequestList.this.remove(requesterUsername);
                         }
                     }
-                },null);
+                }, null);
             }
         });
         return view;

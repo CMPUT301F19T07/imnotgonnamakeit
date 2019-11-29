@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 public class SendRequestViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
+
     /**
      * This a class that keeps track of send request fragment
      */
@@ -20,8 +21,8 @@ public class SendRequestViewModel extends ViewModel {
 
     /**
      * This returns a LiveData
-     * @return
-     *      return a LiveData initialized with String
+     *
+     * @return return a LiveData initialized with String
      */
     public LiveData<String> getText() {
         return mText;

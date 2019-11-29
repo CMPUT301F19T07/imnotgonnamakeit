@@ -28,6 +28,7 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * This class is resposible for receiving feedback on the follower requests
  */
@@ -41,16 +42,14 @@ public class FollowerRequestFragment extends Fragment {
 
 
     private FollowerRequestViewModel followerViewModel;
+
     /**
      * This initializes follower request fragment
-     * @param inflater
-     * This is a layoutInflater object that can be used to inflate any views in the fragment
-     * @param container
-     * This is a parent view that the fragment's UI should be attached to
-     * @param savedInstanceState
-     * This is a previous saved state.
-     * @return
-     *      return the View for the fragment's UI, or null
+     *
+     * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container          This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState This is a previous saved state.
+     * @return return the View for the fragment's UI, or null
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,14 +59,14 @@ public class FollowerRequestFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_follower_request, container, false);
         userList = (ListView) root.findViewById(R.id.request_username_list);
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
         DAO = FollowRequestDAO.getInstance();
 
-        DAO.get(myUserID, new FollowRequestCallback(){
+        DAO.get(myUserID, new FollowRequestCallback() {
             @Override
             public void onCallback(FollowRequest followRequest) {
-                if(followRequest.getRecipientUsername().equals(myUserID)){
+                if (followRequest.getRecipientUsername().equals(myUserID)) {
 
                     requesterUsernames = followRequest.getRequesterUsernames();
                     userAdapter = new RequestList(getContext(), new ArrayList<String>(requesterUsernames));
@@ -81,7 +80,7 @@ public class FollowerRequestFragment extends Fragment {
             @Override
             public void onCallback() {
                 Toast toast = Toast.makeText(getActivity(), "User does not exist", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
             }
         });
@@ -101,7 +100,6 @@ public class FollowerRequestFragment extends Fragment {
                 //do stuff here
             }
         });
-
 
 
         return root;

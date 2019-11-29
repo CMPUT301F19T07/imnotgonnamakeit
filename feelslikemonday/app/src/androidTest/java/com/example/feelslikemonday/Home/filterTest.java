@@ -38,19 +38,21 @@ public class FilterTest {
 
     /**
      * Runs before all tests and creates solo instance.
+     *
      * @throws Exception
      */
     @Before
-    public void setUp()throws Exception{
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
+    public void setUp() throws Exception {
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
     /**
      * Gets the activity
+     *
      * @throws Exception
      */
     @Test
-    public void start()throws Exception{
+    public void start() throws Exception {
         Activity activity = rule.getActivity();
     }
 
@@ -58,7 +60,7 @@ public class FilterTest {
      * This test ensures user was able to switch from login to main activities
      */
     @Test
-    public void filterTest(){
+    public void filterTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "agtest1");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123456");
@@ -81,10 +83,11 @@ public class FilterTest {
 
     /**
      * Closes the activity after each test
+     *
      * @throws Exception
      */
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
 }

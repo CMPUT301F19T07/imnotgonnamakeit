@@ -38,14 +38,11 @@ public class MyFriendsFragment extends Fragment {
 
     /**
      * This initiates the following friends fragments
-     * @param inflater
-     * This is a layoutInflater object that can be used to inflate any views in the fragment
-     * @param container
-     * This is a parent view that the fragment's UI should be attached to
-     * @param savedInstanceState
-     * This is a previous saved state.
-     * @return
-     *    return the View for the fragment's UI, or null
+     *
+     * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container          This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState This is a previous saved state.
+     * @return return the View for the fragment's UI, or null
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,15 +52,15 @@ public class MyFriendsFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_my_friends, container, false);
         userList = (ListView) root.findViewById(R.id.friends_username_list);
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
 
         followPermissionDAO = FollowPermissionDAO.getInstance();
 
-        followPermissionDAO.get(myUserID, new FollowPermissionCallback(){
+        followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
             @Override
             public void onCallback(FollowPermission followPermission) {
-                if(followPermission.getFollowerUsername().equals(myUserID)){
+                if (followPermission.getFollowerUsername().equals(myUserID)) {
                     friendsUsernames = followPermission.getFolloweeUsernames();
                     userAdapter = new FriendList(getContext(), new ArrayList<String>(friendsUsernames));
                     userList.setAdapter(userAdapter);
@@ -73,7 +70,6 @@ public class MyFriendsFragment extends Fragment {
 
             }
         }, null);
-
 
 
         friendsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

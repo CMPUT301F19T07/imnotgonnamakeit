@@ -39,19 +39,21 @@ public class SignupActivityTests {
 
     /**
      * Runs before all tests and creates solo instance.
+     *
      * @throws Exception
      */
     @Before
-    public void setUp()throws Exception{
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
+    public void setUp() throws Exception {
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
     /**
      * Gets the activity
+     *
      * @throws Exception
      */
     @Test
-    public void start()throws Exception{
+    public void start() throws Exception {
         Activity activity = rule.getActivity();
     }
 
@@ -59,9 +61,9 @@ public class SignupActivityTests {
      * This tests user going to sign in page
      */
     @Test
-    public  void signUpActivityTest() {
+    public void signUpActivityTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
     }
@@ -70,9 +72,9 @@ public class SignupActivityTests {
      * This tests user going to sign in page then clicking cancel
      */
     @Test
-    public  void signUpCancelTest() {
+    public void signUpCancelTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         solo.clickOnButton("Cancel");
@@ -83,9 +85,9 @@ public class SignupActivityTests {
      * This tests user signing in
      */
     @Test
-    public  void signUpTest() {
+    public void signUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         String username = "mockNewUser2";
@@ -95,7 +97,7 @@ public class SignupActivityTests {
         solo.clickOnButton("Confirm");
         solo.waitForActivity(MainActivity.class);
 
-        User newUser = new User(username,password);
+        User newUser = new User(username, password);
         userDAO.delete(newUser, new VoidCallback() {
             @Override
             public void onCallback() {
@@ -108,9 +110,9 @@ public class SignupActivityTests {
      * This tests existing user
      */
     @Test
-    public  void existingUserSignUpTest() {
+    public void existingUserSignUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), "user");
@@ -123,9 +125,9 @@ public class SignupActivityTests {
      * This tests empty username
      */
     @Test
-    public  void emptyUsernameSignUpTest() {
+    public void emptyUsernameSignUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         solo.enterText((EditText) solo.getView(R.id.signupPasswordEdit), "12345");
@@ -139,7 +141,7 @@ public class SignupActivityTests {
     @Test
     public void emptyPasswordSignUpTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        TextView tv = (TextView)solo.getView(R.id.signupLink);
+        TextView tv = (TextView) solo.getView(R.id.signupLink);
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         solo.enterText((EditText) solo.getView(R.id.signupUsernameEdit), "user");
@@ -149,7 +151,7 @@ public class SignupActivityTests {
 
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
 }

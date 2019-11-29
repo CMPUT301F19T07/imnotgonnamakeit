@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-    <TextView
-        android:id="@+id/followee"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="25"
-        android:fontFamily="sans-serif-condensed-light"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/followee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:fontFamily="sans-serif-condensed-light"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/femotionlbl"
@@ -34,9 +34,9 @@
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/fdatelbl"
@@ -48,13 +48,13 @@
             android:textSize="30sp" />
 
         <TextView
-        android:id="@+id/ftimelbl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="25"
-        android:fontFamily="sans-serif-condensed-light"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
+            android:id="@+id/ftimelbl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp" />
 
 
     </LinearLayout>

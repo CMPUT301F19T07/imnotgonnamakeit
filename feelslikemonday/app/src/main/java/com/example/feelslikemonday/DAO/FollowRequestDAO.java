@@ -23,12 +23,13 @@ public class FollowRequestDAO {
 
     private final String COLLECTION_NAME = "followRequests";
 
-    private FollowRequestDAO(){}
+    private FollowRequestDAO() {
+    }
 
     /**
      * This returns a instance of follow request dao
-     * @return
-     * Return the a instance of follow request dao
+     *
+     * @return Return the a instance of follow request dao
      */
     public static FollowRequestDAO getInstance() {
         return instance;
@@ -36,14 +37,12 @@ public class FollowRequestDAO {
 
     /**
      * This creates or updates a follow request to reply the user permission
-     * @param username
-     * This is a candidate username who reply the permission
-     * @param followRequest
-     *  This is a candidate request
-     * @param onSuccess
-     * This is function returned when the request is created or updated successfully
+     *
+     * @param username      This is a candidate username who reply the permission
+     * @param followRequest This is a candidate request
+     * @param onSuccess     This is function returned when the request is created or updated successfully
      */
-    public void createOrUpdate(String username, FollowRequest followRequest, final VoidCallback onSuccess){
+    public void createOrUpdate(String username, FollowRequest followRequest, final VoidCallback onSuccess) {
         db.collection(COLLECTION_NAME).document(username)
                 .set(followRequest)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -63,12 +62,11 @@ public class FollowRequestDAO {
 
     /**
      * This deletes a follow request to reply the user permission
-     * @param username
-     * This is a candidate username who reply the permission
-     * @param onSuccess
-     * This is the function returned when the request is deleted successfully
+     *
+     * @param username  This is a candidate username who reply the permission
+     * @param onSuccess This is the function returned when the request is deleted successfully
      */
-    public void delete(String username, final VoidCallback onSuccess){
+    public void delete(String username, final VoidCallback onSuccess) {
         db.collection(COLLECTION_NAME).document(username)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -88,26 +86,23 @@ public class FollowRequestDAO {
 
     /**
      * This queries for a FollowPermission by the user's username. A callback method will be called on success
-     * @param username
-     * This is a candidate username
-     * @param onSuccess
-     * This is the function returned when the request is obtained successfully
+     *
+     * @param username  This is a candidate username
+     * @param onSuccess This is the function returned when the request is obtained successfully
      */
-    public void get(String username, final FollowRequestCallback onSuccess){
+    public void get(String username, final FollowRequestCallback onSuccess) {
         //Generally speaking, do not pass null values in. This is an exception, since we're overloading(?).
-        get(username,onSuccess,null);
+        get(username, onSuccess, null);
     }
 
     /**
      * This returns a follow request to reply the user permission
-     * @param username
-     * This is a candidate username
-     * @param onSuccess
-     * This is the function returned when the request is obtained successfully
-     * @param onFail
-     * This is the function returned when the request is obtained unsuccessfully
+     *
+     * @param username  This is a candidate username
+     * @param onSuccess This is the function returned when the request is obtained successfully
+     * @param onFail    This is the function returned when the request is obtained unsuccessfully
      */
-    public void get(String username, final FollowRequestCallback onSuccess, final VoidCallback onFail){
+    public void get(String username, final FollowRequestCallback onSuccess, final VoidCallback onFail) {
         db.collection(COLLECTION_NAME)
                 .document(username)
                 .get()
@@ -116,9 +111,9 @@ public class FollowRequestDAO {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
-                            if(doc == null || !doc.exists()){
+                            if (doc == null || !doc.exists()) {
                                 Log.d(TAG, "No documents found");
-                                if (onFail != null){
+                                if (onFail != null) {
                                     onFail.onCallback();
                                 }
                                 return;
@@ -127,7 +122,7 @@ public class FollowRequestDAO {
                             onSuccess.onCallback(doc.toObject(FollowRequest.class));
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
-                            if (onFail != null){
+                            if (onFail != null) {
                                 onFail.onCallback();
                             }
                         }
