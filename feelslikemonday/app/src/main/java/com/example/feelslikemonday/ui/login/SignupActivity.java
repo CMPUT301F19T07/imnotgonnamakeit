@@ -79,7 +79,7 @@ public class SignupActivity extends AppCompatActivity {
      */
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen
-        username = signupUsername.getText().toString().trim().toLowerCase();
+        username = signupUsername.getText().toString();
         String password = signupPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
             Toast.makeText(SignupActivity.this, "Missing username or password", Toast.LENGTH_LONG).show();

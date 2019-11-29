@@ -69,7 +69,7 @@ public class LoginMainActivity extends AppCompatActivity {
      * This is a view returned by onCreate()
      */
     public void attemptLogin(View view){
-        username = loginUsername.getText().toString().trim().toLowerCase();
+        username = loginUsername.getText().toString();
         password = loginPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
             Toast.makeText(LoginMainActivity.this, "Missing username or password", Toast.LENGTH_LONG).show();
