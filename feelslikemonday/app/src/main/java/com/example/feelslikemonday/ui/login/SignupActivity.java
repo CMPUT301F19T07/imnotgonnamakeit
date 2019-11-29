@@ -20,10 +20,6 @@ import com.example.feelslikemonday.model.FollowPermission;
 import com.example.feelslikemonday.model.FollowRequest;
 import com.example.feelslikemonday.model.User;
 
-/*User Preferences designed according to tutorial on:
-https://www.journaldev.com/9412/android-shared-preferences-example-tutorial
-*/
-
 /**
  * This class is responsible for signing up new user
  */

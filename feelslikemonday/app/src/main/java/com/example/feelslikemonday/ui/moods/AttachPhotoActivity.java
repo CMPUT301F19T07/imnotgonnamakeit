@@ -2,7 +2,6 @@ package com.example.feelslikemonday.ui.moods;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.feelslikemonday.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
