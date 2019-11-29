@@ -51,7 +51,8 @@ public class AttachPhotoActivity extends AppCompatActivity {
     private Bitmap returnBitmap = null;
 
     /**
-     * This initializes AttachPhotoActivity
+     * This sets up the AttachPhotoActivity activity
+     * This sends the user to the page where they can either choose to upload to take a new photo for a specific mood event
      * @param savedInstanceState This is a previous saved state
      */
     @Override

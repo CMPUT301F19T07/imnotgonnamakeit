@@ -10,6 +10,6 @@ com.example.feelslikemonday.ui.followrequest.ArraryAdapter
 com.example.feelslikemonday.ui.friends
 com.example.feelslikemonday.ui.home
 com.example.feelslikemonday.ui.login
+com.example.feelslikemonday.ui.map
 com.example.feelslikemonday.ui.moods
 com.example.feelslikemonday.ui.sendrequest
-com.example.feelslikemonday.ui.settings
