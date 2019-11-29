@@ -66,8 +66,8 @@ public class FilterTest {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest1");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
-        solo.clickOnButton("LOGIN");
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
+        solo.waitForActivity( MainActivity.class);
 
         assertTrue(solo.searchText(Pattern.quote("11:31")));
 

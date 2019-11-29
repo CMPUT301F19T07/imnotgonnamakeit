@@ -62,7 +62,7 @@ public class FollowRequestTest {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockyuningtest");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
         solo.clickOnImageButton(0);
         solo.clickOnText("Follower Request");
 
