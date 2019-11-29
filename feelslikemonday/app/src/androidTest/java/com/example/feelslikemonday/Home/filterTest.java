@@ -1,7 +1,9 @@
 package com.example.feelslikemonday.Home;
 
 import android.app.Activity;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -57,28 +59,39 @@ public class FilterTest {
     }
 
     /**
-     * This test ensures user was able to switch from login to main activities
+     * This test ensures user was able to filter moods. It logs in the test user, checks the anger mood exists, filters it out, then checks that it's no longer visible.
      */
     @Test
     public void filterTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest1");
-        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "123456");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnScreen(540, 1945);
-        solo.clickOnScreen(680, 775);
-        solo.clickOnScreen(540, 1405);
-
-        assertFalse(solo.searchText(Pattern.quote("11:31")));
-
-        solo.clickOnScreen(80, 145);
-        solo.clickOnScreen(305, 580);
 
         assertTrue(solo.searchText(Pattern.quote("11:31")));
 
+
+        Button filterButton = (Button) solo.getView(R.id.filter_button);
+        int[] location = new int[2];
+        filterButton.getLocationInWindow(location);
+        solo.clickOnScreen(location[0], location[1]);
+
+        Switch filterSwitch = (Switch) solo.getView(R.id.switch1);
+        int[] location1 = new int[2];
+        filterSwitch.getLocationInWindow(location1);
+        solo.clickOnScreen(location1[0], location1[1]);
+
+        Button okButton = (Button) solo.getView(R.id.ok_button);
+        int[] location2 = new int[2];
+        okButton.getLocationInWindow(location2);
+        solo.clickOnScreen(location2[0], location2[1]);
+
+        assertFalse(solo.searchText(Pattern.quote("11:31")));
+
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
     }
 
     /**
