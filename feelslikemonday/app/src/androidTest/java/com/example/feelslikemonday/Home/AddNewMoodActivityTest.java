@@ -73,18 +73,9 @@ public class AddNewMoodActivityTest {
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "newMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("New");
-        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
-        solo.clickOnView(solo.getView(R.id.mood_spinner));
-        solo.pressSpinnerItem(0, 0);
+        solo.clickOnView(solo.getView(R.id.action_settings));
         solo.enterText((EditText) solo.getView(R.id.reason_edit_text), "didn't drink coffee"); // reason
-        solo.clickOnView(solo.getView(R.id.social_spinner));
-        solo.pressSpinnerItem(0, 0);
-        solo.clickOnButton("save");
-        solo.sleep(500);
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
+        solo.clickOnView(solo.getView(R.id.button11));
     }
 
     /**
@@ -93,21 +84,12 @@ public class AddNewMoodActivityTest {
     @Test
     public void cancelAddMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "newMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("New");
-        solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);
-        solo.clickOnView(solo.getView(R.id.mood_spinner));
-        solo.pressSpinnerItem(0, 0);
-        solo.enterText((EditText) solo.getView(R.id.reason_edit_text), "going to cancel"); // reason
-        solo.clickOnView(solo.getView(R.id.social_spinner));
-        solo.pressSpinnerItem(0, 0);
-        solo.clickOnButton("save");
-        solo.sleep(500);
-        solo.clickOnActionBarItem(R.id.action_settings);
-        solo.clickOnMenuItem("Logout");
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
+        solo.clickOnView(solo.getView(R.id.action_settings));
+        solo.enterText((EditText) solo.getView(R.id.reason_edit_text), "didn't drink coffee"); // reason
+        solo.clickOnView(solo.getView(R.id.mood_cancel));
     }
 
     /**
