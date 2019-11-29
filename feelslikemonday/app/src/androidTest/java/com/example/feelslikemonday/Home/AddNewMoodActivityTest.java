@@ -58,10 +58,10 @@ public class AddNewMoodActivityTest {
     @Test
     public void homePageSwitchTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "newMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
-        solo.clickOnButton("LOGIN");
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
+        solo.waitForActivity(MainActivity.class);
     }
 
     /**
@@ -70,9 +70,9 @@ public class AddNewMoodActivityTest {
     @Test
     public void addMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "rehab");
-        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "rehab");
-        solo.clickOnButton("LOGIN");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "newMockUser");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
+        solo.clickOnView(solo.getView(R.id.login_confirm_button));
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("New");
         solo.assertCurrentActivity("Wrong Activity", AddNewMoodActivity.class);

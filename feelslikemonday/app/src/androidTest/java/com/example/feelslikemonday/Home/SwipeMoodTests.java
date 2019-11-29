@@ -109,7 +109,7 @@ public class SwipeMoodTests {
         listView.getLocationInWindow(location);
         solo.drag(location[0] + 500, location[0], location[1], location[1], 10);
 
-        solo.clickOnMenuItem("deleteItem");
+        //solo.clickOnMenuItem("deleteItem");
         //solo.clickOnImageButton(2);
 
     }
