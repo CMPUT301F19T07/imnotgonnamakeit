@@ -141,7 +141,10 @@ public class AddNewMoodActivity extends AppCompatActivity {
     }
 
     /**
-     * This edits the existing mood event
+     * This edits the existing mood event.
+     * It is accessed by a user going to the home page mood history and swiping on a mood event and clicking on "Edit"
+     * This will take a user from the MainActivity and Home Fragment to the AddNewMoodActivity
+     * The user can then click cancel or save  to go back to the home page
      */
     private void addExistingForEdit() {
         Intent intent = getIntent();
@@ -171,9 +174,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This sets up UserDAO
+     * used to connect with the current user logged in
      */
     private void setupDAO() {
-        // used to connect with the current user logged in --> needs to be changed with user preference once login stuff is done
         UserDAO userDAO = new UserDAO();
         userDAO.get(myUserID, new UserCallback() {
             @Override
@@ -188,7 +191,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
     }
 
     /**
-     * This finishes AddNewMoodActivity when user cancel it
+     * This finishes AddNewMoodActivity when user presses cancel
+     * Takes you back to the home page
      */
     public void cancelButton(View view) {
         finish();
@@ -228,7 +232,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
     }
 
     /**
-     * This saves the current mood event
+     * This saves the current mood event when a user wants to add a mood or edit a mood
+     * This will ensure that it is saved in firebase
      */
     public void Save(View view) {
         if (saveLocation) {
@@ -247,10 +252,10 @@ public class AddNewMoodActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * This gets the details of the current mood event
-     *
+     * This includes the mood, reason, social state, location
+     * For the reason, this method also tests that the reaosn is either maximum 20 characters long and is maximum 3 words long
      * @return return the mood event
      */
     public MoodEvent getMoodDetails() {
@@ -264,9 +269,6 @@ public class AddNewMoodActivity extends AppCompatActivity {
             toast.show();
             reason.requestFocus();
         } else {
-
-            // read the current user mood list
-
             if (moodState == 0) {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -328,7 +330,9 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
 
     /**
-     * This lists mood types and social situations
+     * This is the drop down we use for adding and editing moods in your mood history in the home page
+     * The two spinners/drop downs are for mood types and social situations
+     * The user can choose any option displayed
      */
     private void fillSpinners() {
 
@@ -361,6 +365,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This receives notifications from the LocationManager when the location has changed
+     *
      */
     private LocationListener mListener = new LocationListener() {
         @Override
@@ -404,7 +409,8 @@ public class AddNewMoodActivity extends AppCompatActivity {
 
     /**
      * This checks if the user permits location
-     *
+     * When the app is first installed, the user will a popup message asking  if the app can use their location
+     * User can allow this or not allow their location to be saved
      * @return return boolean result
      */
     public boolean checkLocationPermission() {
@@ -514,8 +520,6 @@ public class AddNewMoodActivity extends AppCompatActivity {
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return !TextUtils.isEmpty(locationProviders);
         }
-
-
     }
 }
 
