@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * This class is responsive for showing a list of the user's following friends and the user can unfollow
- * a user by clicking unfollowButton
+ * a user by clicking unfollowButton. Arrive at this activity via the hamburger menu, under the 'friends' option.
  */
 public class MyFriendsFragment extends Fragment {
     private MyFriendsViewModel friendsViewModel;
@@ -55,7 +55,6 @@ public class MyFriendsFragment extends Fragment {
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
-
         followPermissionDAO = FollowPermissionDAO.getInstance();
 
         followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
@@ -72,14 +71,12 @@ public class MyFriendsFragment extends Fragment {
             }
         }, null);
 
-
         friendsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 //do stuff here
             }
         });
-
         return root;
     }
 }
