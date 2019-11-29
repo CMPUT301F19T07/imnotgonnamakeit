@@ -233,13 +233,11 @@ public class AddNewMoodActivity extends AppCompatActivity {
     public void Save(View view) {
         if (saveLocation) {
 
-            if (!checkLocationPermission()) {
-            } else {
+            if (checkLocationPermission()) {
                 moodHistory = currentUser.getMoodHistory();
                 myMood = getMoodDetails();
                 addMoodToList(myMood);
                 updateUserWithNewMood(currentUser);
-
             }
         } else {
             moodHistory = currentUser.getMoodHistory();

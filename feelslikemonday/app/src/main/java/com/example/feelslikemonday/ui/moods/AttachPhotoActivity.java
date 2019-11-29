@@ -37,7 +37,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
     public static final String BITMAP_BYTE_ARRAY_EXTRA = "BITMAP_STRING_EXTRA";
 
     //Maximum dimensions of the downscaled bitmap
-    private final double MAX_DIM_SIZE = 350.0;
+    private final double MAX_DIM_SIZE = 275.0;
 
 
     private ImageView imageView;
@@ -119,7 +119,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
     private Bitmap downscaleBitmap(Bitmap srcBitmap) {
         double maxSrcDim = Math.max(srcBitmap.getHeight(), srcBitmap.getWidth());
         double scale = MAX_DIM_SIZE / maxSrcDim;
-        return Bitmap.createScaledBitmap(srcBitmap, (int) (srcBitmap.getWidth() / scale), (int) (srcBitmap.getHeight() / scale), false);
+        return Bitmap.createScaledBitmap(srcBitmap, (int) (srcBitmap.getWidth() * scale), (int) (srcBitmap.getHeight() * scale), false);
     }
 
     /**
@@ -130,7 +130,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
      */
     private byte[] bitmapToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 64, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
