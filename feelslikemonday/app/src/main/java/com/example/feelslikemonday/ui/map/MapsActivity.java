@@ -32,7 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private User currentUser;
-    private ArrayList<MoodEvent> myEmotionList = new ArrayList<>();
+    private List<MoodEvent> myEmotionList = new ArrayList<>();
     private List<MoodEvent> myCurrentMoodList;
     private LatLng currentLocation;
     private String moodIcon;
