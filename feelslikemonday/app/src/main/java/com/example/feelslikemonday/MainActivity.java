@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove(USERNAME_KEY);
                 editor.apply();
-                finish();
+                finishAffinity();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
