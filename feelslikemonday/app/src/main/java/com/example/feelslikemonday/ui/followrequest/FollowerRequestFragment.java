@@ -39,8 +39,6 @@ public class FollowerRequestFragment extends Fragment {
     private static FollowRequestDAO DAO;
     private SharedPreferences pref;
     private String myUserID;
-
-
     private FollowerRequestViewModel followerViewModel;
 
     /**
