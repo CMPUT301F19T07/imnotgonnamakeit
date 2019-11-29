@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,9 +14,10 @@
             android:id="@+id/followee"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="8sp"
             android:layout_weight="25"
-            android:fontFamily="sans-serif-condensed-light"
             android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed-light"
             android:singleLine="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp" />
@@ -25,6 +26,7 @@
             android:id="@+id/femotionlbl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="8sp"
             android:layout_weight="25"
             android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/colorPrimaryDark"
@@ -33,7 +35,7 @@
 
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -42,6 +44,7 @@
             android:id="@+id/fdatelbl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="8sp"
             android:layout_weight="25"
             android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/colorPrimaryDark"
@@ -51,6 +54,7 @@
             android:id="@+id/ftimelbl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="8sp"
             android:layout_weight="25"
             android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/colorPrimaryDark"
