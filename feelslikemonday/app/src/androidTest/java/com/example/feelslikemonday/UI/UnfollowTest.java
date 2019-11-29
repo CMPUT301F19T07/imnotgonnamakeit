@@ -1,11 +1,7 @@
 package com.example.feelslikemonday.UI;
 
 import android.app.Activity;
-import android.os.Build;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;

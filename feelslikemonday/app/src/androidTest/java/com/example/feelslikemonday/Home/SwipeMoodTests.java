@@ -1,10 +1,11 @@
 package com.example.feelslikemonday.Home;
 
 import android.app.Activity;
-import android.view.MenuItem;
 import android.widget.EditText;
+
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
@@ -12,6 +13,7 @@ import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.robotium.solo.Solo;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

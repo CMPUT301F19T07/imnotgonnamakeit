@@ -41,7 +41,7 @@ public class FriendList extends ArrayAdapter<String> {
      * @param context This is the current context.
      * @param users   This is the objects to represent in the ListView.
      */
-    public FriendList(@NonNull Context context, ArrayList<String> users) {
+    public  FriendList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
         this.friendsUsernames = users;
         this.context = context;
