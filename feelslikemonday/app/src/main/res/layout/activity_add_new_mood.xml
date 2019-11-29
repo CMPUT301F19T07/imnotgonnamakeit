@@ -113,7 +113,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editText8"
+                    android:id="@+id/reason_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:layout_weight="1"

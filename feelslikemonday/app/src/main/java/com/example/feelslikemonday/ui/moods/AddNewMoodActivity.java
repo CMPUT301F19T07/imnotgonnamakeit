@@ -91,7 +91,7 @@ public class AddNewMoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_mood);
         imageView = findViewById(R.id.myphoto);
-        reason = findViewById(R.id.editText8);
+        reason = findViewById(R.id.reason_edit_text);
         moodSpiner = findViewById(R.id.mood_spinner);
         socialSituationSpinner = findViewById(R.id.social_spinner);
         locationSwitch = findViewById(R.id.location_switch);

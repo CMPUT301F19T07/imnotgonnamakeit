@@ -62,8 +62,8 @@ public class FilterTest {
     @Test
     public void filterTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "agtest1");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123456");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest1");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         solo.clickOnScreen(540, 1945);
