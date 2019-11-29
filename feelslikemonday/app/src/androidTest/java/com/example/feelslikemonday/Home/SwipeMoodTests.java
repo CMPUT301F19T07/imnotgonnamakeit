@@ -16,6 +16,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
+
 public class SwipeMoodTests {
 
     private Solo solo;
@@ -48,6 +50,7 @@ public class SwipeMoodTests {
      */
     @Test
     public void viewMoodTest(){
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
@@ -59,6 +62,11 @@ public class SwipeMoodTests {
         solo.assertCurrentActivity("Wrong Activity", DisplayCurrentMood.class);
         solo.clickOnView(solo.getView(R.id.button_back));
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -68,15 +76,28 @@ public class SwipeMoodTests {
      */
     @Test
     public void editMoodTest(){
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
+        solo.waitForActivity(MainActivity.class);
         SwipeMenuListView listView = (SwipeMenuListView)solo.getView(R.id.listView);
         int[] location = new int[2];
         listView.getLocationInWindow(location);
         solo.drag(location[0]+500,location[0],location[1],location[1],10);
+
         solo.clickOnText("Edit");
+
         solo.waitForActivity(AddNewMoodActivity.class);
+        solo.clickOnView(solo.getView(R.id.mood_cancel));
+
+        solo.waitForActivity(MainActivity.class);
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
+
+
     }
 
     /**
@@ -85,6 +106,7 @@ public class SwipeMoodTests {
      */
     @Test
     public void deleteMoodTest() {
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "myMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
@@ -92,6 +114,11 @@ public class SwipeMoodTests {
         int[] location = new int[2];
         listView.getLocationInWindow(location);
         solo.drag(location[0] + 500, location[0], location[1], location[1], 10);
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**

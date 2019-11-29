@@ -15,6 +15,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.assertTrue;
+
 /**
  * Test class for AddNewMoodActivity. All the UI tests are written here.
  * Robotium test framework is used
@@ -58,6 +60,11 @@ public class AddNewMoodActivityTest {
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
         solo.waitForActivity(MainActivity.class);
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -72,6 +79,11 @@ public class AddNewMoodActivityTest {
         solo.clickOnView(solo.getView(R.id.action_settings));
         solo.enterText((EditText) solo.getView(R.id.editText8), "didn't drink coffee"); // reason
         solo.clickOnView(solo.getView(R.id.button11));
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -86,6 +98,11 @@ public class AddNewMoodActivityTest {
         solo.clickOnView(solo.getView(R.id.action_settings));
         solo.clickOnView(solo.getView(R.id.mood_cancel));
         solo.waitForActivity(MainActivity.class);
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
