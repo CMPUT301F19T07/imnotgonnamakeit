@@ -78,6 +78,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
     public void openCamera(View view) {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(intent, CAMERA_REQUEST);
 
     }
