@@ -2,6 +2,7 @@ package com.example.feelslikemonday.ui.moods;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,11 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.feelslikemonday.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * This class is responsible for adding a photo
+ * This class is responsible for adding a photo.
+ * Handling camera images uses code from https://stackoverflow.com/questions/20327213/getting-path-of-captured-image-in-android-using-camera-intent
  */
 public class AttachPhotoActivity extends AppCompatActivity {
     //Request codes
@@ -136,6 +139,19 @@ public class AttachPhotoActivity extends AppCompatActivity {
     }
 
     /**
+     * Get the image URI from a given bitmap. This is used so we can get the full image from the
+     * android camera activity.
+     * @param inContext
+     * @param inImage
+     * @return
+     */
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    /**
      * This gives the requestCode you started it with, the resultCode it returned, and any additional data from it
      *
      * @param requestCode This is the integer request code originally supplied to startActivityForResult()
@@ -150,7 +166,20 @@ public class AttachPhotoActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             returnBitmap = bitmap;
-            imageView.setImageBitmap(bitmap);
+
+            Uri imageUri = getImageUri(getApplicationContext(), bitmap);
+            InputStream imageStream;
+            try{
+                imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                //Copy bitmap to prevent recycling errors
+                returnBitmap = selectedImage.copy(selectedImage.getConfig(), selectedImage.isMutable());
+                //Downscale the image so that it fits in Firestore
+                returnBitmap = downscaleBitmap(returnBitmap);
+                imageView.setImageBitmap(returnBitmap);
+            } catch (FileNotFoundException e){
+
+            }
         }
 
         //if(requestCode==ALBUM_REQUEST && requestCode == RESULT_OK && null!=data){
