@@ -1,7 +1,9 @@
-package com.example.feelslikemonday.Home;
+package com.example.feelslikemonday.UI;
 
 import android.app.Activity;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -28,7 +30,7 @@ import static junit.framework.TestCase.assertTrue;
  * Robotium test framework is used
  */
 @RunWith(AndroidJUnit4.class)
-public class FilterTest {
+public class UnfollowTest {
 
     private Solo solo;
 
@@ -57,28 +59,35 @@ public class FilterTest {
     }
 
     /**
-     * This test ensures user was able to switch from login to main activities
+     * This test ensures user was able to follow, then un-follow a user. It logs in as agtest1, sends a request to agtest2, logs in to agtest2, accepts the request, logs into agtest1, then unfollows
      */
     @Test
-    public void filterTest() {
+    public void unfollowTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "agtest1");
-        solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123456");
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest1");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
         solo.clickOnButton("LOGIN");
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnScreen(540, 1945);
-        solo.clickOnScreen(680, 775);
-        solo.clickOnScreen(540, 1405);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Send Request");
+        solo.enterText((EditText) solo.getView(R.id.send_request_username), "agtest2");
 
-        assertFalse(solo.searchText(Pattern.quote("11:31")));
-
-        solo.clickOnScreen(80, 145);
-        solo.clickOnScreen(305, 580);
-
-        assertTrue(solo.searchText(Pattern.quote("11:31")));
+        Button sendButton = (Button) solo.getView(R.id.send_request_send);
+        int[] location = new int[2];
+        sendButton.getLocationInWindow(location);
+        solo.clickOnScreen(location[0], location[1]);
 
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.clickOnMenuItem("Logout");
+
+        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "agtest2");
+        solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123456");
+        solo.clickOnButton("LOGIN");
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Follower Request");
+
     }
 
     /**
