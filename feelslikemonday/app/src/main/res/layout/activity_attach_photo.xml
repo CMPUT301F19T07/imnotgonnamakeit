@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/open_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="112dp"
-        android:onClick="openCamera"
-        android:text="Open Camera"
-        android:fontFamily="sans-serif-condensed-light"
-        app:layout_constraintEnd_toStartOf="@+id/open_album"
-        app:layout_constraintHorizontal_bias="0.0"
+    <ImageView
+        android:id="@+id/attach_myphoto"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/moodday_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/open_album"
-        android:layout_width="wrap_content"
+        android:layout_width="125sp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
         android:background="@drawable/button_rounded"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="88dp"
         android:fontFamily="sans-serif-condensed-light"
         android:onClick="openAlbum"
         android:text="Open Album"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/attach_myphoto" />
 
-    <ImageView
-        android:id="@+id/attach_myphoto"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="188dp"
-        android:src="@drawable/moodday_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+    <Button
+        android:id="@+id/open_camera"
+        android:layout_width="125sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_rounded"
+        android:fontFamily="sans-serif-condensed-light"
+        android:onClick="openCamera"
+        android:text="Open Camera"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/attach_myphoto" />
 
     <Button
         android:id="@+id/save_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/MediumAquamarine"
+        android:fontFamily="sans-serif-condensed-light"
         android:onClick="saveImage"
         android:text="Save"
-        android:fontFamily="sans-serif-condensed-light"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/attach_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/DarkSalmon"
         android:fontFamily="sans-serif-condensed-light"
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
