@@ -29,7 +29,9 @@ import com.example.feelslikemonday.ui.login.SignupActivity;
 import java.util.List;
 
 /**
- * This fragment is responsible for  sending request to the user that you want to follow
+ * This fragment is responsible for  sending request to the user that you want to follow. Users will
+ * input the target's username and hit 'send'. Conditions are checked to ensure the user isn't already
+ * being followed, and a few other logical conditions.
  */
 public class SendRequestFragment extends Fragment {
 
@@ -47,7 +49,8 @@ public class SendRequestFragment extends Fragment {
     private static FollowPermissionDAO followPermissionDAO;
 
     /**
-     * This initializes SendRequestFragment
+     * This sets up SendRequestFragment, creating the views for the text box,
+     * buttons, and logic.
      *
      * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
      * @param container          This is a parent view that the fragment's UI should be attached to
@@ -78,7 +81,6 @@ public class SendRequestFragment extends Fragment {
                 usernameEditText.setText("");
             }
         });
-
         usernameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +88,6 @@ public class SendRequestFragment extends Fragment {
             }
         });
 
-        //https://developer.android.com/guide/topics/ui/notifiers/toasts.html
         sendButton.setOnClickListener(new View.OnClickListener() {
             //TODO: pass filename(requesterUsername) variable from MainActivity
 
@@ -149,7 +150,6 @@ public class SendRequestFragment extends Fragment {
                             showIndvalidUserToast();
                         }
                     });
-
                 }
             }
         });
@@ -197,6 +197,7 @@ public class SendRequestFragment extends Fragment {
 
     /**
      * This is a method that shows the message when user send request successfully to the recipient
+     *
      */
     private void showSuccessfulSendToast() {
         Toast toast1 = Toast.makeText(getActivity(), "Sent Request Successfully to " + recipientUsername, Toast.LENGTH_LONG);
