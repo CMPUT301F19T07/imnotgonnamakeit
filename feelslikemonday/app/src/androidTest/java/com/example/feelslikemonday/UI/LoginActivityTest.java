@@ -15,6 +15,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.assertTrue;
+
 /**
  * Test class for LoginActivity class. All the UI tests are written here.
  * Robotium test framework is used
@@ -53,9 +55,16 @@ public class LoginActivityTest {
     public  void loginTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "myMockUser");
+        solo.waitForText("myMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
+        solo.waitForText("12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
         solo.waitForActivity(MainActivity.class);
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -65,8 +74,12 @@ public class LoginActivityTest {
     public  void noPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockUser");
+        solo.waitForText("mockUser");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
-        solo.waitForText("Error: Missing input");
+
+        assertTrue(solo.waitForText("Missing username or password", 1, 2000));
+
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -76,8 +89,12 @@ public class LoginActivityTest {
     public  void noUsernameTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "12345");
+        solo.waitForText("12345");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
-        solo.waitForText("Error: Missing input");
+
+        assertTrue(solo.waitForText("Missing username or password", 1, 2000));
+
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -86,9 +103,15 @@ public class LoginActivityTest {
     @Test
     public  void incorrectPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.login_username_edit), "myMockUser");
+        solo.waitForText("myMockUser");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "1234056");
+        solo.waitForText("1234056");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
-        solo.waitForText("Incorrect Password");
+
+        assertTrue(solo.waitForText("Incorrect Password", 1, 2000));
+
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -98,9 +121,14 @@ public class LoginActivityTest {
     public  void UserNotExistTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.login_username_edit), "mockBanana");
+        solo.waitForText("mockBanana");
         solo.enterText((EditText) solo.getView(R.id.login_password_edit), "123405");
+        solo.waitForText("123405");
         solo.clickOnView(solo.getView(R.id.login_confirm_button));
-        solo.waitForText("Error: User does not exist");
+
+        assertTrue(solo.waitForText("User does not exist", 1, 2000));
+
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**

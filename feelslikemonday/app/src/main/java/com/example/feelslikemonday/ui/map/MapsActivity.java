@@ -33,14 +33,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private User currentUser;
-    private ArrayList<MoodEvent> myEmotionList = new ArrayList<>();
+    private List<MoodEvent> myEmotionList = new ArrayList<>();
     private List<MoodEvent> myCurrentMoodList;
     private LatLng currentLocation;
     private String moodIcon;
 
     /**
-     * This initializes MapActivity and obtains the SupportMapFragment and get notified when the
-     * map is ready to be used.
+     * Creates the map activity based on the google maps api. Map fragment is created and inflated here.
+     * Does the logic on waiting on map to be ready before continuing.
      * @param savedInstanceState This is a previous saved state
      */
     @Override
@@ -56,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This uses UserDAO to get a list of the user's mood events, then call placeMarkers()
-     * to place makers at the google map when the google map is ready
+     * to place makers at the google map when the google map is ready.
      * @param googleMap This is a google map
      */
     @Override

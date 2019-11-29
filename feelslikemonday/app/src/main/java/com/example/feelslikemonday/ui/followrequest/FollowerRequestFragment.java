@@ -30,7 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is resposible for receiving feedback on the follower requests
+ * This class is responsible for receiving feedback on the follower requests. When a user
+ * requests permission to follow another user, the request is displayed here
+ *  in a list format, with the ability to reject or accept. Arrive at this fragment after pressing
+ * 'follower request' in the hamburger menu.
  */
 public class FollowerRequestFragment extends Fragment {
     private ListView userList;
@@ -42,7 +45,8 @@ public class FollowerRequestFragment extends Fragment {
     private FollowerRequestViewModel followerViewModel;
 
     /**
-     * This initializes follower request fragment
+     * This sets up follower request fragment, creating the main listview where incoming requests are listed.
+     * A very basic listview, the actual formatting of the entries is handled in RequestList.
      *
      * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
      * @param container          This is a parent view that the fragment's UI should be attached to
@@ -58,7 +62,6 @@ public class FollowerRequestFragment extends Fragment {
         userList = (ListView) root.findViewById(R.id.request_username_list);
         pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
         myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
-
         DAO = FollowRequestDAO.getInstance();
 
         DAO.get(myUserID, new FollowRequestCallback() {
@@ -70,9 +73,7 @@ public class FollowerRequestFragment extends Fragment {
                     userAdapter = new RequestList(getContext(), new ArrayList<String>(requesterUsernames));
                     userList.setAdapter(userAdapter);
                     userAdapter.notifyDataSetChanged();
-
                 }
-
             }
         }, new VoidCallback() {
             @Override
@@ -87,10 +88,8 @@ public class FollowerRequestFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("testListView", "click");
-                //TODO: show the detail of the requester
             }
         });
-
 
         followerViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -98,11 +97,8 @@ public class FollowerRequestFragment extends Fragment {
                 //do stuff here
             }
         });
-
-
         return root;
     }
-
 }
 
 

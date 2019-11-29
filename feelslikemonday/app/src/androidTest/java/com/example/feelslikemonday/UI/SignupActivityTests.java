@@ -23,6 +23,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.TestCase.assertTrue;
+
 /**
  * Test class for LoginActivity class. All the UI tests are written here.
  * Robotium test framework is used
@@ -78,6 +80,7 @@ public class SignupActivityTests {
         solo.clickOnView(tv);
         solo.waitForActivity(SignupActivity.class);
         solo.clickOnView(solo.getView(R.id.signup_cancel_button));
+
         solo.waitForActivity(LoginMainActivity.class);
     }
 
@@ -93,7 +96,9 @@ public class SignupActivityTests {
         String username = "myMockNewUser";
         String password = "12345";
         solo.enterText((EditText) solo.getView(R.id.signup_username_edit), username); // this test will only work once
+        solo.waitForText(username);
         solo.enterText((EditText) solo.getView(R.id.signup_password_edit), password);
+        solo.waitForText(password);
         solo.clickOnView(solo.getView(R.id.signup_confirm_button));
         solo.waitForActivity(MainActivity.class);
 
@@ -103,6 +108,11 @@ public class SignupActivityTests {
             public void onCallback() {
             }
         });
+
+        solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
+        solo.clickOnMenuItem("Logout");
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
@@ -117,7 +127,10 @@ public class SignupActivityTests {
         solo.enterText((EditText) solo.getView(R.id.signup_username_edit), "user");
         solo.enterText((EditText) solo.getView(R.id.signup_password_edit), "12345");
         solo.clickOnButton("Confirm");
-        solo.waitForText("This user already exists");
+
+        assertTrue(solo.waitForText("This user already exists", 1, 2000));
+
+        solo.waitForActivity(SignupActivity.class);
     }
 
     /**
@@ -131,7 +144,10 @@ public class SignupActivityTests {
         solo.waitForActivity(SignupActivity.class);
         solo.enterText((EditText) solo.getView(R.id.signup_password_edit), "12345");
         solo.clickOnButton("Confirm");
-        solo.waitForText("Missing username or password");
+
+        assertTrue(solo.waitForText("Missing username or password", 1, 2000));
+
+        solo.waitForActivity(SignupActivity.class);
     }
 
     /**
@@ -144,7 +160,10 @@ public class SignupActivityTests {
         solo.waitForActivity(SignupActivity.class);
         solo.enterText((EditText) solo.getView(R.id.signup_username_edit), "user");
         solo.clickOnView(solo.getView(R.id.signup_confirm_button));
-        solo.waitForText("Missing username or password");
+
+        assertTrue(solo.waitForText("Missing username or password", 1, 2000));
+
+        solo.waitForActivity(SignupActivity.class);
     }
 
     @After

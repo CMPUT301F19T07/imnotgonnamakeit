@@ -14,7 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.feelslikemonday.R;
 
 /**
- * This class is responsible for showing user's current mood
+ * This class is responsible for showing user's current mood.
+ * This page/activity can be accessed from two places:
+ * First is on the home page, by swiping and clicking "View".
+ * Second is on the following page, by swiping and clicking "View"
+ * This shows all the details of a mood event such as the mood, image, location, reason, social situation
  */
 public class DisplayCurrentMood extends AppCompatActivity {
     /**
