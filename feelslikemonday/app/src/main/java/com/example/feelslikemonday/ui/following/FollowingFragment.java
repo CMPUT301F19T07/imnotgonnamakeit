@@ -168,7 +168,7 @@ public class FollowingFragment extends Fragment {
      */
 
     private void viewEmotion(int position) {
-        MoodEvent CurrentMoodEvent = myfolloweeList.get(position).getRecentMood();
+        MoodEvent currentMoodEvent = myfolloweeList.get(position).getRecentMood();
         Intent intent = new Intent(getContext(), DisplayCurrentMood.class);
 
         //If an image is set, pass the image in the form of a byte array
