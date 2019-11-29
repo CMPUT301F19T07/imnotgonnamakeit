@@ -69,7 +69,7 @@
                     android:fontFamily="casual"
                     android:inputType="textPersonName"
 
-                    />
+                    android:maxLength="16" />
             </LinearLayout>
 
             <LinearLayout
@@ -89,7 +89,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:fontFamily="casual"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="16" />
             </LinearLayout>
 
         </LinearLayout>

@@ -58,7 +58,8 @@
                 android:drawableLeft="@drawable/ic_login_name"
                 android:ems="10"
                 android:hint="Username"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:maxLength="16" />
 
             <EditText
                 android:id="@+id/login_password_edit"
@@ -69,7 +70,8 @@
                 android:drawableLeft="@drawable/ic_login_key"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:maxLength="16" />
 
             <Button
                 android:id="@+id/login_confirm_button"
