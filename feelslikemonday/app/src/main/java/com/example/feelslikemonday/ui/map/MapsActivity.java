@@ -2,7 +2,6 @@ package com.example.feelslikemonday.ui.map;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -40,8 +39,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This initializes MapActivity
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +66,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * This places users' mood event markers on googleMap
-     * @param googleMap
-     * This is a google map
+     *
+     * @param googleMap This is a google map
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {

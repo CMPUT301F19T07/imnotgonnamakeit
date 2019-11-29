@@ -41,8 +41,8 @@ public class SignupActivity extends AppCompatActivity {
 
     /**
      * This finishes SignupActivity when user cancel Sign up
-     * @param view
-     * This is a view returned by onCreate()
+     *
+     * @param view This is a view returned by onCreate()
      */
     public void cancelSignup(View view) {
         finish();
@@ -50,8 +50,8 @@ public class SignupActivity extends AppCompatActivity {
 
     /**
      * This creates new user and checks if the new username is unique
-     * @param view
-     * This is a view returned by onCreate()
+     *
+     * @param view This is a view returned by onCreate()
      */
     public void confirmSignup(View view) {
         // Create user, follow request, then follower permission in firebase before going to main screen
@@ -64,10 +64,9 @@ public class SignupActivity extends AppCompatActivity {
             userDAO.checkIfExists(username, new BooleanCallback() {
                 @Override
                 public void onCallback(Boolean doesExist) {
-                    if(doesExist){
+                    if (doesExist) {
                         Toast.makeText(SignupActivity.this, "Error: This user already exists", Toast.LENGTH_LONG).show();
-                    }
-                    else{
+                    } else {
                         // User doesn't exist in the database, so create a new user
                         // Save user to shared preferences
                         // 0 in second argument indicates file holding username can only be accessed by calling the application
@@ -111,8 +110,8 @@ public class SignupActivity extends AppCompatActivity {
 
     /**
      * This initializes SignupActivity
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -135,17 +135,18 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:gravity="right">
+
                 <TextView
                     android:id="@+id/count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""/>
+                    android:text="" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/20"/>
+                    android:text="/20" />
             </LinearLayout>
-
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,7 +187,6 @@
                     app:layout_constraintStart_toEndOf="@+id/textView4"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
             <androidx.constraintlayout.widget.ConstraintLayout

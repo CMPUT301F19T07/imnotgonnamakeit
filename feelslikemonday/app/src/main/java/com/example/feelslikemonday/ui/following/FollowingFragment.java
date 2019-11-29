@@ -55,18 +55,15 @@ public class FollowingFragment extends Fragment {
     private List<MoodEvent> followeeUserMoodList;
     private ArrayList<FolloweeMoodEvent> myfolloweeList = new ArrayList<>();
     private int userVisited = 0;
-    private String  userCurrent;
+    private String userCurrent;
 
     /**
      * This initializes FollowingFragment
-     * @param inflater
-     * This is a layoutInflater object that can be used to inflate any views in the fragment
-     * @param container
-     * This is a parent view that the fragment's UI should be attached to
-     * @param savedInstanceState
-     * This is a previous saved state.
-     * @return
-     *      return the View for the fragment's UI
+     *
+     * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
+     * @param container          This is a parent view that the fragment's UI should be attached to
+     * @param savedInstanceState This is a previous saved state.
+     * @return return the View for the fragment's UI
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         followingViewModel = ViewModelProviders.of(this).get(FollowingViewModel.class);
@@ -77,28 +74,28 @@ public class FollowingFragment extends Fragment {
             public void onChanged(@Nullable String s) {
                 userVisited = 0;
                 pref = getActivity().getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-                myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+                myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
                 userList = getView().findViewById(R.id.followee_list);
 
-                DAO.get(myUserID, new FollowPermissionCallback(){
+                DAO.get(myUserID, new FollowPermissionCallback() {
                     @Override
                     public void onCallback(FollowPermission followPermission) {
-                        if(followPermission.getFollowerUsername().equals(myUserID)){
+                        if (followPermission.getFollowerUsername().equals(myUserID)) {
 
                             followeeUsernames = followPermission.getFolloweeUsernames();
 
                             UserDAO userDAO = new UserDAO();
 
-                            for (int i =0; i <followeeUsernames.size(); i++){
-                                 userCurrent = followeeUsernames.get(i);
-                                 userDAO.get(userCurrent, new UserCallback() {
+                            for (int i = 0; i < followeeUsernames.size(); i++) {
+                                userCurrent = followeeUsernames.get(i);
+                                userDAO.get(userCurrent, new UserCallback() {
                                     @Override
                                     public void onCallback(User user) {
 
                                         checkFollowee(user);
 
                                         userVisited = userVisited + 1;
-                                        if (userVisited == followeeUsernames.size()){
+                                        if (userVisited == followeeUsernames.size()) {
                                             Collections.sort(myfolloweeList, new SortObjectDateTime());
 
                                             adapter = new FollowingPageAdapter(getContext(), R.layout.followee_adapter_view, myfolloweeList);
@@ -153,7 +150,7 @@ public class FollowingFragment extends Fragment {
                     @Override
                     public void onCallback() {
                         Toast toast = Toast.makeText(getActivity(), "User does not exist in the database (check Login Activity)", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER| Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                     }
                 });
@@ -165,8 +162,8 @@ public class FollowingFragment extends Fragment {
 
     /**
      * This views the mood event in current location
-     * @param position
-     * This is a current location
+     *
+     * @param position This is a current location
      */
     public void viewEmotion(int position) {
         MoodEvent CurrentMoodEvent = myfolloweeList.get(position).getRecentMood();
@@ -183,10 +180,10 @@ public class FollowingFragment extends Fragment {
 
     /**
      * This adds user's followees' recent mood to FolloweeMoodEvent
-     * @param user
-     * This is a candidate user
+     *
+     * @param user This is a candidate user
      */
-    public void checkFollowee(User user){
+    public void checkFollowee(User user) {
         followeeUserMoodList = user.getMoodHistory();
         if (followeeUserMoodList.size() > 0) {
             MoodEvent recentMood = user.getMoodHistory().get(0);

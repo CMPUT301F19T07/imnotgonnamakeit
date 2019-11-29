@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *This class acts as a array adapter for the following friends list
+ * This class acts as a array adapter for the following friends list
  */
 public class FriendList extends ArrayAdapter<String> {
 
@@ -35,10 +35,9 @@ public class FriendList extends ArrayAdapter<String> {
 
     /**
      * This constructor initializes following friends fragment
-     * @param context
-     * This is the current context. This value must never be null
-     * @param users
-     * This is the objects to represent in the ListView. This value must never be null
+     *
+     * @param context This is the current context. This value must never be null
+     * @param users   This is the objects to represent in the ListView. This value must never be null
      */
     public FriendList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
@@ -48,14 +47,11 @@ public class FriendList extends ArrayAdapter<String> {
 
     /**
      * This gets a View that displays the data at the specified position in the data set
-     * @param position
-     * This is the position of the item within the adapter's data set of the item whose view we want
-     * @param convertView
-     * This is the view. This value must never be null
-     * @param parent
-     * This is the view group. This value must never be null
-     * @return
-     *  return a View of following friends corresponding to the data at the specified position
+     *
+     * @param position    This is the position of the item within the adapter's data set of the item whose view we want
+     * @param convertView This is the view. This value must never be null
+     * @param parent      This is the view group. This value must never be null
+     * @return return a View of following friends corresponding to the data at the specified position
      */
     @NonNull
     @Override
@@ -64,11 +60,11 @@ public class FriendList extends ArrayAdapter<String> {
 
         followPermissionDAO = FollowPermissionDAO.getInstance();
         pref = getContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
 
         View view = convertView;
 
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.content_follow_friends, parent, false);
         }
         final String friendUsername = friendsUsernames.get(position);
@@ -82,10 +78,10 @@ public class FriendList extends ArrayAdapter<String> {
             @Override
             public void onClick(View view) {
 
-                followPermissionDAO.get(myUserID, new FollowPermissionCallback(){
+                followPermissionDAO.get(myUserID, new FollowPermissionCallback() {
                     @Override
                     public void onCallback(FollowPermission followPermission) {
-                        if(followPermission.getFollowerUsername().equals(myUserID)){
+                        if (followPermission.getFollowerUsername().equals(myUserID)) {
                             friendsUsernames = followPermission.getFolloweeUsernames();
                             friendsUsernames.remove(friendUsername);
 
@@ -102,7 +98,6 @@ public class FriendList extends ArrayAdapter<String> {
                 }, null);
             }
         });
-
 
 
         return view;

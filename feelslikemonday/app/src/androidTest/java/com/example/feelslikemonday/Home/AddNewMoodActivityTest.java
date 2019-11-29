@@ -34,19 +34,21 @@ public class AddNewMoodActivityTest {
 
     /**
      * Runs before all tests and creates solo instance.
+     *
      * @throws Exception
      */
     @Before
-    public void setUp()throws Exception{
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
+    public void setUp() throws Exception {
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
     /**
      * Gets the activity
+     *
      * @throws Exception
      */
     @Test
-    public void start()throws Exception{
+    public void start() throws Exception {
         Activity activity = rule.getActivity();
     }
 
@@ -54,7 +56,7 @@ public class AddNewMoodActivityTest {
      * This test ensures user was able to switch from login to main activities
      */
     @Test
-    public  void homePageSwitchTest(){
+    public void homePageSwitchTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
@@ -66,7 +68,7 @@ public class AddNewMoodActivityTest {
      * This tests adding a new mood event
      */
     @Test
-    public  void addMoodTest() {
+    public void addMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "rehab");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "rehab");
@@ -89,7 +91,7 @@ public class AddNewMoodActivityTest {
      * This tests canceling a mood after wanting to add a new mood event
      */
     @Test
-    public  void cancelAddMoodTest() {
+    public void cancelAddMoodTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
@@ -162,10 +164,11 @@ public class AddNewMoodActivityTest {
 
     /**
      * Closes the activity after each test
+     *
      * @throws Exception
      */
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
 }

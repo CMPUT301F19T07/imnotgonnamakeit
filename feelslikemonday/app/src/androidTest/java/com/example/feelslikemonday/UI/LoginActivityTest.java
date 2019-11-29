@@ -33,19 +33,21 @@ public class LoginActivityTest {
 
     /**
      * Runs before all tests and creates solo instance.
+     *
      * @throws Exception
      */
     @Before
-    public void setUp()throws Exception{
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
+    public void setUp() throws Exception {
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
     /**
      * Gets the activity
+     *
      * @throws Exception
      */
     @Test
-    public void start()throws Exception{
+    public void start() throws Exception {
         Activity activity = rule.getActivity();
     }
 
@@ -53,7 +55,7 @@ public class LoginActivityTest {
      * This tests user logging in
      */
     @Test
-    public  void loginTest() {
+    public void loginTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
@@ -65,7 +67,7 @@ public class LoginActivityTest {
      * This tests if user does not enter password
      */
     @Test
-    public  void noPasswordTest() {
+    public void noPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockUser");
         solo.clickOnButton("LOGIN");
@@ -76,7 +78,7 @@ public class LoginActivityTest {
      * This tests if user does not enter  username
      */
     @Test
-    public  void noUsernameTest() {
+    public void noUsernameTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "12345");
         solo.clickOnButton("LOGIN");
@@ -87,7 +89,7 @@ public class LoginActivityTest {
      * This tests if user enters incorrect password
      */
     @Test
-    public  void incorrectPasswordTest() {
+    public void incorrectPasswordTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "1234056");
         solo.clickOnButton("LOGIN");
@@ -98,7 +100,7 @@ public class LoginActivityTest {
      * This tests if user enters an account that does not exists (wrong username)
      */
     @Test
-    public  void UserNotExistTest() {
+    public void UserNotExistTest() {
         solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
         solo.enterText((EditText) solo.getView(R.id.loginUsernameEdit), "mockBanana");
         solo.enterText((EditText) solo.getView(R.id.loginPasswordEdit), "123405");
@@ -107,7 +109,7 @@ public class LoginActivityTest {
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
 }

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 
 /**
- *This class acts as a array adapter for the followees
-*/
+ * This class acts as a array adapter for the followees
+ */
 
 public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
 
@@ -28,12 +28,10 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
 
     /**
      * This initializes follower request fragment
-     * @param context
-     * This is the current context. This value must never be null
-     * @param resource
-     * This is the resource ID for a layout file containing a TextView to use when instantiating views
-     * @param objects
-     * This is the objects to represent in the ListView. This value must never be null
+     *
+     * @param context  This is the current context. This value must never be null
+     * @param resource This is the resource ID for a layout file containing a TextView to use when instantiating views
+     * @param objects  This is the objects to represent in the ListView. This value must never be null
      */
     public FollowingPageAdapter(Context context, int resource, ArrayList<FolloweeMoodEvent> objects) {
         super(context, resource, objects);
@@ -43,14 +41,11 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
 
     /**
      * This  displays the data at the specified position in the data set
-     * @param position
-     * This is a position of the item within the adapter's data set of the item whose view we want
-     * @param convertView
-     * This is the view. This value must never be null
-     * @param parent
-     * This is the view group. This value must never be null
-     * @return
-     *      return the view of FollowingPage
+     *
+     * @param position    This is a position of the item within the adapter's data set of the item whose view we want
+     * @param convertView This is the view. This value must never be null
+     * @param parent      This is the view group. This value must never be null
+     * @return return the view of FollowingPage
      */
     @NonNull
     @Override
@@ -63,7 +58,7 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
         String moodName = getItem(position).getRecentMood().getMoodType().getName().toString();
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        convertView = inflater.inflate(mResource,parent,false);
+        convertView = inflater.inflate(mResource, parent, false);
 
         //For every person you follow, 4 variables will be displayed in the listview (username, date, time, mood)
         TextView tvfUser = (TextView) convertView.findViewById(R.id.followee);
@@ -75,22 +70,17 @@ public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {
         tvTime.setText(timePosted);
         tvEmotion.setText(mood);
 
-        if (moodName.equals("Anger")){
+        if (moodName.equals("Anger")) {
             convertView.setBackgroundColor(Color.rgb(255, 140, 105));  //DarkSalmon
-        }
-        else if (moodName.equals("Disgust")){
+        } else if (moodName.equals("Disgust")) {
             convertView.setBackgroundColor(Color.rgb(102, 221, 170)); //MediumAquamarine
-        }
-        else if (moodName.equals("Fear")){
+        } else if (moodName.equals("Fear")) {
             convertView.setBackgroundColor(Color.rgb(150, 122, 233));
-        }
-        else if (moodName.equals("Happiness")){
+        } else if (moodName.equals("Happiness")) {
             convertView.setBackgroundColor(Color.rgb(233, 122, 205));  //pink
-        }
-        else if (moodName.equals("Sadness")){
-            convertView.setBackgroundColor(Color.rgb(135,206,250)); //LightSkyBlue
-        }
-        else if (moodName.equals("Surprise")){
+        } else if (moodName.equals("Sadness")) {
+            convertView.setBackgroundColor(Color.rgb(135, 206, 250)); //LightSkyBlue
+        } else if (moodName.equals("Surprise")) {
             convertView.setBackgroundColor(Color.rgb(255, 221, 84)); //yellow-orange
         }
 

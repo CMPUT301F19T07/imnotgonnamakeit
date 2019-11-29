@@ -19,14 +19,14 @@ import com.example.feelslikemonday.R;
 public class DisplayCurrentMood extends AppCompatActivity {
     /**
      * This initializes DisplayCurrentMood activity
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_current_mood);
-        
+
         Intent intent = getIntent();
 
         ImageView imageView = findViewById(R.id.mood_photo);
@@ -39,21 +39,21 @@ public class DisplayCurrentMood extends AppCompatActivity {
         TextView moodTypeTextView = findViewById(R.id.textViewMoodType);
 
         byte[] imageByteArr = intent.getByteArrayExtra("image");
-        if(imageByteArr != null){
+        if (imageByteArr != null) {
             Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArr, 0, imageByteArr.length);
             imageView.setImageBitmap(imageBitmap);
         }
-        followeeTextView.setText(intent.getStringExtra ("followeeUsername"));
-        dateTextView.setText(intent.getStringExtra ("myDate"));
-        timeTextView.setText(intent.getStringExtra ("mytime"));
-        emotionalStateTextView.setText(intent.getStringExtra ("emotionalState"));
-        reasonTextView.setText(intent.getStringExtra ("reason"));
-        socialSituationTextView.setText(intent.getStringExtra ("socialSituation"));
-        moodTypeTextView.setText(intent.getStringExtra ("moodType"));
+        followeeTextView.setText(intent.getStringExtra("followeeUsername"));
+        dateTextView.setText(intent.getStringExtra("myDate"));
+        timeTextView.setText(intent.getStringExtra("mytime"));
+        emotionalStateTextView.setText(intent.getStringExtra("emotionalState"));
+        reasonTextView.setText(intent.getStringExtra("reason"));
+        socialSituationTextView.setText(intent.getStringExtra("socialSituation"));
+        moodTypeTextView.setText(intent.getStringExtra("moodType"));
 
         Button button = (Button) findViewById(R.id.button_back);
 
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             //On click function
             public void onClick(View view) {

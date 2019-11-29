@@ -34,8 +34,8 @@ public class LoginMainActivity extends AppCompatActivity {
 
     /**
      * This initializes LoginMainActivity
-     * @param savedInstanceState
-     * This is a previous saved state
+     *
+     * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,9 @@ public class LoginMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_main);
         loginUsername = findViewById(R.id.loginUsernameEdit);
         loginPassword = findViewById(R.id.loginPasswordEdit);
-        String loggedInUsername = getApplicationContext().getSharedPreferences(PREFS_NAME, 0).getString(USERNAME_KEY,null);
+        String loggedInUsername = getApplicationContext().getSharedPreferences(PREFS_NAME, 0).getString(USERNAME_KEY, null);
         //if user is already logged in
-        if (loggedInUsername != null){
+        if (loggedInUsername != null) {
             Intent myIntent = new Intent(LoginMainActivity.this, MainActivity.class);
             startActivity(myIntent);
         }
@@ -55,7 +55,7 @@ public class LoginMainActivity extends AppCompatActivity {
      * This clears Username and Passward fields at OnResume stage
      */
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         //Clear fields
         loginUsername.setText("");
@@ -64,10 +64,10 @@ public class LoginMainActivity extends AppCompatActivity {
 
     /**
      * This checks username and password when user attempts to log in
-     * @param view
-     * This is a view returned by onCreate()
+     *
+     * @param view This is a view returned by onCreate()
      */
-    public void attemptLogin(View view){
+    public void attemptLogin(View view) {
         username = loginUsername.getText().toString();
         password = loginPassword.getText().toString();
         if (username.length() == 0 || password.length() == 0) {
@@ -98,10 +98,10 @@ public class LoginMainActivity extends AppCompatActivity {
 
     /**
      * This goes to SignupActivity when user want to sign up
-     * @param view
-     * This is a view returned by onCreate()
+     *
+     * @param view This is a view returned by onCreate()
      */
-    public void goToSignupProcess(View view){
+    public void goToSignupProcess(View view) {
         Intent myIntent = new Intent(this, SignupActivity.class);
         this.startActivity(myIntent);
     }

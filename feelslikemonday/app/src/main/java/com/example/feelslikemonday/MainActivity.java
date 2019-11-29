@@ -11,24 +11,22 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
-import com.example.feelslikemonday.ui.home.HomeFragment;
+
 import com.example.feelslikemonday.ui.login.SignupActivity;
 import com.example.feelslikemonday.ui.map.FollowingMapActivity;
 import com.example.feelslikemonday.ui.map.MapsActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.google.android.material.navigation.NavigationView;
+
+import static com.example.feelslikemonday.ui.login.LoginMainActivity.USERNAME_KEY;
+
 /**
  * This class is responsible for displaying all of the signed in user's moods in sorted order
-*/
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -42,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This initializes MainActivity
-     * @param savedInstanceState
-     * This is a previous saved state.
+     *
+     * @param savedInstanceState This is a previous saved state.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pref = getApplicationContext().getSharedPreferences(SignupActivity.PREFS_NAME, 0);
-        myUserID = pref.getString(SignupActivity.USERNAME_KEY,null);
+        myUserID = pref.getString(SignupActivity.USERNAME_KEY, null);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_myfriend,  R.id.nav_gallery, R.id.nav_followerrequest,R.id.nav_sendrequest)
+                R.id.nav_home, R.id.nav_myfriend, R.id.nav_gallery, R.id.nav_followerrequest, R.id.nav_sendrequest)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -72,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This inflates the menus
-     * @param menu
-     * This is a menu
+     *
+     * @param menu This is a menu
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This navigates up within the application's activity hierarchy from the action bar.
-     * @return
-     *      return true if Up navigation completed successfully and this Activity was finished, false otherwise.
+     *
+     * @return return true if Up navigation completed successfully and this Activity was finished, false otherwise.
      */
     @Override
     public boolean onSupportNavigateUp() {
@@ -93,16 +91,16 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     /**
      * This returns false to have the normal processing happen
-     * @param item
-     * This is the menu item that is selected.
-     * @return
-     *      return false to allow normal menu processing to proceed, true to consume it here.
+     *
+     * @param item This is the menu item that is selected.
+     * @return return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent add = new Intent(this, AddNewMoodActivity.class);
                 this.startActivity(add);
