@@ -28,7 +28,9 @@ import java.util.List;
 
 
 /**
- * This class is responsible to show the user's followees' recent mood map
+ * This class is responsible to show the user's friends' recent mood map.
+ * The user will see his friends' most recent moods as pins, which can be tapped to reveal the name.
+ * Open this activity from the action settings menu.
  */
 public class FollowingMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
