@@ -46,8 +46,8 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private String moodIcon;
 
     /**
-     * This initializes MapActivity and obtains the SupportMapFragment and gets notified when the
-     * map is ready to be used
+     * Creates the map activity based on the google maps api. Map fragment is created and inflated here.
+     * Does the logic on waiting on map to be ready before continuing.
      * @param savedInstanceState This is a saved instance state
      */
 
