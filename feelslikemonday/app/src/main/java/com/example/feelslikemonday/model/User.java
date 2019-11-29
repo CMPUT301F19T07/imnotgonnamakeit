@@ -12,7 +12,6 @@ public class User {
 
     final int version = 0;
     private String username;
-    //Todo: encrypt password?
     private String password;
     private List<MoodEvent> moodHistory;
 
