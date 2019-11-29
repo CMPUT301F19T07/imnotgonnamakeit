@@ -80,13 +80,16 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
         } else if (moodName.equals("Surprise")) {
             convertView.setBackgroundColor(Color.rgb(255, 221, 84)); //yellow-orange
         }
-
         return convertView;
     }
 
+    /**
+     * This method that is called whenever the home page is open
+     * It is used to ensure the order of the mood events in the mood history is always retained when a user scrolls up and down
+     * @return integer which represents the number of views or the number of list items
+     */
     @Override
     public int getViewTypeCount() {
-
         //return getCount();
         if(getCount() > 0){
             return getCount();
@@ -95,9 +98,13 @@ public class EmotionBookAdapter extends ArrayAdapter<MoodEvent> {
         }
     }
 
+    /**
+     * This method along with the getintViewTypeCount() are both used to ensure that the mood history items are always in order when scrolling
+     * @param position
+     * @return
+     */
     @Override
     public int getItemViewType(int position) {
-
         return position;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.feelslikemonday.Home;
 
 import android.app.Activity;
+import android.view.MenuItem;
 import android.widget.EditText;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -92,6 +93,7 @@ public class SwipeMoodTests {
         int[] location = new int[2];
         listView.getLocationInWindow(location);
         solo.drag(location[0] + 500, location[0], location[1], location[1], 10);
+        solo.sleep(5000);
     }
 
     /**
