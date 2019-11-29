@@ -44,8 +44,8 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     private String moodIcon;
 
     /**
-     * This initializes FollowingMapActivity
-     *
+     * This initializes MapActivity and obtains the SupportMapFragment and gets notified when the
+     * map is ready to be used
      * @param savedInstanceState This is a saved instance state
      */
 
@@ -53,8 +53,6 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
@@ -62,9 +60,11 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     }
 
     /**
-     * This calls when map is ready to be used
-     *
-     * @param googleMap This is a non-null instance of a GoogleMap associated with the MapFragment or MapView that defines the callback.
+     * This gets a followeeList of all the names of followees by using followPermissionDAO and
+     * gets a list of the recent mood events by using userDAO and calls placeMarkers() to place markers
+     * at the google map when the google map is ready
+     * @param googleMap This is a non-null instance of a GoogleMap associated with the MapFragment
+     *                  or MapView that defines the callback.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -113,7 +113,8 @@ public class FollowingMapActivity extends FragmentActivity implements OnMapReady
     }
 
     /**
-     * This places the markers on google map according to the mood event
+     * This gets one mood event's location and mood type by using MoodEvent's methods
+     * and places a marker corresponding to the mood event at the google map
      */
     private void placeMarkers() {
         LatLng currentLocation;

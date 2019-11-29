@@ -37,12 +37,12 @@ public class MyFriendsFragment extends Fragment {
 
 
     /**
-     * This initiates the following friends fragments
+     * This inflates the userList
      *
      * @param inflater           This is a layoutInflater object that can be used to inflate any views in the fragment
      * @param container          This is a parent view that the fragment's UI should be attached to
      * @param savedInstanceState This is a previous saved state.
-     * @return return the View for the fragment's UI, or null
+     * @return return the View for the fragment's UI
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

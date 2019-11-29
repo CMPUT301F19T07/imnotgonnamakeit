@@ -38,15 +38,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String moodIcon;
 
     /**
-     * This initializes MapActivity
-     *
+     * This initializes MapActivity and obtains the SupportMapFragment and get notified when the
+     * map is ready to be used.
      * @param savedInstanceState This is a previous saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -65,8 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     /**
-     * This places users' mood event markers on googleMap
-     *
+     * This uses UserDAO to get a list of the user's mood events, then call placeMarkers()
+     * to place makers at the google map when the google map is ready
      * @param googleMap This is a google map
      */
     @Override
@@ -95,7 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * This places different emoji icons according to the mood event
+     * This gets all the mood events' locations and mood types by using MoodEvent's methods
+     * and places markers corresponding to mood events at the google map
      */
     private void placeMarkers() {
         for (int i = 0; i < myEmotionList.size(); i++) {
