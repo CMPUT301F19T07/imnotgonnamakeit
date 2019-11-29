@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
- * This class is responsible for preparing and managing the data for HomeFragment
+ * This class is responsible for preparing and managing the data for HomeFragment.
  */
 public class HomeViewModel extends ViewModel {
 

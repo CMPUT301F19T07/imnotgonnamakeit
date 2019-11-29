@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class returns a view for each object in the list of the name of the user's followees
+ * This class returns a view for each object in the list of the name of the user's followees. It takes in the friends list
+ * and sets up to show them all in a listview with the delete option next to each of them. Delete them from the list, that is.
+ * Deleting them IRL was beyond the scope of this project
  */
 public class FriendList extends ArrayAdapter<String> {
 
@@ -34,11 +36,12 @@ public class FriendList extends ArrayAdapter<String> {
     private String myUserID;
 
     /**
-     * This constructor initializes following friends fragment
+     * This constructor sets up following friends fragment
+     *
      * @param context This is the current context.
      * @param users   This is the objects to represent in the ListView.
      */
-    public FriendList(@NonNull Context context, ArrayList<String> users) {
+    public  FriendList(@NonNull Context context, ArrayList<String> users) {
         super(context, 0, users);
         this.friendsUsernames = users;
         this.context = context;
@@ -46,7 +49,8 @@ public class FriendList extends ArrayAdapter<String> {
 
     /**
      * This inflates a view from content_follow_friends and deletes friend relation between followee
-     * and the user in firebase when the user click the unfollowButton
+     * and the user in firebase when the user click the unfollowButton. Friends drift apart, y'know. It's sad, but it is what it is.
+     *
      * @param position    This is the position of the item within the adapter's data set of the item whose view we want
      * @param convertView This is the view.
      * @param parent      This is the view group.
@@ -69,7 +73,6 @@ public class FriendList extends ArrayAdapter<String> {
 
         TextView userName = view.findViewById(R.id.following_friend);
         userName.setText(friendUsername);
-
         Button unfollowButton = view.findViewById(R.id.unfollow_button);
 
         unfollowButton.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +99,6 @@ public class FriendList extends ArrayAdapter<String> {
                 }, null);
             }
         });
-
-
         return view;
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 /*The date and time are made as strings since it should be easier to perform operations to get them.
 It doesn't seem we perform any operations that doesn't warrant them not to be strings*/
 public class MoodEvent {
-    public static final int MAX_REASON_LEN = 20;
+    private static final int MAX_REASON_LEN = 20;
     public static final List<MoodType> MOOD_TYPES = Arrays.asList(
             new MoodType("Anger", "\uD83D\uDE20"),
             new MoodType("Disgust", "\uD83E\uDD2E"),

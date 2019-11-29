@@ -41,6 +41,7 @@ import java.util.List;
  * Upon login, this is the first activity the user will see. For a new user, it will be empty.
  * They will be prompted to hit a button to create a new mood entry. A button at the bottom of the screen
  * brings up a pop-up that allows the user to filter their mood list.
+ * This page is always accessible by the user through the drawer navigation menu by clicking "Home".
  */
 public class HomeFragment extends Fragment {
 
@@ -156,7 +157,9 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * This shows user's mood list. This is run when the activity is first started or resumed after moving back after leaving another activity.
+     * This shows a user's mood list.
+     * This method is run when the activity is first started or resumed after moving back after leaving another activity.
+     * This sets up the list view to show the proper emotions for each mood history.
      */
     @Override
     public void onResume() {
@@ -169,13 +172,12 @@ public class HomeFragment extends Fragment {
         userDAO.get(myUserID, new UserCallback() {
             @Override
             public void onCallback(User user) {
-                // current user the is object for the login user
+                //current user the is object for the login user
                 currentUser = user;
                 myEmotionList.clear();
                 myCurrentMoodList = currentUser.getMoodHistory();
 
                 for (int i = 0; i < myCurrentMoodList.size(); i++) {
-
                     if (myCurrentMoodList.get(i).getMoodType().getName().equals("Anger") && !showAnger) {
                         continue;
                     }

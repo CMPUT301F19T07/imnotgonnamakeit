@@ -2,8 +2,10 @@ package com.example.feelslikemonday.Home;
 
 import android.app.Activity;
 import android.widget.EditText;
+
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.feelslikemonday.MainActivity;
 import com.example.feelslikemonday.R;
@@ -11,6 +13,7 @@ import com.example.feelslikemonday.ui.home.DisplayCurrentMood;
 import com.example.feelslikemonday.ui.login.LoginMainActivity;
 import com.example.feelslikemonday.ui.moods.AddNewMoodActivity;
 import com.robotium.solo.Solo;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -115,10 +118,14 @@ public class SwipeMoodTests {
         listView.getLocationInWindow(location);
         solo.drag(location[0] + 500, location[0], location[1], location[1], 10);
 
+
         solo.clickOnActionBarItem(R.id.action_settings);
         solo.waitForText("Logout");
         solo.clickOnMenuItem("Logout");
         assertTrue( solo.waitForActivity( LoginMainActivity.class));
+
+        solo.sleep(5000);
+
     }
 
     /**

@@ -2,7 +2,6 @@ package com.example.feelslikemonday.ui.moods;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,12 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.feelslikemonday.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
  * This class is responsible for adding a photo.
+ * To reach this class, the user must to have been adding a photo and clicked to add a photo.
+ * This class is in charge of connecting and opening the camera
  * Handling camera images uses code from https://stackoverflow.com/questions/20327213/getting-path-of-captured-image-in-android-using-camera-intent
  */
 public class AttachPhotoActivity extends AppCompatActivity {
@@ -51,8 +51,8 @@ public class AttachPhotoActivity extends AppCompatActivity {
     private Bitmap returnBitmap = null;
 
     /**
-     * This initializes AttachPhotoActivity
-     *
+     * This sets up the AttachPhotoActivity activity
+     * This sends the user to the page where they can either choose to upload to take a new photo for a specific mood event
      * @param savedInstanceState This is a previous saved state
      */
     @Override
@@ -73,8 +73,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
     }
 
     /**
-     * This opens camera
-     *
+     * This opens the camera for a photo to be taken
      * @param view This is a view returned by onCreate()
      */
     public void openCamera(View view) {
@@ -85,8 +84,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
     }
 
     /**
-     * This opens album
-     *
+     * This opens the album so that a photo may be uploaded
      * @param view This is a view returned by onCreate()
      */
     public void openAlbum(View view) {
@@ -97,8 +95,7 @@ public class AttachPhotoActivity extends AppCompatActivity {
     }
 
     /**
-     * This saves image
-     *
+     * This saves the image so that we can store it in firebase
      * @param view This is a view returned by onCreate()
      */
     public void saveImage(View view) {
