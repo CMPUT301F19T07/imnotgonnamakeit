@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 
 /**
- * This class acts as a array adapter for the followees
+ * This class acts as a array adapter for the following activity. It allows the app to display each individual mood entry together in a single listview
+ * Includes all the logic for the formatting.
  */
 
 public class FollowingPageAdapter extends ArrayAdapter<FolloweeMoodEvent> {

@@ -41,7 +41,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This fragment is responsible for listing all followees' moods and related information
+ * This fragment is responsible for listing all followees' moods and related information. This activity is called in when the user selects
+ * 'following' from the left-side hamburger menu. The user can also left swipe on any mood here and view the details of the that mood.
  */
 
 public class FollowingFragment extends Fragment {
@@ -162,9 +163,9 @@ public class FollowingFragment extends Fragment {
 
 
     /**
-     * This views the mood event in current location
+     * This views the mood event at the specified index.  When the mood entry is swiped, this gets the mood details for that mood.
      *
-     * @param position This is a current location
+     * @param position This is a current index for the mood
      */
 
     private void viewEmotion(int position) {
@@ -190,7 +191,7 @@ public class FollowingFragment extends Fragment {
     }
 
     /**
-     * This adds user's followees' recent mood to FolloweeMoodEvent
+     * This adds user's followees' recent mood to FolloweeMoodEvent. Gets the most recent mood of the candidate user.
      *
      * @param user This is a candidate user
      */
