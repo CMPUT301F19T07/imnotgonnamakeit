@@ -89,8 +89,9 @@ public class FilterTest {
         assertFalse(solo.searchText(Pattern.quote("11:31")));
 
         solo.clickOnActionBarItem(R.id.action_settings);
+        solo.waitForText("Logout");
         solo.clickOnMenuItem("Logout");
-        solo.assertCurrentActivity("Wrong Activity", LoginMainActivity.class);
+        assertTrue( solo.waitForActivity( LoginMainActivity.class));
     }
 
     /**
